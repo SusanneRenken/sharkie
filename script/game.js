@@ -1,7 +1,7 @@
 let canvas;
 let ctx; 
-let character = new Characters();
-let enemies = new Enemies();
+let character = new Character();
+let enemies = new Jellyfish();
 
 function init(){
     canvas = document.getElementById('canvas');
