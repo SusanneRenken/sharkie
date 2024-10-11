@@ -7,12 +7,12 @@ class World {
     new Pufferfish(),
   ];
   backgroundObjeckts = [
-    new BackgroundObject('./img/3. Background/Layers/5. Water/D1.png'),
-    new BackgroundObject('./img/3. Background/Layers/4.Fondo 2/D1.png'),
-    new BackgroundObject('./img/3. Background/Layers/3.Fondo 1/D1.png'),
-    new BackgroundObject('./img/3. Background/Layers/2. Floor/D1.png'),
-    new BackgroundObject('./img/3. Background/Layers/1. Light/1.png'),
-  ]
+    new BackgroundObject("./img/3. Background/Layers/5. Water/D1.png"),
+    new BackgroundObject("./img/3. Background/Layers/4.Fondo 2/D1.png"),
+    new BackgroundObject("./img/3. Background/Layers/3.Fondo 1/D1.png"),
+    new BackgroundObject("./img/3. Background/Layers/2. Floor/D1.png"),
+    new BackgroundObject("./img/3. Background/Layers/1. Light/1.png"),
+  ];
   canvas;
   ctx;
 
@@ -25,33 +25,23 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    this.backgroundObjeckts.forEach((background) => {
-      this.addToMap(background);
-    })
-
-    this.ctx.drawImage(
-      this.character.img,
-      this.character.x,
-      this.character.y,
-      this.character.width,
-      this.character.height
-    );
-
-    this.enemies.forEach((enemy) => {
-      this.addToMap(enemy);
-    })
-
-    
+    this.addObjectsToMap(this.backgroundObjeckts);
+    this.addObjectsToMap(this.enemies);
+    this.addToMap(this.character);
 
     let self = this;
-    requestAnimationFrame(function(){
+    requestAnimationFrame(function () {
       self.draw();
     });
   }
 
-  addToMap(mo){
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+  addObjectsToMap(objects){
+    objects.forEach((o) => {
+      this.addToMap(o);
+    });
   }
 
-  
+  addToMap(mo) {
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+  }
 }
