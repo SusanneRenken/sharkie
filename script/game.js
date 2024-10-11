@@ -1,14 +1,10 @@
 let canvas;
-let ctx; 
-let character = new Character();
-let enemies = new Jellyfish();
+let world;
 
-function init(){
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-    
-    console.log('My character is', character);
-    console.log('My character is', enemies);
-    
+function init() {
+  canvas = document.getElementById("canvas");
+  world = new World(canvas);
 
+  console.log("My character is", world.character);
+  console.log("My character is", world.enemies);
 }
