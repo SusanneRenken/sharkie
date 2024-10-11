@@ -1,22 +1,40 @@
+let mainWidth;
+let mainHeight;
+
 function resizeCanvas() {
-    const container = document.getElementById('canvas_container');
-    const canvas = document.getElementById('canvas');
-    const maxWidth = Math.min(container.clientWidth, window.innerWidth * 0.9);
-    const maxHeight = (window.innerHeight - 60) * 0.9;
+  let container = document.getElementById("canvas_container");
+  let canvas = document.getElementById("canvas");
+  let maxWidth = Math.min(container.clientWidth, window.innerWidth * 0.9);
+  let maxHeight = (window.innerHeight - 60) * 0.9;
 
-    let width = maxWidth;
-    let height = width * (9/16);
+  let dimensions = calculateAspectRatio(maxWidth, maxHeight);
+  mainWidth = dimensions.width;
+  mainHeight = dimensions.height;
 
-    if (height > maxHeight) {
-        height = maxHeight;
-        width = height * (16/9);
-    }
+  setCanvasDimensions(canvas, mainWidth, mainHeight);
+}
 
+function calculateAspectRatio(maxWidth, maxHeight) {
+  let width = maxWidth;
+  let height = width * (9 / 16);
+
+  if (height > maxHeight) {
+    height = maxHeight;
+    width = height * (16 / 9);
+  }
+
+  return {
+    width: Math.floor(width),
+    height: Math.floor(height),
+  };
+}
+
+function setCanvasDimensions(canvas, width, height) {
     canvas.width = width;
     canvas.height = height;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 }
 
-window.addEventListener('resize', resizeCanvas);
 
+window.addEventListener("resize", resizeCanvas);
