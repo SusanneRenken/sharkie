@@ -1,5 +1,6 @@
 let mainWidth;
 let mainHeight;
+let mainScale;
 
 function resizeCanvas() {
   let container = document.getElementById("canvas_container");
@@ -10,6 +11,7 @@ function resizeCanvas() {
   let dimensions = calculateAspectRatio(maxWidth, maxHeight);
   mainWidth = dimensions.width;
   mainHeight = dimensions.height;
+  mainScale = mainHeight / 1080;
 
   setCanvasDimensions(canvas, mainWidth, mainHeight);
 }

@@ -1,10 +1,10 @@
-class Jellyfish extends MovableObject {
-  x = Math.random() * 620;
-  y = Math.random() * 380;
-  width = 100;
-  height = 100;
+class Jellyfish extends MovableObject {  
+  width = 211 * mainScale;
+  height = 300 * mainScale;
+  x = Math.random() * (mainWidth - this.width);
+  y = Math.random() * (mainHeight - this.height);
 
   constructor() {
-    super().loadImage("./img/2.Enemy/2 Jelly fish/Super dangerous/Green 4.png");
+    super().loadImage("./img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png");
   }
 }
