@@ -3,10 +3,13 @@ class Jellyfish extends MovableObject {
   height = 300 * mainScale;
   x = (mainWidth * 0.42) + Math.random() * ((mainWidth - this.width) - (mainWidth * 0.42));
   y = Math.random() * (mainHeight - this.height);
-  color = Math.random() * 3;
+  COLOR = ["green", "lila", "pink", "yellow"];
+  selectedColor;
 
   constructor() {
-    super().loadImage("./img/enemy/jellyfish/lila/swim1.png");
+    super();
+    this.getRandomColor();
+    this.loadImage(`./img/enemy/jellyfish/${this.selectedColor}/swim1.png`);
 
     this.x =
       mainWidth * 0.42 +
@@ -14,6 +17,11 @@ class Jellyfish extends MovableObject {
     this.y = Math.random() * (mainHeight - this.height);
 
     this.animate();
+  }
+
+  getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * this.COLOR.length);
+    this.selectedColor = this.COLOR[randomIndex];
   }
 
   animate(){

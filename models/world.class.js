@@ -2,8 +2,10 @@ class World {
   character = new Character();
   enemies = [
     new Jellyfish(),
-    new Pufferfish(),
     new Jellyfish(),
+    new Jellyfish(),
+    new Pufferfish(),
+    new Pufferfish(),
     new Pufferfish(),
   ];
   backgroundObjeckts = [

@@ -1,9 +1,13 @@
 class Pufferfish extends MovableObject {
   width = 241 * mainScale;
   height = 198 * mainScale;
+  COLOR = ["green", "orange", "red"];
+  selectedColor;
 
   constructor() {
-    super().loadImage("./img/enemy/pufferfish/green/swim1.png");
+    super();
+    this.getRandomColor();
+    this.loadImage(`./img/enemy/pufferfish/${this.selectedColor}/swim1.png`);
 
     this.x =
       mainWidth * 0.42 +
@@ -13,12 +17,14 @@ class Pufferfish extends MovableObject {
     this.animate();
   }
 
-  animate(){
-    setInterval(() =>{
-      this.x -= 0.25;
-    }, 1000 / 60);
-    
+  getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * this.COLOR.length);
+    this.selectedColor = this.COLOR[randomIndex];
   }
 
-
+  animate() {
+    setInterval(() => {
+      this.x -= 0.25;
+    }, 1000 / 60);
+  }
 }
