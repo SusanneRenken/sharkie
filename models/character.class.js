@@ -5,7 +5,7 @@ class Character extends MovableObject {
   y = mainHeight - this.height;  
 
   constructor(){
-    super().loadImage('./img/1.Sharkie/1.IDLE/1.png');
+    super().loadImage('./img/sharkie/idle/1.png');
   }
 
   moveRight() {}

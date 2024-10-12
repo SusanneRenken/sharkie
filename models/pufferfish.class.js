@@ -1,11 +1,24 @@
 class Pufferfish extends MovableObject {
   width = 241 * mainScale;
   height = 198 * mainScale;
-  x = (mainWidth * 0.42) + Math.random() * ((mainWidth - this.width) - (mainWidth * 0.42));
-  y = Math.random() * (mainHeight - this.height);
-  
 
   constructor() {
-    super().loadImage("./img/2.Enemy/1.Puffer fish/1.Swim/3.swim5.png");
+    super().loadImage("./img/enemy/pufferfish/green/swim1.png");
+
+    this.x =
+      mainWidth * 0.42 +
+      Math.random() * (mainWidth - this.width - mainWidth * 0.42);
+    this.y = Math.random() * (mainHeight - this.height);
+
+    this.animate();
   }
+
+  animate(){
+    setInterval(() =>{
+      this.x -= 0.25;
+    }, 1000 / 60);
+    
+  }
+
+
 }

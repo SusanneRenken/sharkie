@@ -3,8 +3,25 @@ class Jellyfish extends MovableObject {
   height = 300 * mainScale;
   x = (mainWidth * 0.42) + Math.random() * ((mainWidth - this.width) - (mainWidth * 0.42));
   y = Math.random() * (mainHeight - this.height);
+  color = Math.random() * 3;
 
   constructor() {
-    super().loadImage("./img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png");
+    super().loadImage("./img/enemy/jellyfish/lila/swim1.png");
+
+    this.x =
+      mainWidth * 0.42 +
+      Math.random() * (mainWidth - this.width - mainWidth * 0.42);
+    this.y = Math.random() * (mainHeight - this.height);
+
+    this.animate();
   }
+
+  animate(){
+    setInterval(() =>{
+      this.x -= 0.15;
+    }, 1000 / 60);
+    
+  }
+
+
 }

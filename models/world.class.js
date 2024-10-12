@@ -7,18 +7,18 @@ class World {
     new Pufferfish(),
   ];
   backgroundObjeckts = [
-    new BackgroundObject("./img/3. Background/Layers/5. Water/D1.png"),
-    new BackgroundObject("./img/3. Background/Layers/4.Fondo 2/D1.png"),
-    new BackgroundObject("./img/3. Background/Layers/3.Fondo 1/D1.png"),
-    new BackgroundObject("./img/3. Background/Layers/2. Floor/D1.png"),
-    new BackgroundObject("./img/3. Background/Layers/1. Light/1.png"),
+    new BackgroundObject("./img/background/layers/water/1.png"),
+    new BackgroundObject("./img/background/layers/fondo-1/1.png"),
+    new BackgroundObject("./img/background/layers/fondo-2/1.png"),
+    new BackgroundObject("./img/background/layers/floor/1.png"),
+    new BackgroundObject("./img/background/layers/light/1.png"),
   ];
   canvas;
   ctx;
 
   constructor(canvas) {
-    this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");    
     this.draw();
   }
 
@@ -30,7 +30,7 @@ class World {
     this.addToMap(this.character);
 
     let self = this;
-    requestAnimationFrame(function () {
+    requestAnimationFrame(() => {
       self.draw();
     });
   }
