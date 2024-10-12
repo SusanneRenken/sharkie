@@ -9,7 +9,7 @@ class Jellyfish extends MovableObject {
   constructor() {
     super();
     this.getRandomColor();
-    this.loadImage(`./img/enemy/jellyfish/${this.selectedColor}/swim1.png`);
+    this.loadImage(`./img/enemy/jellyfish/swim/${this.selectedColor}1.png`);
 
     this.x =
       mainWidth * 0.42 +
