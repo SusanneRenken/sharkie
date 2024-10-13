@@ -1,21 +1,30 @@
 class Jellyfish extends MovableObject {  
   width = 211 * mainScale;
   height = 300 * mainScale;
-  x = (mainWidth * 0.42) + Math.random() * ((mainWidth - this.width) - (mainWidth * 0.42));
-  y = Math.random() * (mainHeight - this.height);
   COLOR = ["green", "lila", "pink", "yellow"];
   selectedColor;
+  IMAGES_SWIM;
 
   constructor() {
     super();
+
     this.getRandomColor();
+    this.IMAGES_SWIM = this.generateImagePaths(
+      "./img/enemy/jellyfish",
+      "swim",
+      this.selectedColor,
+      4
+    );
     this.loadImage(`./img/enemy/jellyfish/swim/${this.selectedColor}1.png`);
+    this.loadImages(this.IMAGES_SWIM);
 
     this.x =
       mainWidth * 0.42 +
       Math.random() * (mainWidth - this.width - mainWidth * 0.42);
     this.y = Math.random() * (mainHeight - this.height);
 
+    this.speed = 0.10 + Math.random() * 0.30;
+    this.movementSpeed = 180 + this.speed * 30;
     this.animate();
   }
 
@@ -25,9 +34,11 @@ class Jellyfish extends MovableObject {
   }
 
   animate(){
-    setInterval(() =>{
-      this.x -= 0.15;
-    }, 1000 / 60);
+
+    this.animateMoving(this.IMAGES_SWIM, this.movementSpeed);
+
+    this.moveLeft(this.speed);
+   
     
   }
 

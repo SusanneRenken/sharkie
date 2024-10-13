@@ -3,25 +3,28 @@ class Pufferfish extends MovableObject {
   height = 198 * mainScale;
   COLOR = ["green", "orange", "red"];
   selectedColor;
-  // IMAGES_WALKING = `./img/enemy/pufferfish/swim/${this.selectedColor}1.png`
+  IMAGES_SWIM;
 
   constructor() {
     super();
 
     this.getRandomColor();
-    this.loadImage(`./img/enemy/pufferfish/swim/${this.selectedColor}1.png`);
-    this.loadImages(this.generateImagePaths(      
-      './img/enemy/pufferfish',
-      'swim',
+    this.IMAGES_SWIM = this.generateImagePaths(
+      "./img/enemy/pufferfish",
+      "swim",
       this.selectedColor,
-      5,
-    ));
+      5
+    );
+    this.loadImage(`./img/enemy/pufferfish/swim/${this.selectedColor}1.png`);
+    this.loadImages(this.IMAGES_SWIM);
 
     this.x =
       mainWidth * 0.42 +
       Math.random() * (mainWidth - this.width - mainWidth * 0.42);
     this.y = Math.random() * (mainHeight - this.height);
 
+    this.speed = 0.30 + Math.random() * 0.60;
+    this.movementSpeed = 100 + this.speed * 30;
     this.animate();
   }
 
@@ -31,8 +34,8 @@ class Pufferfish extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      this.x -= 0.25;
-    }, 1000 / 60);
+    this.animateMoving(this.IMAGES_SWIM, this.movementSpeed);
+
+    this.moveLeft(this.speed);
   }
 }

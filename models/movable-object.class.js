@@ -5,6 +5,9 @@ class MovableObject {
   y = 0;  
   img;
   imageCache = {};
+  currentImage = 0;
+  speed;
+  movementSpeed;
 
   loadImage(path){
     this.img = new Image();
@@ -27,9 +30,19 @@ class MovableObject {
     return paths;
   }
 
-  moveLeft() {}
+  animateMoving(arr, interval){
+    setInterval(() => {
+      let i = this.currentImage % arr.length;
+      let path = arr[i];
+      this.img = this.imageCache[path];
+      this.currentImage++;
+    }, interval);
+  }
 
-  moveUp() {}
+  moveLeft(speed) {
+    setInterval(() => {
+      this.x -= speed;
+    }, 1000 / 60);
+  }
 
-  moveDown() {}
 }
