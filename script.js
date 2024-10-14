@@ -1,6 +1,7 @@
 let mainWidth;
 let mainHeight;
 let mainScale;
+let backgroundRepeat = 2;
 
 function resizeCanvas() {
   let container = document.getElementById("canvas_container");

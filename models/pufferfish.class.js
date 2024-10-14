@@ -20,10 +20,11 @@ class Pufferfish extends MovableObject {
 
     this.x =
       mainWidth * 0.42 +
-      Math.random() * (mainWidth - this.width - mainWidth * 0.42);
+      Math.random() *
+        (2 * backgroundRepeat * mainWidth - this.width - mainWidth * 0.42);
     this.y = Math.random() * (mainHeight - this.height);
 
-    this.speed = 0.30 + Math.random() * 0.60;
+    this.speed = 0.3 + Math.random() * 0.6;
     this.movementSpeed = 100 + this.speed * 30;
     this.animate();
   }
@@ -34,7 +35,6 @@ class Pufferfish extends MovableObject {
   }
 
   animate() {
-    
     setInterval(() => {
       this.animateMoving(this.IMAGES_SWIM);
     }, this.movementSpeed);

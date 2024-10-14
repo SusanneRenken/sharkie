@@ -8,13 +8,14 @@ class World {
     new Pufferfish(),
     new Pufferfish(),
   ];
-  backgroundObjeckts = [
-    new BackgroundObject("./img/background/layers/water/1.png"),
-    new BackgroundObject("./img/background/layers/fondo-1/1.png"),
-    new BackgroundObject("./img/background/layers/fondo-2/1.png"),
-    new BackgroundObject("./img/background/layers/floor/1.png"),
-    new BackgroundObject("./img/background/layers/light/1.png"),
+  pathBackgroundObjeckts = [
+    "./img/background/layers/water/3.png",
+    "./img/background/layers/fondo-1/3.png",
+    "./img/background/layers/fondo-2/3.png",
+    "./img/background/layers/floor/3.png",
+    "./img/background/layers/light/3.png",
   ];
+  backgroundObjeckts = [];  
   canvas;
   ctx;
   keyboard;
@@ -23,13 +24,20 @@ class World {
   constructor(canvas, keyboard) {
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.ctx = canvas.getContext("2d");    
+    this.ctx = canvas.getContext("2d");
+    this.loadBackgroundObjects();  
     this.draw();
     this.setWorld();
   }
 
-  setWorld(){
-    this.character.world = this;
+  loadBackgroundObjects(){
+    this.pathBackgroundObjeckts.forEach((path) => {
+      for (let index = -1; index < backgroundRepeat; index++) {
+        this.backgroundObjeckts.push(
+          new BackgroundObject(path, index)
+        );        
+      };
+    })
   }
 
   draw() {
@@ -68,5 +76,9 @@ class World {
       mo.x = mo.x * -1;
       this.ctx.restore(); 
     }
+  }
+
+  setWorld(){
+    this.character.world = this;
   }
 }

@@ -1,4 +1,4 @@
-class Jellyfish extends MovableObject {  
+class Jellyfish extends MovableObject {
   width = 211 * mainScale;
   height = 300 * mainScale;
   COLOR = ["green", "lila", "pink", "yellow"];
@@ -20,10 +20,12 @@ class Jellyfish extends MovableObject {
 
     this.x =
       mainWidth * 0.42 +
-      Math.random() * (mainWidth - this.width - mainWidth * 0.42);
+      Math.random() *
+        (2 * backgroundRepeat * mainWidth - this.width - mainWidth * 0.42);
+
     this.y = Math.random() * (mainHeight - this.height);
 
-    this.speed = 0.10 + Math.random() * 0.30;
+    this.speed = 0.1 + Math.random() * 0.3;
     this.movementSpeed = 180 + this.speed * 30;
     this.animate();
   }
@@ -33,16 +35,11 @@ class Jellyfish extends MovableObject {
     this.selectedColor = this.COLOR[randomIndex];
   }
 
-  animate(){
-
+  animate() {
     setInterval(() => {
       this.animateMoving(this.IMAGES_SWIM);
     }, this.movementSpeed);
 
     this.moveLeft(this.speed);
-   
-    
   }
-
-
 }
