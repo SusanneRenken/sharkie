@@ -13,8 +13,7 @@ document.addEventListener('keyup', (event) => setKey(event.code, false));
 
 function setKey(code, isPressed){
   const keyUpperCase = code.toUpperCase();
-  console.log(keyUpperCase);
-  if (keyboard[keyUpperCase]) {
+  if (keyUpperCase in keyboard) {
     keyboard[keyUpperCase] = isPressed;
   }
 }
