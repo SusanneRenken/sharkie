@@ -15,7 +15,7 @@ class World {
     "./img/background/layers/floor/3.png",
     "./img/background/layers/light/3.png",
   ];
-  backgroundObjeckts = [];  
+  backgroundObjeckts = [];
   canvas;
   ctx;
   keyboard;
@@ -25,19 +25,17 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.ctx = canvas.getContext("2d");
-    this.loadBackgroundObjects();  
+    this.loadBackgroundObjects();
     this.draw();
     this.setWorld();
   }
 
-  loadBackgroundObjects(){
+  loadBackgroundObjects() {
     this.pathBackgroundObjeckts.forEach((path) => {
       for (let index = -1; index < backgroundRepeat; index++) {
-        this.backgroundObjeckts.push(
-          new BackgroundObject(path, index)
-        );        
-      };
-    })
+        this.backgroundObjeckts.push(new BackgroundObject(path, index));
+      }
+    });
   }
 
   draw() {
@@ -57,7 +55,7 @@ class World {
     });
   }
 
-  addObjectsToMap(objects){
+  addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
@@ -74,11 +72,11 @@ class World {
 
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
-      this.ctx.restore(); 
+      this.ctx.restore();
     }
   }
 
-  setWorld(){
+  setWorld() {
     this.character.world = this;
   }
 }

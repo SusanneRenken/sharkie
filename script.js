@@ -33,11 +33,10 @@ function calculateAspectRatio(maxWidth, maxHeight) {
 }
 
 function setCanvasDimensions(canvas, width, height) {
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
 }
-
 
 window.addEventListener("resize", resizeCanvas);
