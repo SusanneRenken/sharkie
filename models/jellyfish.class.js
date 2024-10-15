@@ -1,6 +1,5 @@
 class Jellyfish extends MovableObject {
-  width = 211 * mainScale;
-  height = 300 * mainScale;
+  
   COLOR = ["green", "lila", "pink", "yellow"];
   selectedColor;
   IMAGES_SWIM;
@@ -17,6 +16,9 @@ class Jellyfish extends MovableObject {
     );
     this.loadImage(`./img/enemy/jellyfish/swim/${this.selectedColor}1.png`);
     this.loadImages(this.IMAGES_SWIM);
+
+    this.width = 100;
+    this.height = 150;
 
     this.x =
       mainWidth * 0.42 +

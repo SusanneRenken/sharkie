@@ -1,6 +1,4 @@
 class Pufferfish extends MovableObject {
-  width = 241 * mainScale;
-  height = 198 * mainScale;
   COLOR = ["green", "orange", "red"];
   selectedColor;
   IMAGES_SWIM;
@@ -17,6 +15,9 @@ class Pufferfish extends MovableObject {
     );
     this.loadImage(`./img/enemy/pufferfish/swim/${this.selectedColor}1.png`);
     this.loadImages(this.IMAGES_SWIM);
+
+    this.width = 241 * mainScale;
+    this.height = 198 * mainScale;
 
     this.x =
       mainWidth * 0.42 +

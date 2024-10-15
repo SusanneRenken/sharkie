@@ -1,20 +1,7 @@
 class World {
   character = new Character();
-  enemies = [
-    new Jellyfish(),
-    new Jellyfish(),
-    new Jellyfish(),
-    new Pufferfish(),
-    new Pufferfish(),
-    new Pufferfish(),
-  ];
-  pathBackgroundObjeckts = [
-    "./img/background/layers/water/3.png",
-    "./img/background/layers/fondo-1/3.png",
-    "./img/background/layers/fondo-2/3.png",
-    "./img/background/layers/floor/3.png",
-    "./img/background/layers/light/3.png",
-  ];
+  enemies = level1.enemies;
+  pathBackgroundObjeckts = level1.backgroundObjects;
   backgroundObjeckts = [];
   canvas;
   ctx;
