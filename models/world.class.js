@@ -1,8 +1,13 @@
 class World {
-  character = new Character();
-  enemies = level1.enemies;
-  pathBackgroundObjeckts = level1.backgroundObjects;
+  level = getLevel1();
+  pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundObjeckts = [];
+  backgroundRepeat = this.level.backgroundRepeat;
+  level_end_x;
+  sunlight = new Sunlight(this.level.sunlight, this.level.characterSpeed, this.level.backgroundRepeat);
+  character = new Character(this.level.characterSpeed);
+  enemyName = this.level.enemies;
+  enemies = [];
   canvas;
   ctx;
   keyboard;
@@ -12,16 +17,24 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.ctx = canvas.getContext("2d");
+    this.level_end_x = this.backgroundRepeat * 2 * mainWidth - mainWidth;
     this.loadBackgroundObjects();
+    this.initializeEnemies();
     this.draw();
     this.setWorld();
   }
 
   loadBackgroundObjects() {
     this.pathBackgroundObjeckts.forEach((path) => {
-      for (let index = -1; index < backgroundRepeat; index++) {
+      for (let index = -1; index < this.backgroundRepeat; index++) {
         this.backgroundObjeckts.push(new BackgroundObject(path, index));
       }
+    });
+  }
+
+  initializeEnemies() {
+    this.enemyName.forEach((EnemyClass) => {
+      this.enemies.push(new EnemyClass(this.backgroundRepeat));
     });
   }
 
@@ -32,6 +45,7 @@ class World {
 
     this.addObjectsToMap(this.backgroundObjeckts);
     this.addObjectsToMap(this.enemies);
+    this.addToMap(this.sunlight);
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0);
@@ -65,5 +79,6 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.sunlight.world = this;
   }
 }

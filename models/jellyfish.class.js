@@ -1,11 +1,12 @@
-class Jellyfish extends MovableObject {
-  
+class Jellyfish extends MovableObject {  
   COLOR = ["green", "lila", "pink", "yellow"];
   selectedColor;
   IMAGES_SWIM;
+  backgroundRepeat;
 
-  constructor() {
+  constructor(backgroundRepeat) {
     super();
+    this.backgroundRepeat = backgroundRepeat;
 
     this.getRandomColor();
     this.IMAGES_SWIM = this.generateImagePaths(
@@ -21,10 +22,10 @@ class Jellyfish extends MovableObject {
     this.height = 300 * mainScale;
 
     this.x =
-      mainWidth * 0.42 +
+      mainWidth * 0.8 +
       Math.random() *
-        (2 * backgroundRepeat * mainWidth - this.width - mainWidth * 0.42);
-
+        (2 * this.backgroundRepeat * mainWidth - this.width - mainWidth * 1.8);
+        //Die 1 vor dem Komma sorgt dafür, dass die enemies nicht im letzten Bildausschnitt generiert werden.
     this.y = Math.random() * (mainHeight - this.height);
 
     this.speed = 0.1 + Math.random() * 0.3;

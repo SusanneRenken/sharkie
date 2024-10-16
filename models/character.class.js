@@ -8,13 +8,13 @@ class Character extends MovableObject {
   IMAGES_SWIM;
   world;
 
-  constructor() {
+  constructor(characterSpeed) {
     super();
 
     this.IMAGES_IDLE = this.loadAllImages("./img/character", "idle", 18);
     this.IMAGES_SWIM = this.loadAllImages("./img/character", "swim", 6);
 
-    this.speed = 5;
+    this.speed = characterSpeed;
     this.movementSpeed = 180;
     this.animate();
   }
@@ -41,15 +41,15 @@ class Character extends MovableObject {
     }, 180);
 
     setInterval(() => {
-      if (this.world.keyboard.ARROWRIGHT) {
+      if (this.world.keyboard.ARROWRIGHT && this.x < this.world.level_end_x) {
         this.x += this.speed;
         this.otherDirection = false;
       }
-      if (this.world.keyboard.ARROWLEFT) {
+      if (this.world.keyboard.ARROWLEFT && this.x > 0) {
         this.x -= this.speed;
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x;
+      this.world.camera_x = -this.x + (62 * mainScale);
     }, 1000 / 60);
   }
 }
