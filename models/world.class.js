@@ -73,9 +73,7 @@ class World {
     xStartPlaces.forEach((place) => {
       let xPlace = place;
       let yPlace = 0.1 * mainHeight + Math.random() * 0.7 * mainHeight;
-      let coinForm = Math.random() < 0.5 ? 0 : 1;
-      console.log(coinForm);
-      
+      let coinForm = Math.random() < 0.5 ? 0 : 1;      
       let coinDirection = yPlace < 0.5 * mainHeight ? 1 : -1;
 
       if (coinForm) {
