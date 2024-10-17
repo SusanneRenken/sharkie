@@ -6,15 +6,14 @@ class Coin extends MovableObject {
   
     constructor(x, y) {
         super();
-        // this.backgroundRepeat = backgroundRepeat;
     
         this.IMAGES_COIN = this.generateImagePaths(
-          "./img/items",
+          "./img/collectibles",
           "coins",
           this.selectedColor,
           4
         );
-        this.loadImage(`./img/items/coins/1.png`);
+        this.loadImage(`./img/collectibles/coins/1.png`);
         this.loadImages(this.IMAGES_COIN);
     
         this.x = x;

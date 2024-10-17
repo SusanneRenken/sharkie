@@ -4,8 +4,6 @@ function getLevel1() {
       Jellyfish,
       Jellyfish,
       Jellyfish,
-      Jellyfish,
-      Pufferfish,
       Pufferfish,
       Pufferfish,
       Pufferfish,
@@ -19,7 +17,7 @@ function getLevel1() {
     [
       "./img/background/layers/light/3.png",
     ],
-    3,
+    4,
     5,
   );
   return level1

@@ -13,6 +13,7 @@ class World {
   enemyName = this.level.enemies;
   enemies = [];
   coins = [];
+  xStartPlaces = [];
   canvas;
   ctx;
   keyboard;
@@ -45,73 +46,8 @@ class World {
   }
 
   placeCoins() {
-    let xStartPlaces = [];
-
-    this.getStartPlaces(xStartPlaces);
-    this.generateCoins(xStartPlaces);    
-  }
-
-  getStartPlaces(xStartPlaces){
-    let numberOfCoinCollection = (this.backgroundRepeat - 1) * 2;
-    let minDistance = 1000 * mainScale;
-    let lengthCoinArea =
-      2 * mainWidth * (this.backgroundRepeat - 0.5) - minDistance;
-    let newStart = mainWidth;
-    let newXPlace = 0;
-    
-    for (let i = 0; i < numberOfCoinCollection; i++) {
-      let areaLength =
-        (lengthCoinArea - newStart) / (numberOfCoinCollection - i);
-      let randomNumber = Math.random() * areaLength;
-      newXPlace = Math.floor(newStart + randomNumber);
-      xStartPlaces.push(newXPlace);
-      newStart = newXPlace + minDistance;
-    }
-  }
-
-  generateCoins(xStartPlaces){
-    xStartPlaces.forEach((place) => {
-      let xPlace = place;
-      let yPlace = 0.1 * mainHeight + Math.random() * 0.7 * mainHeight;
-      let coinForm = Math.random() < 0.5 ? 0 : 1;      
-      let coinDirection = yPlace < 0.5 * mainHeight ? 1 : -1;
-
-      if (coinForm) {
-        this.placeCoinInLine(xPlace, yPlace, coinDirection);
-      } else {
-        this.placeCoinOnParabola(xPlace, yPlace, coinDirection);
-      }
-    });
-  }
-
-  placeCoinInLine(xPlace, yPlace, coinDirection) {
-    let numberOfCoins = 2 + Math.floor(Math.random() * 4);
-
-    for (let i = 0; i < numberOfCoins; i++) {
-      this.coins.push(new Coin(xPlace, yPlace));
-      xPlace += 60;
-      yPlace += 50 * coinDirection;
-    }
-  }
-
-  placeCoinOnParabola(xPlace, yPlace, coinDirection) {
-    const coinPositions = [
-      { x: 0, y: 0 },
-      { x: 95, y: 155 },
-      { x: 280, y: 235 },
-      { x: 490, y: 235 },
-      { x: 680, y: 155 },
-      { x: 775, y: 0 },
-    ];
-
-    coinPositions.forEach((position) => {
-      this.coins.push(
-        new Coin(
-          xPlace + position.x * mainScale,
-          yPlace + position.y * mainScale * coinDirection
-        )
-      );
-    });
+    getStartPlaces(this.backgroundRepeat, this.xStartPlaces);
+    generateCoins(this.xStartPlaces, this.coins);
   }
 
   draw() {
