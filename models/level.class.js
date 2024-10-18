@@ -1,12 +1,10 @@
 class Level {
-    enemies;
     backgroundObjects;
     sunlight;
     backgroundRepeat;
     characterSpeed;
 
-    constructor(enemies, backgroundObjects, sunlight, backgroundRepeat, characterSpeed){
-        this.enemies = enemies;
+    constructor(backgroundObjects, sunlight, backgroundRepeat, characterSpeed){
         this.backgroundObjects = backgroundObjects;
         this.sunlight = sunlight;
         this.backgroundRepeat = backgroundRepeat;

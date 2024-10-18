@@ -10,9 +10,10 @@ class World {
     this.backgroundRepeat
   );
   character = new Character(this.level.characterSpeed);
-  enemyName = this.level.enemies;
   enemies = [];
   coins = [];
+  coinCollectionWidth = 1000 * mainScale;
+  barriers = [];
   xStartPlaces = [];
   canvas;
   ctx;
@@ -27,6 +28,7 @@ class World {
     this.loadBackgroundObjects();
     this.initializeEnemies();
     this.placeCoins();
+    this.placeBarriers();
     this.draw();
     this.setWorld();
   }
@@ -40,14 +42,73 @@ class World {
   }
 
   initializeEnemies() {
-    this.enemyName.forEach((EnemyClass) => {
-      this.enemies.push(new EnemyClass(this.backgroundRepeat));
-    });
+    let numberOfEnemies = this.backgroundRepeat * 2;
+
+    for (let i = 0; i < numberOfEnemies; i++) {
+      let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
+      this.enemies.push(new enemyClass(this.backgroundRepeat));
+    }
   }
 
   placeCoins() {
-    getStartPlaces(this.backgroundRepeat, this.xStartPlaces);
+    getStartPlaces(
+      this.backgroundRepeat,
+      this.xStartPlaces,
+      this.coinCollectionWidth
+    );
     generateCoins(this.xStartPlaces, this.coins);
+  }
+
+  placeBarriers() {
+    const BARRIER_DIMENSIONS = [
+      { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
+      { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
+      { barrierWidth: 365 * mainScale, barrierHeight: 750 * mainScale },
+    ];
+
+    let barrierAreas = [];
+    let isBarrierPlaced = false;
+
+    this.getBarrierAreas(barrierAreas);
+
+    this.checkBarrierAreas(barrierAreas, BARRIER_DIMENSIONS, isBarrierPlaced);
+  }
+
+  getBarrierAreas(barrierAreas) {
+    for (let i = 0; i < this.xStartPlaces.length - 1; i++) {
+      let areaWidth = Math.floor(
+        this.xStartPlaces[i + 1] -
+          this.xStartPlaces[i] -
+          this.coinCollectionWidth
+      );
+      barrierAreas.push(areaWidth);
+    }
+  }
+
+  checkBarrierAreas(barrierAreas, BARRIER_DIMENSIONS, isBarrierPlaced) {
+    for (let i = 0; i < barrierAreas.length; i++) {
+      const area = barrierAreas[i];
+      for (let j = 0; j < 3; j++) {
+        if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
+          isBarrierPlaced = Math.random() < 0.7 ? true : false;
+          if (isBarrierPlaced) {
+            this.generateBarriers(BARRIER_DIMENSIONS, j + 1, i, area);
+          }
+        }
+      }
+      isBarrierPlaced = false;
+    }
+  }
+
+  generateBarriers(BARRIER_DIMENSIONS, barrierNumber, i, area) {
+    let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
+    let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
+    let randomLength = Math.random() * (area - width);
+    let xBarrierPlace = this.xStartPlaces[i] + this.coinCollectionWidth + randomLength;
+
+    this.barriers.push(
+      new Barrier(barrierNumber, width, height, xBarrierPlace)
+    );
   }
 
   draw() {
@@ -56,8 +117,9 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.backgroundObjeckts);
-    this.addObjectsToMap(this.enemies);
     this.addToMap(this.sunlight);
+    this.addObjectsToMap(this.barriers);
+    this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.coins);
     this.addToMap(this.character);
 

@@ -2,7 +2,7 @@ class Character extends MovableObject {
   width = 815 * mainScale;
   height = 1000 * mainScale;
   x = 0;
-  y = mainHeight - this.height;
+  y = -10;
   selectedColor = "";
   IMAGES_IDLE;
   IMAGES_SWIM;

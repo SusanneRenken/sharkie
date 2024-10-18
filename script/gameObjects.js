@@ -1,7 +1,7 @@
-function getStartPlaces(backgroundRepeat, xStartPlaces) {
+function getStartPlaces(backgroundRepeat, xStartPlaces, coinCollectionWidth) {
   let numberOfCoinCollection = (backgroundRepeat - 1) * 2;
-  let minDistance = 1000 * mainScale;
-  let lengthCoinArea = 2 * mainWidth * (backgroundRepeat - 0.5) - minDistance;
+  let lengthCoinArea =
+    2 * mainWidth * (backgroundRepeat - 0.5) - coinCollectionWidth;
   let newStart = mainWidth;
   let newXPlace = 0;
 
@@ -10,7 +10,7 @@ function getStartPlaces(backgroundRepeat, xStartPlaces) {
     let randomNumber = Math.random() * areaLength;
     newXPlace = Math.floor(newStart + randomNumber);
     xStartPlaces.push(newXPlace);
-    newStart = newXPlace + minDistance;
+    newStart = newXPlace + coinCollectionWidth;
   }
 }
 
