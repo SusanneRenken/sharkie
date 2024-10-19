@@ -113,10 +113,9 @@ class World {
 
   placePoison() {
     let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1);
-    let poisonInBarrier = false;
     let placedPoisons = 0;
 
-    while (placedPoisons < 6) {
+    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!this.isPoisonInBarrier(poisonX)) {
