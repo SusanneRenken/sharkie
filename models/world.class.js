@@ -13,8 +13,9 @@ class World {
   enemies = [];
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
+  xCoinPlaces = [];
   barriers = [];
-  xStartPlaces = [];
+  poisons = [];
   canvas;
   ctx;
   keyboard;
@@ -29,6 +30,7 @@ class World {
     this.initializeEnemies();
     this.placeCoins();
     this.placeBarriers();
+    this.placePoison();
     this.draw();
     this.setWorld();
   }
@@ -53,10 +55,10 @@ class World {
   placeCoins() {
     getStartPlaces(
       this.backgroundRepeat,
-      this.xStartPlaces,
+      this.xCoinPlaces,
       this.coinCollectionWidth
     );
-    generateCoins(this.xStartPlaces, this.coins);
+    generateCoins(this.xCoinPlaces, this.coins);
   }
 
   placeBarriers() {
@@ -70,16 +72,13 @@ class World {
     let isBarrierPlaced = false;
 
     this.getBarrierAreas(barrierAreas);
-
     this.checkBarrierAreas(barrierAreas, BARRIER_DIMENSIONS, isBarrierPlaced);
   }
 
   getBarrierAreas(barrierAreas) {
-    for (let i = 0; i < this.xStartPlaces.length - 1; i++) {
+    for (let i = 0; i < this.xCoinPlaces.length - 1; i++) {
       let areaWidth = Math.floor(
-        this.xStartPlaces[i + 1] -
-          this.xStartPlaces[i] -
-          this.coinCollectionWidth
+        this.xCoinPlaces[i + 1] - this.xCoinPlaces[i] - this.coinCollectionWidth
       );
       barrierAreas.push(areaWidth);
     }
@@ -104,10 +103,34 @@ class World {
     let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
     let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
     let randomLength = Math.random() * (area - width);
-    let xBarrierPlace = this.xStartPlaces[i] + this.coinCollectionWidth + randomLength;
+    let xBarrierPlace =
+      this.xCoinPlaces[i] + this.coinCollectionWidth + randomLength;
 
     this.barriers.push(
       new Barrier(barrierNumber, width, height, xBarrierPlace)
+    );
+  }
+
+  placePoison() {
+    let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1);
+    let poisonInBarrier = false;
+    let placedPoisons = 0;
+
+    while (placedPoisons < 6) {
+      const poisonX = mainWidth + Math.random() * lengthPoisonArea;
+
+      if (!this.isPoisonInBarrier(poisonX)) {
+        this.poisons.push(new Poison(poisonX));
+        placedPoisons++;
+      }
+    }
+  }
+
+  isPoisonInBarrier(poisonX) {
+    return this.barriers.some(
+      (barrier) =>
+        poisonX >= barrier.x - 2 * 179 * mainScale &&
+        poisonX <= barrier.x + barrier.width + 179 * mainScale
     );
   }
 
@@ -121,6 +144,7 @@ class World {
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.coins);
+    this.addObjectsToMap(this.poisons);
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0);

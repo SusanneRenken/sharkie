@@ -38,4 +38,4 @@ function setCanvasDimensions(canvas, width, height) {
   canvas.style.height = `${height}px`;
 }
 
-window.addEventListener("resize", resizeCanvas);
+
