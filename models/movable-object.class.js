@@ -5,7 +5,8 @@ class MovableObject {
   y = 0;
   img;
   imageCache;
-  currentImage;
+  currentImage;  
+  selectedColor;
   speed;
   movementSpeed;
   otherDirection = false;
@@ -20,12 +21,15 @@ class MovableObject {
     this.img.src = path;
   }
 
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
+  loadAllImages(basePath, action, count) {
+    const images = this.generateImagePaths(
+      basePath,
+      action,
+      this.selectedColor,
+      count
+    );
+    this.loadImages(images);
+    return images;
   }
 
   generateImagePaths(basePath, action, color = "", count) {
@@ -36,11 +40,27 @@ class MovableObject {
     return paths;
   }
 
+  loadImages(arr) {
+    arr.forEach((path) => {
+      this.img = new Image();
+      this.img.src = path;
+      this.imageCache[path] = this.img;
+    });
+  }
+
   animateMoving(arr) {
     let i = this.currentImage % arr.length;
     let path = arr[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+  }
+
+  animateMovingOnce(arr) {
+    if (this.currentImage < arr.length) {
+      let path = arr[this.currentImage];
+      this.img = this.imageCache[path];
+      this.currentImage++;
+    }
   }
 
   moveLeft(speed) {

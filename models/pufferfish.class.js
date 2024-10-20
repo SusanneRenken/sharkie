@@ -1,6 +1,5 @@
 class Pufferfish extends MovableObject {
   COLOR = ["green", "orange", "red"];
-  selectedColor;
   IMAGES_SWIM;
   backgroundRepeat;
 
@@ -15,17 +14,13 @@ class Pufferfish extends MovableObject {
       this.selectedColor,
       5
     );
-    this.loadImage(`./img/enemy/pufferfish/swim/${this.selectedColor}1.png`);
     this.loadImages(this.IMAGES_SWIM);
 
     this.width = 241 * mainScale;
     this.height = 198 * mainScale;
 
     this.x =
-      mainWidth * 0.8 +
-      Math.random() *
-        (2 * this.backgroundRepeat * mainWidth - this.width - mainWidth * 1.8); 
-        //Die 1 vor dem Komma sorgt dafür, dass die enemies nicht im letzten Bildausschnitt generiert werden.
+      mainWidth + Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1));
     this.y = Math.random() * (mainHeight - this.height);
 
     this.speed = 0.3 + Math.random() * 0.6;

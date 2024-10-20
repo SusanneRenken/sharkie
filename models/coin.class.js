@@ -13,7 +13,6 @@ class Coin extends MovableObject {
           this.selectedColor,
           4
         );
-        this.loadImage(`./img/collectibles/coins/1.png`);
         this.loadImages(this.IMAGES_COIN);
     
         this.x = x;

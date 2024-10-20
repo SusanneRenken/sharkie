@@ -1,9 +1,10 @@
 class World {
   level = getLevel1();
+  gameSound = new Audio('./audio/backgroundsound.mp3');
   pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
-  level_end_x;
+  levelEndX;
   sunlight = new Sunlight(
     this.level.sunlight,
     this.level.characterSpeed,
@@ -11,6 +12,7 @@ class World {
   );
   character = new Character(this.level.characterSpeed);
   enemies = [];
+  finalEnemy = new Finalenemy(this.backgroundRepeat);
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
@@ -25,7 +27,10 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.ctx = canvas.getContext("2d");
-    this.level_end_x = this.backgroundRepeat * 2 * mainWidth - mainWidth;
+    this.gameSound.volume = 0.05;
+    this.gameSound.loop = true;
+    // this.gameSound.play();
+    this.levelEndX = this.backgroundRepeat * 2 * mainWidth - mainWidth;
     this.loadBackgroundObjects();
     this.initializeEnemies();
     this.placeCoins();
@@ -145,6 +150,7 @@ class World {
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
     this.addToMap(this.character);
+    this.addToMap(this.finalEnemy);
 
     this.ctx.translate(-this.camera_x, 0);
 
@@ -178,5 +184,6 @@ class World {
   setWorld() {
     this.character.world = this;
     this.sunlight.world = this;
+    this.finalEnemy.world = this;
   }
 }

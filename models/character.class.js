@@ -3,7 +3,6 @@ class Character extends MovableObject {
   height = 1000 * mainScale;
   x = 0;
   y = -10;
-  selectedColor = "";
   IMAGES_IDLE;
   IMAGES_SWIM;
   world;
@@ -19,29 +18,17 @@ class Character extends MovableObject {
     this.animate();
   }
 
-  loadAllImages(basePath, action, count) {
-    const images = this.generateImagePaths(
-      basePath,
-      action,
-      this.selectedColor,
-      count
-    );
-    this.loadImage(`${basePath}/${action}/1.png`);
-    this.loadImages(images);
-    return images;
-  }
-
   animate() {
     setInterval(() => {
       this.animateMoving(this.IMAGES_IDLE);
 
       if (this.world.keyboard.ARROWRIGHT || this.world.keyboard.ARROWLEFT) {
-        this.animateMoving(this.IMAGES_SWIM);
+        this.animateMoving(this.IMAGES_SWIM);        
       }
     }, 180);
 
     setInterval(() => {
-      if (this.world.keyboard.ARROWRIGHT && this.x < this.world.level_end_x) {
+      if (this.world.keyboard.ARROWRIGHT && this.x < this.world.levelEndX) {
         this.x += this.speed;
         this.otherDirection = false;
       }
