@@ -5,7 +5,7 @@ class MovableObject {
   y = 0;
   img;
   imageCache;
-  currentImage;  
+  currentImage;
   selectedColor;
   speed;
   movementSpeed;
@@ -71,10 +71,18 @@ class MovableObject {
   }
 
   moveLeft(speed) {
-      this.x -= speed;
+    this.x -= speed;
   }
 
   moveRight(speed) {
     this.x += speed;
-}
+  }
+
+  moveUp(speed) {
+    this.y -= speed;
+  }
+
+  moveDown(speed) {
+    this.y += speed;
+  }
 }

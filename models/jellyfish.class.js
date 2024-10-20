@@ -2,6 +2,7 @@ class Jellyfish extends MovableObject {
   COLOR = ["green", "lila", "pink", "yellow"];
   IMAGES_SWIM;
   backgroundRepeat;
+  isMovingDown = true;
 
   constructor(backgroundRepeat) {
     super();
@@ -19,9 +20,8 @@ class Jellyfish extends MovableObject {
     this.width = 211 * mainScale;
     this.height = 300 * mainScale;
 
-    this.x =
-      mainWidth + Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1));
-    this.y = Math.random() * (mainHeight - this.height);
+    this.x = 0.3 * mainWidth + Math.random() * 0.5 * mainWidth;   //x wie bei Poison bestimmen !!!
+    this.y = 0.1 * mainHeight;
 
     this.speed = 0.1 + Math.random() * 0.3;
     this.movementSpeed = 180 + this.speed * 30;
@@ -39,7 +39,14 @@ class Jellyfish extends MovableObject {
     }, this.movementSpeed);
 
     setInterval(() => {
-      this.moveLeft(this.speed);
+      const upperLimit = 0 * mainHeight;
+      const lowerLimit = 0.7 * mainHeight;
+      
+      if (this.y >= lowerLimit || this.y <= upperLimit) {
+        this.isMovingDown = !this.isMovingDown;
+      }
+    
+      this.y += this.isMovingDown ? this.speed : -this.speed;
     }, 1000 / 60);
   }
 }
