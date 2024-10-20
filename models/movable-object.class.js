@@ -55,6 +55,13 @@ class MovableObject {
     this.currentImage++;
   }
 
+  animateMovingReverse(arr) {
+    let i = arr.length - 1 - (this.currentImage % arr.length);
+    let path = arr[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
   animateMovingOnce(arr) {
     if (this.currentImage < arr.length) {
       let path = arr[this.currentImage];

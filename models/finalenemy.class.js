@@ -3,8 +3,7 @@ class Finalenemy extends MovableObject {
   introduceStartX;
   IMAGES_INTRODUCE;
   IMAGES_FLOATING;
-  world;
-  finalenemyIntroduceSound = new Audio("./audio/finalenemy-introduce.mp3");
+  world;  
 
   constructor(backgroundRepeat) {
     super();
@@ -39,8 +38,7 @@ class Finalenemy extends MovableObject {
         this.world.character.x > this.introduceStartX
       ) {
         this.y = -70;
-        this.finalenemyIntroduceSound.volume = 0.2;
-        this.finalenemyIntroduceSound.play();
+        SOUNG_FINALENEMY_INTRODUCE.play();
         this.animateMovingOnce(this.IMAGES_INTRODUCE);
         if (this.currentImage >= this.IMAGES_INTRODUCE.length) {
           this.introduceComplete = true;

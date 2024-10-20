@@ -1,6 +1,5 @@
 class World {
   level = getLevel1();
-  gameSound = new Audio('./audio/backgroundsound.mp3');
   pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
@@ -27,9 +26,6 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.ctx = canvas.getContext("2d");
-    this.gameSound.volume = 0.1;
-    this.gameSound.loop = true;
-    // this.gameSound.play();  Probleme beim Start, Browser ist schuld - ist im character...
     this.levelEndX = this.backgroundRepeat * 2 * mainWidth - mainWidth;
     this.loadBackgroundObjects();
     this.initializeEnemies();
@@ -124,7 +120,7 @@ class World {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!this.isPoisonInBarrier(poisonX)) {
-        this.poisons.push(new Poison(poisonX));
+        this.poisons.push(new Poison(poisonX, this));
         placedPoisons++;
       }
     }

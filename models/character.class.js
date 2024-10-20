@@ -25,7 +25,7 @@ class Character extends MovableObject {
       if (this.world.keyboard.ARROWRIGHT || this.world.keyboard.ARROWLEFT) {
         this.animateMoving(this.IMAGES_SWIM);
         // -----------------------------------------------------Muss später auf den Startbutton
-        // this.world.gameSound.play();
+        // SOUND_GAME.play();
       }
     }, 180);
 
