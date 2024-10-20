@@ -4,6 +4,7 @@ class Finalenemy extends MovableObject {
   IMAGES_INTRODUCE;
   IMAGES_FLOATING;
   world;
+  finalenemyIntroduceSound = new Audio("./audio/finalenemy-introduce.mp3");
 
   constructor(backgroundRepeat) {
     super();
@@ -12,7 +13,8 @@ class Finalenemy extends MovableObject {
     this.height = 1216 * mainScale;
     this.x = 2 * mainWidth * backgroundRepeat - 1.3 * this.width;
     this.y = -mainHeight;
-    this.introduceStartX = 2 * mainWidth * (backgroundRepeat - 0.5) - 1 * this.width;
+    this.introduceStartX =
+      2 * mainWidth * (backgroundRepeat - 0.5) - 1 * this.width;
 
     this.IMAGES_INTRODUCE = this.loadAllImages(
       "./img/enemy/finalenemy",
@@ -25,21 +27,41 @@ class Finalenemy extends MovableObject {
       13
     );
 
+    this.speed = 1;
+
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      if (!this.introduceComplete && this.world.character.x > this.introduceStartX) {
+      if (
+        !this.introduceComplete &&
+        this.world.character.x > this.introduceStartX
+      ) {
         this.y = -70;
+        this.finalenemyIntroduceSound.volume = 0.2;
+        this.finalenemyIntroduceSound.play();
         this.animateMovingOnce(this.IMAGES_INTRODUCE);
         if (this.currentImage >= this.IMAGES_INTRODUCE.length) {
           this.introduceComplete = true;
           this.currentImage = 0;
+          this.startMoving();
         }
       } else if (this.introduceComplete) {
         this.animateMoving(this.IMAGES_FLOATING);
       }
     }, 250);
+
+    if (this.introduceComplete) {
+      setInterval(() => {
+        this.moveLeft(this.speed);
+      }, 1000 / 60);
+    }
+  }
+
+  startMoving() {
+    this.movementInterval = setInterval(() => {
+      this.moveLeft(this.speed);
+    }, 1000 / 60);
   }
 }

@@ -23,20 +23,22 @@ class Character extends MovableObject {
       this.animateMoving(this.IMAGES_IDLE);
 
       if (this.world.keyboard.ARROWRIGHT || this.world.keyboard.ARROWLEFT) {
-        this.animateMoving(this.IMAGES_SWIM);        
+        this.animateMoving(this.IMAGES_SWIM);
+        // -----------------------------------------------------Muss später auf den Startbutton
+        // this.world.gameSound.play();
       }
     }, 180);
 
     setInterval(() => {
       if (this.world.keyboard.ARROWRIGHT && this.x < this.world.levelEndX) {
-        this.x += this.speed;
+        this.moveRight(this.speed);
         this.otherDirection = false;
       }
       if (this.world.keyboard.ARROWLEFT && this.x > 0) {
-        this.x -= this.speed;
+        this.moveLeft(this.speed);
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x + (62 * mainScale);
+      this.world.camera_x = -this.x + 62 * mainScale;
     }, 1000 / 60);
   }
 }

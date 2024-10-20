@@ -64,8 +64,10 @@ class MovableObject {
   }
 
   moveLeft(speed) {
-    setInterval(() => {
       this.x -= speed;
-    }, 1000 / 60);
   }
+
+  moveRight(speed) {
+    this.x += speed;
+}
 }
