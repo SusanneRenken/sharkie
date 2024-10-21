@@ -1,6 +1,8 @@
 body {
   width: 100vw;
   height: 100vh;
+  background-image: url(./img/background/background-body.png);
+  background-size: cover;
   margin: 0;
   overflow: hidden;
   display: flex;
@@ -27,5 +29,7 @@ h1 {
 canvas {
   max-width: 90vw;
   max-height: calc(90vh - 60px);
+  box-shadow: 0px 0px 12px 3px rgb(55, 56, 125) ;
   background-color: black;
+  border-radius: 24px;
 }

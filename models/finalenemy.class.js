@@ -1,9 +1,12 @@
-class Finalenemy extends MovableObject {
+class Endboss extends MovableObject {
   introduceComplete = false;
   introduceStartX;
-  IMAGES_INTRODUCE;
-  IMAGES_FLOATING;
-  world;  
+  IMAGES_INT;
+  IMAGES_SWIM;
+  IMAGES_ATT;
+  IMAGES_HURT;
+  IMAGES_DEAD;
+  world;
 
   constructor(backgroundRepeat) {
     super();
@@ -15,19 +18,13 @@ class Finalenemy extends MovableObject {
     this.introduceStartX =
       2 * mainWidth * (backgroundRepeat - 0.5) - 1 * this.width;
 
-    this.IMAGES_INTRODUCE = this.loadAllImages(
-      "./img/enemy/finalenemy",
-      "introduce",
-      10
-    );
-    this.IMAGES_FLOATING = this.loadAllImages(
-      "./img/enemy/finalenemy",
-      "floating",
-      13
-    );
+    this.IMAGES_INT = this.loadAllImages("./img/enemy/endboss", "int", 10);
+    this.IMAGES_SWIM = this.loadAllImages("./img/enemy/endboss", "swim", 13);
+    this.IMAGES_ATT = this.loadAllImages("./img/enemy/endboss", "attack", 6);
+    this.IMAGES_HURT = this.loadAllImages("./img/enemy/endboss", "hurt", 4);
+    this.IMAGES_DEAD = this.loadAllImages("./img/enemy/endboss", "dead", 6);
 
     this.speed = 1;
-
     this.animate();
   }
 
@@ -38,28 +35,49 @@ class Finalenemy extends MovableObject {
         this.world.character.x > this.introduceStartX
       ) {
         this.y = -70;
-        SOUNG_FINALENEMY_INTRODUCE.play();
-        this.animateMovingOnce(this.IMAGES_INTRODUCE);
-        if (this.currentImage >= this.IMAGES_INTRODUCE.length) {
+        SOUND_ENDBOSS_INTRODUCE.play();
+        this.animateMovingOnce(this.IMAGES_INT);
+        if (this.currentImage >= this.IMAGES_INT.length) {
           this.introduceComplete = true;
           this.currentImage = 0;
           this.startMoving();
         }
       } else if (this.introduceComplete) {
-        this.animateMoving(this.IMAGES_FLOATING);
+        this.animateSwimAndAttack();
       }
     }, 250);
-
-    if (this.introduceComplete) {
-      setInterval(() => {
-        this.moveLeft(this.speed);
-      }, 1000 / 60);
-    }
   }
 
   startMoving() {
     this.movementInterval = setInterval(() => {
       this.moveLeft(this.speed);
     }, 1000 / 60);
+  }
+
+  animateSwimAndAttack() {
+    if (this.animationCount < 1) {
+      this.speed = 1;
+      this.animateMoving(this.IMAGES_SWIM);
+      this.isAnimateSwim(this.IMAGES_SWIM);
+    } else if (this.animationCount === 1) {
+      this.speed = 2;
+      SOUND_ENDBOSS_ATTACK.play();
+      this.animateMoving(this.IMAGES_ATT);
+      this.isAnimateAttack();
+    }
+  }
+
+  isAnimateSwim(arr) {
+    if (this.currentImage % arr.length === 0) {
+      this.animationCount++;
+      this.currentImage = 0;
+    }
+  }
+
+  isAnimateAttack() {
+    if (this.currentImage >= this.IMAGES_ATT.length) {
+      this.animationCount = 0;
+      this.currentImage = 0;
+    }
   }
 }

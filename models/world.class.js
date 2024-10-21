@@ -11,7 +11,7 @@ class World {
   );
   character = new Character(this.level.characterSpeed);
   enemies = [];
-  finalEnemy = new Finalenemy(this.backgroundRepeat);
+  finalEnemy = new Endboss(this.backgroundRepeat);
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];

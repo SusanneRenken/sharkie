@@ -4,8 +4,6 @@ class Pufferfish extends MovableObject {
   IMAGES_TRANSITION;
   IMAGES_BUBBLESWIM;
   backgroundRepeat;
-  animationRepeat;
-  animationCount = 0;
 
   constructor(backgroundRepeat) {
     super();
@@ -48,19 +46,19 @@ class Pufferfish extends MovableObject {
     setInterval(() => {
       if (this.animationCount < this.animationRepeat) {
         this.animateMoving(this.IMAGES_SWIM);
-        this.animateSwim(this.IMAGES_SWIM);
+        this.isAnimateSwim(this.IMAGES_SWIM);
       } else if (this.animationCount === this.animationRepeat) {
         this.animateMoving(this.IMAGES_TRANSITION);
-        this.animateTransition(true);
+        this.isAnimateTransition(true);
       } else if (
         this.animationCount > this.animationRepeat &&
         this.animationCount < 2 * this.animationRepeat + 1
       ) {
         this.animateMoving(this.IMAGES_BUBBLESWIM);
-        this.animateSwim(this.IMAGES_BUBBLESWIM);
+        this.isAnimateSwim(this.IMAGES_BUBBLESWIM);
       } else if (this.animationCount === 2 * this.animationRepeat + 1) {
         this.animateMovingReverse(this.IMAGES_TRANSITION);
-        this.animateTransition(false);
+        this.isAnimateTransition(false);
       }
     }, this.movementSpeed);
 
@@ -69,14 +67,14 @@ class Pufferfish extends MovableObject {
     }, 1000 / 60);
   }
 
-  animateSwim(arr){
+  isAnimateSwim(arr){
     if (this.currentImage % arr.length  === 0) {
       this.animationCount++;
       this.currentImage = 0;
     }
   }
 
-  animateTransition(countUp) {
+  isAnimateTransition(countUp) {
     if (this.currentImage >= this.IMAGES_TRANSITION.length) {
       if (countUp) {
         this.animationCount++;

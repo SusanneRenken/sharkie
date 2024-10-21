@@ -11,6 +11,8 @@ class MovableObject {
   verticalSpeed;
   movementSpeed;
   otherDirection = false;
+  animationRepeat;
+  animationCount = 0;
 
   constructor() {
     this.currentImage = 0;

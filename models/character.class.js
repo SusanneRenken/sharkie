@@ -24,10 +24,10 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isArrowkeyPressed()) {
         this.animateMoving(this.IMAGES_SWIM);
-        SOUNG_CHARACTER_SWIM.play();
+        SOUND_CHARACTER_SWIM.play();
       } else {
         this.animateMoving(this.IMAGES_IDLE);
-        SOUNG_CHARACTER_SWIM.pause();
+        SOUND_CHARACTER_SWIM.pause();
       }
     }, 180);
 
