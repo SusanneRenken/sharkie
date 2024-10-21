@@ -2,7 +2,7 @@ class Character extends MovableObject {
   width = 815 * mainScale * 0.9;
   height = 1000 * mainScale * 0.9;
   x = 0;
-  y = -10;
+  y = -100;
   IMAGES_IDLE;
   IMAGES_SWIM;
   rotation = 0;
