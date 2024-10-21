@@ -49,8 +49,35 @@ class World {
 
     for (let i = 0; i < numberOfEnemies; i++) {
       let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
-      this.enemies.push(new enemyClass(this.backgroundRepeat));
+
+      if (enemyClass == Pufferfish) {
+        this.enemies.push(new Pufferfish(this.backgroundRepeat));
+      } else {
+        this.placeJelly();
+      }
     }
+  }
+
+  placeJelly() {
+    let lengthJellyArea = 2 * mainWidth * (this.backgroundRepeat - 1);
+    let placedJelly = 0;
+
+    while (placedJelly < 1) {
+      const jellyX = mainWidth + Math.random() * lengthJellyArea;
+
+      if (!this.isObjectInBarrier(jellyX, 220)) {
+        this.enemies.push(new Jellyfish(this.backgroundRepeat, jellyX));
+        placedJelly++;
+      }
+    }
+  }
+
+  isObjectInBarrier(objectX, objectWidth) {
+    return this.barriers.some(
+      (barrier) =>
+        objectX >= barrier.x - 2 * objectWidth * mainScale &&
+      objectX <= barrier.x + barrier.width + objectWidth * mainScale
+    );
   }
 
   placeCoins() {
@@ -66,7 +93,7 @@ class World {
     const BARRIER_DIMENSIONS = [
       { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
       { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
-      { barrierWidth: 365 * mainScale, barrierHeight: 750 * mainScale },
+      { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
     ];
 
     let barrierAreas = [];
@@ -119,19 +146,11 @@ class World {
     while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
-      if (!this.isPoisonInBarrier(poisonX)) {
+      if (!this.isObjectInBarrier(poisonX, 190)) {
         this.poisons.push(new Poison(poisonX, this));
         placedPoisons++;
       }
     }
-  }
-
-  isPoisonInBarrier(poisonX) {
-    return this.barriers.some(
-      (barrier) =>
-        poisonX >= barrier.x - 2 * 179 * mainScale &&
-        poisonX <= barrier.x + barrier.width + 179 * mainScale
-    );
   }
 
   draw() {
@@ -163,18 +182,35 @@ class World {
   }
 
   addToMap(mo) {
-    if (mo.otherDirection) {
-      this.ctx.save();
-      this.ctx.translate(mo.width, 0);
-      this.ctx.scale(-1, 1);
-      mo.x = mo.x * -1;
-    }
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    this.ctx.save();
+
+    const centerX = mo.x + mo.width / 2;
+    const centerY = mo.y + mo.height / 2;
 
     if (mo.otherDirection) {
-      mo.x = mo.x * -1;
-      this.ctx.restore();
+      this.ctx.translate(centerX, centerY);
+      this.ctx.scale(-1, 1);
+      this.ctx.translate(-centerX, -centerY);
     }
+
+    if (mo.rotate) {
+      let angle = 0;
+      switch(mo.rotate) {
+        case 'up':
+          angle = -25 * Math.PI / 180;
+          break;
+        case 'down':
+          angle = 25 * Math.PI / 180;
+          break;
+      }
+      this.ctx.translate(centerX, centerY);
+      this.ctx.rotate(angle);
+      this.ctx.translate(-centerX, -centerY);
+    }
+
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+    this.ctx.restore();
   }
 
   setWorld() {

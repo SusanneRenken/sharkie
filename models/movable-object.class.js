@@ -8,6 +8,7 @@ class MovableObject {
   currentImage;
   selectedColor;
   speed;
+  verticalSpeed;
   movementSpeed;
   otherDirection = false;
 

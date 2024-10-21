@@ -4,7 +4,7 @@ class Jellyfish extends MovableObject {
   backgroundRepeat;
   isMovingDown = true;
 
-  constructor(backgroundRepeat) {
+  constructor(backgroundRepeat, x) {
     super();
     this.backgroundRepeat = backgroundRepeat;
 
@@ -20,10 +20,10 @@ class Jellyfish extends MovableObject {
     this.width = 211 * mainScale;
     this.height = 300 * mainScale;
 
-    this.x = 0.3 * mainWidth + Math.random() * 0.5 * mainWidth;   //x wie bei Poison bestimmen !!!
+    this.x = x;
     this.y = 0.1 * mainHeight;
 
-    this.speed = 0.1 + Math.random() * 0.3;
+    this.speed = 0.5 + Math.random() * 0.5;
     this.movementSpeed = 180 + this.speed * 30;
     this.animate();
   }
