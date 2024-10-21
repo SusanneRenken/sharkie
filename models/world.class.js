@@ -104,7 +104,7 @@ class World {
   }
 
   initializeEnemies() {
-    let numberOfEnemies = this.backgroundRepeat * 50;
+    let numberOfEnemies = this.backgroundRepeat * 2;
 
     for (let i = 0; i < numberOfEnemies; i++) {
       let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
@@ -135,7 +135,7 @@ class World {
     let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
     let placedPoisons = 0;
 
-    while (placedPoisons < (this.backgroundRepeat - 1) * 50) {
+    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!this.isObjectInBarrier(poisonX, 190)) {
