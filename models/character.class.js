@@ -22,14 +22,9 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (
-        this.isArrowkeyPressed()
-      ) {
+      if (this.isArrowkeyPressed()) {
         this.animateMoving(this.IMAGES_SWIM);
         SOUNG_CHARACTER_SWIM.play();
-
-        // -----------------------------------------------------Muss später auf den Startbutton
-        // SOUND_GAME.play();
       } else {
         this.animateMoving(this.IMAGES_IDLE);
         SOUNG_CHARACTER_SWIM.pause();
