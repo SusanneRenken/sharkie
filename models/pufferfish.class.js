@@ -29,7 +29,7 @@ class Pufferfish extends MovableObject {
     this.height = 198 * mainScale;
 
     this.x =
-      mainWidth + Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1));
+      mainWidth + Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
     this.y = Math.random() * (mainHeight - this.height);
 
     this.animationRepeat = Math.floor(3 + Math.random() * 4);

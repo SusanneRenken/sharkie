@@ -28,9 +28,9 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.levelEndX = this.backgroundRepeat * 2 * mainWidth - mainWidth;
     this.loadBackgroundObjects();
-    this.initializeEnemies();
     this.placeCoins();
     this.placeBarriers();
+    this.initializeEnemies();
     this.placePoison();
     this.draw();
     this.setWorld();
@@ -42,42 +42,6 @@ class World {
         this.backgroundObjeckts.push(new BackgroundObject(path, index));
       }
     });
-  }
-
-  initializeEnemies() {
-    let numberOfEnemies = this.backgroundRepeat * 2;
-
-    for (let i = 0; i < numberOfEnemies; i++) {
-      let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
-
-      if (enemyClass == Pufferfish) {
-        this.enemies.push(new Pufferfish(this.backgroundRepeat));
-      } else {
-        this.placeJelly();
-      }
-    }
-  }
-
-  placeJelly() {
-    let lengthJellyArea = 2 * mainWidth * (this.backgroundRepeat - 1);
-    let placedJelly = 0;
-
-    while (placedJelly < 1) {
-      const jellyX = mainWidth + Math.random() * lengthJellyArea;
-
-      if (!this.isObjectInBarrier(jellyX, 220)) {
-        this.enemies.push(new Jellyfish(this.backgroundRepeat, jellyX));
-        placedJelly++;
-      }
-    }
-  }
-
-  isObjectInBarrier(objectX, objectWidth) {
-    return this.barriers.some(
-      (barrier) =>
-        objectX >= barrier.x - 2 * objectWidth * mainScale &&
-      objectX <= barrier.x + barrier.width + objectWidth * mainScale
-    );
   }
 
   placeCoins() {
@@ -139,11 +103,39 @@ class World {
     );
   }
 
+  initializeEnemies() {
+    let numberOfEnemies = this.backgroundRepeat * 50;
+
+    for (let i = 0; i < numberOfEnemies; i++) {
+      let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
+
+      if (enemyClass == Pufferfish) {
+        this.enemies.push(new Pufferfish(this.backgroundRepeat));
+      } else {
+        this.placeJelly();
+      }
+    }
+  }
+
+  placeJelly() {
+    let lengthJellyArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
+    let placedJelly = 0;
+
+    while (placedJelly < 1) {
+      const jellyX = mainWidth + Math.random() * lengthJellyArea;
+
+      if (!this.isObjectInBarrier(jellyX, 220)) {
+        this.enemies.push(new Jellyfish(this.backgroundRepeat, jellyX));
+        placedJelly++;
+      }
+    }
+  }
+
   placePoison() {
-    let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1);
+    let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
     let placedPoisons = 0;
 
-    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
+    while (placedPoisons < (this.backgroundRepeat - 1) * 50) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!this.isObjectInBarrier(poisonX, 190)) {
@@ -151,6 +143,14 @@ class World {
         placedPoisons++;
       }
     }
+  }
+
+  isObjectInBarrier(objectX, objectWidth) {
+    return this.barriers.some(
+      (barrier) =>
+        objectX >= barrier.x - 1.2 * objectWidth * mainScale &&
+        objectX <= barrier.x + barrier.width + 0.2 * objectWidth * mainScale
+    );
   }
 
   draw() {
@@ -195,12 +195,12 @@ class World {
 
     if (mo.rotate) {
       let angle = 0;
-      switch(mo.rotate) {
-        case 'up':
-          angle = -25 * Math.PI / 180;
+      switch (mo.rotate) {
+        case "up":
+          angle = (-25 * Math.PI) / 180;
           break;
-        case 'down':
-          angle = 25 * Math.PI / 180;
+        case "down":
+          angle = (25 * Math.PI) / 180;
           break;
       }
       this.ctx.translate(centerX, centerY);
