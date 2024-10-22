@@ -6,6 +6,10 @@ const SOUND_CHARACTER_SWIM = new Audio("./audio/character-swim.mp3");
 SOUND_CHARACTER_SWIM.volume = 0.2;
 SOUND_CHARACTER_SWIM.loop = true;
 
+const SOUND_CHARACTER_SLEEP = new Audio("./audio/character-sleep.mp3");
+SOUND_CHARACTER_SLEEP.volume = 0.2;
+SOUND_CHARACTER_SLEEP.loop = true;
+
 const SOUND_ENDBOSS_INTRODUCE = new Audio("./audio/endboss-introduce.mp3");
 SOUND_ENDBOSS_INTRODUCE.volume = 0.2;
 

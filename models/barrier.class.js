@@ -1,8 +1,10 @@
 class Barrier extends MovableObject {
+  barrierNumber
   
   constructor(barrierNumber, width, height, x) {
     super();
 
+    this.barrierNumber = barrierNumber;
     this.width = width;
     this.height = height;
     this.y = mainHeight - height;

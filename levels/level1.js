@@ -9,7 +9,7 @@ function getLevel1() {
     [
       "./img/background/layers/light/3.png",
     ],
-    3,
+    1,
     5,
   );
   return level1

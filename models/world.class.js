@@ -59,6 +59,12 @@ class World {
       { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
       { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
     ];
+  
+    let testBarrier = 1;//Nur zum TESTEN - Löschen
+
+    this.barriers.push(
+      new Barrier(testBarrier,BARRIER_DIMENSIONS[testBarrier - 1].barrierWidth, BARRIER_DIMENSIONS[testBarrier - 1].barrierHeight, 50)
+    ); //Nur zum TESTEN - Löschen
 
     let barrierAreas = [];
     let isBarrierPlaced = false;
@@ -183,34 +189,42 @@ class World {
 
   addToMap(mo) {
     this.ctx.save();
-
     const centerX = mo.x + mo.width / 2;
     const centerY = mo.y + mo.height / 2;
 
     if (mo.otherDirection) {
-      this.ctx.translate(centerX, centerY);
-      this.ctx.scale(-1, 1);
-      this.ctx.translate(-centerX, -centerY);
+      this.reflectObject(centerX, centerY);
     }
 
     if (mo.rotate) {
-      let angle = 0;
-      switch (mo.rotate) {
-        case "up":
-          angle = (-25 * Math.PI) / 180;
-          break;
-        case "down":
-          angle = (25 * Math.PI) / 180;
-          break;
-      }
-      this.ctx.translate(centerX, centerY);
-      this.ctx.rotate(angle);
-      this.ctx.translate(-centerX, -centerY);
+      this.rotateObject(centerX, centerY, mo.rotate);
     }
 
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    mo.drawObject(this.ctx);
+    mo.drawFrame(this.ctx);
 
     this.ctx.restore();
+  }
+
+  reflectObject(centerX, centerY) {
+    this.ctx.translate(centerX, centerY);
+    this.ctx.scale(-1, 1);
+    this.ctx.translate(-centerX, -centerY);
+  }
+
+  rotateObject(centerX, centerY, rotate) {
+    let angle = 0;
+    switch (rotate) {
+      case "up":
+        angle = (-25 * Math.PI) / 180;
+        break;
+      case "down":
+        angle = (25 * Math.PI) / 180;
+        break;
+    }
+    this.ctx.translate(centerX, centerY);
+    this.ctx.rotate(angle);
+    this.ctx.translate(-centerX, -centerY);
   }
 
   setWorld() {
