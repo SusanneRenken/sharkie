@@ -1,4 +1,5 @@
 class Endboss extends MovableObject {
+  introduceNotStarted = true;
   introduceComplete = false;
   introduceStartX;
   IMAGES_INT;
@@ -31,17 +32,29 @@ class Endboss extends MovableObject {
   animate() {
     setInterval(() => {
       if (
-        !this.introduceComplete &&
+        !this.introduceComplete && this.introduceNotStarted &&
         this.world.character.x > this.introduceStartX
       ) {
         this.y = -70;
         SOUND_ENDBOSS_INTRODUCE.play();
-        this.animateMovingOnce(this.IMAGES_INT);
-        if (this.currentImage >= this.IMAGES_INT.length) {
+
+
+        if (this.introduceNotStarted) {
+          this.animateMoving(this.IMAGES_INT);
+          this.isAnimationComplete(this.IMAGES_INT, "introduceNotStarted");
+        }
+        if (!this.introduceNotStarted) {
           this.introduceComplete = true;
-          this.currentImage = 0;
           this.startMoving();
         }
+
+
+        // this.animateMovingOnce(this.IMAGES_INT);
+        // if (this.currentImage >= this.IMAGES_INT.length) {
+        //   this.introduceNotStarted = true;
+        //   this.currentImage = 0;
+        //   this.startMoving();
+        // }
       } else if (this.introduceComplete) {
         this.animateSwimAndAttack();
       }

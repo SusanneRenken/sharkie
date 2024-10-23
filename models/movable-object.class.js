@@ -13,6 +13,7 @@ class MovableObject {
   otherDirection = false;
   animationRepeat;
   animationCount = 0;
+  
 
   constructor() {
     this.currentImage = 0;
@@ -51,11 +52,21 @@ class MovableObject {
     });
   }
 
+  // animateMoving(arr) {
+  //   let i = this.currentImage % arr.length;
+  //   let path = arr[i];
+  //   this.img = this.imageCache[path];
+  //   this.currentImage++;
+  // }
+
   animateMoving(arr) {
-    let i = this.currentImage % arr.length;
-    let path = arr[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
+    if (this.currentImage < arr.length) {
+      let path = arr[this.currentImage];
+      this.img = this.imageCache[path];
+      this.currentImage++;
+    } else {
+      this.currentImage = 0;
+    }
   }
 
   animateMovingReverse(arr) {
@@ -65,11 +76,10 @@ class MovableObject {
     this.currentImage++;
   }
 
-  animateMovingOnce(arr) {
-    if (this.currentImage < arr.length) {
-      let path = arr[this.currentImage];
-      this.img = this.imageCache[path];
-      this.currentImage++;
+  isAnimationComplete(arr, propertyName) {
+    if (this.currentImage % arr.length === 0) {
+      this[propertyName] = false;
+      this.currentImage = 0;
     }
   }
 
@@ -95,47 +105,48 @@ class MovableObject {
 
   drawFrame(ctx) {
     if (this instanceof Character) {
-      if (this.rotate) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
+      // if (this.rotate) {
+      //   ctx.beginPath();
+      //   ctx.lineWidth = "5";
+      //   ctx.strokeStyle = "blue";
 
-        let angle = 0;
-        switch (this.rotate) {
-          case "up":
-            angle = (25 * Math.PI) / 180;
-            break;
-          case "down":
-            angle = (-25 * Math.PI) / 180;
-            break;
-        }
+      //   let angle = 0;
+      //   switch (this.rotate) {
+      //     case "up":
+      //       angle = (25 * Math.PI) / 180;
+      //       break;
+      //     case "down":
+      //       angle = (-25 * Math.PI) / 180;
+      //       break;
+      //   }
 
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(angle);
-        ctx.translate(-this.x + this.width / 2, -this.y + this.height / 2);
+      //   ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+      //   ctx.rotate(angle);
+      //   ctx.translate(-this.x + this.width / 2, -this.y + this.height / 2);
 
-        if(this.world.keyboard.ARROWUP){
-          ctx.rect(
-            this.x  - 580 * mainScale,
-            this.y - 500 * mainScale,
-            this.width - 260 * mainScale,
-            this.height - 610 * mainScale
-          );
-        }
+      //   if(this.world.keyboard.ARROWUP){
+      //     ctx.rect(
+      //       this.x  - 580 * mainScale,
+      //       this.y - 500 * mainScale,
+      //       this.width - 260 * mainScale,
+      //       this.height - 610 * mainScale
+      //     );
+      //   }
 
-        if(this.world.keyboard.ARROWDOWN){
-          ctx.rect(
-            this.x  - 650 * mainScale,
-            this.y - 500 * mainScale,
-            this.width - 260 * mainScale,
-            this.height - 610 * mainScale
-          );
-        }
-        
-        ctx.stroke();
-      }
+      //   if(this.world.keyboard.ARROWDOWN){
+      //     ctx.rect(
+      //       this.x  - 650 * mainScale,
+      //       this.y - 500 * mainScale,
+      //       this.width - 260 * mainScale,
+      //       this.height - 610 * mainScale
+      //     );
+      //   }
 
-      if (!this.rotate) {
+      //   ctx.stroke();
+      // }
+
+      // wenn rotieren wieder aktiviert wird, dann "&& !this.rotate" in die if-Bedingug
+      if (!this.isSleeping) {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
@@ -144,6 +155,19 @@ class MovableObject {
           this.y + 410 * mainScale,
           this.width - 280 * mainScale,
           this.height - 610 * mainScale
+        );
+        ctx.stroke();
+      }
+
+      if (this.isSleeping) {
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "blue";
+        ctx.rect(
+          this.x + 140 * mainScale,
+          this.y + 540 * mainScale,
+          this.width - 280 * mainScale,
+          this.height - 640 * mainScale
         );
         ctx.stroke();
       }
@@ -174,10 +198,13 @@ class MovableObject {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
-      ctx.rect(this.x + 50 * mainScale, this.y + 575 * mainScale, this.width - 100 * mainScale, this.height - 800 * mainScale);
+      ctx.rect(
+        this.x + 50 * mainScale,
+        this.y + 575 * mainScale,
+        this.width - 100 * mainScale,
+        this.height - 800 * mainScale
+      );
       ctx.stroke();
-
-      
     }
 
     if (this instanceof Coin || this instanceof Poison) {

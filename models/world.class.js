@@ -9,7 +9,7 @@ class World {
     this.level.characterSpeed,
     this.backgroundRepeat
   );
-  character = new Character(this.level.characterSpeed);
+  character = new Character(this.level.characterSpeed, this);
   enemies = [];
   finalEnemy = new Endboss(this.backgroundRepeat);
   coins = [];
@@ -59,12 +59,6 @@ class World {
       { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
       { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
     ];
-  
-    let testBarrier = 1;//Nur zum TESTEN - Löschen
-
-    this.barriers.push(
-      new Barrier(testBarrier,BARRIER_DIMENSIONS[testBarrier - 1].barrierWidth, BARRIER_DIMENSIONS[testBarrier - 1].barrierHeight, 50)
-    ); //Nur zum TESTEN - Löschen
 
     let barrierAreas = [];
     let isBarrierPlaced = false;
@@ -196,9 +190,9 @@ class World {
       this.reflectObject(centerX, centerY);
     }
 
-    if (mo.rotate) {
-      this.rotateObject(centerX, centerY, mo.rotate);
-    }
+    // if (mo.rotate) {
+    //   this.rotateObject(centerX, centerY, mo.rotate);
+    // }
 
     mo.drawObject(this.ctx);
     mo.drawFrame(this.ctx);
@@ -212,23 +206,22 @@ class World {
     this.ctx.translate(-centerX, -centerY);
   }
 
-  rotateObject(centerX, centerY, rotate) {
-    let angle = 0;
-    switch (rotate) {
-      case "up":
-        angle = (-25 * Math.PI) / 180;
-        break;
-      case "down":
-        angle = (25 * Math.PI) / 180;
-        break;
-    }
-    this.ctx.translate(centerX, centerY);
-    this.ctx.rotate(angle);
-    this.ctx.translate(-centerX, -centerY);
-  }
+  // rotateObject(centerX, centerY, rotate) {
+  //   let angle = 0;
+  //   switch (rotate) {
+  //     case "up":
+  //       angle = (-25 * Math.PI) / 180;
+  //       break;
+  //     case "down":
+  //       angle = (25 * Math.PI) / 180;
+  //       break;
+  //   }
+  //   this.ctx.translate(centerX, centerY);
+  //   this.ctx.rotate(angle);
+  //   this.ctx.translate(-centerX, -centerY);
+  // }
 
   setWorld() {
-    this.character.world = this;
     this.sunlight.world = this;
     this.finalEnemy.world = this;
   }

@@ -3,7 +3,7 @@ class Keyboard {
   ARROWRIGHT = false;
   ARROWUP = false;
   ARROWDOWN = false;
-  SPACE = false;
+  // SPACE = false;
   KEYW = false;
   KEYS = false;
   KEYD = false;
