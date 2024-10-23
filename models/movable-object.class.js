@@ -52,13 +52,6 @@ class MovableObject {
     });
   }
 
-  // animateMoving(arr) {
-  //   let i = this.currentImage % arr.length;
-  //   let path = arr[i];
-  //   this.img = this.imageCache[path];
-  //   this.currentImage++;
-  // }
-
   animateMoving(arr) {
     if (this.currentImage < arr.length) {
       let path = arr[this.currentImage];
@@ -105,47 +98,6 @@ class MovableObject {
 
   drawFrame(ctx) {
     if (this instanceof Character) {
-      // if (this.rotate) {
-      //   ctx.beginPath();
-      //   ctx.lineWidth = "5";
-      //   ctx.strokeStyle = "blue";
-
-      //   let angle = 0;
-      //   switch (this.rotate) {
-      //     case "up":
-      //       angle = (25 * Math.PI) / 180;
-      //       break;
-      //     case "down":
-      //       angle = (-25 * Math.PI) / 180;
-      //       break;
-      //   }
-
-      //   ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-      //   ctx.rotate(angle);
-      //   ctx.translate(-this.x + this.width / 2, -this.y + this.height / 2);
-
-      //   if(this.world.keyboard.ARROWUP){
-      //     ctx.rect(
-      //       this.x  - 580 * mainScale,
-      //       this.y - 500 * mainScale,
-      //       this.width - 260 * mainScale,
-      //       this.height - 610 * mainScale
-      //     );
-      //   }
-
-      //   if(this.world.keyboard.ARROWDOWN){
-      //     ctx.rect(
-      //       this.x  - 650 * mainScale,
-      //       this.y - 500 * mainScale,
-      //       this.width - 260 * mainScale,
-      //       this.height - 610 * mainScale
-      //     );
-      //   }
-
-      //   ctx.stroke();
-      // }
-
-      // wenn rotieren wieder aktiviert wird, dann "&& !this.rotate" in die if-Bedingug
       if (!this.isSleeping) {
         ctx.beginPath();
         ctx.lineWidth = "5";

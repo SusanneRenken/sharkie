@@ -10,6 +10,7 @@ class World {
     this.backgroundRepeat
   );
   character = new Character(this.level.characterSpeed, this);
+  isAttack = false;
   enemies = [];
   finalEnemy = new Endboss(this.backgroundRepeat);
   coins = [];
@@ -34,6 +35,7 @@ class World {
     this.placePoison();
     this.draw();
     this.setWorld();
+    this.setAttack(); //-------------------------> NEU
   }
 
   loadBackgroundObjects() {
@@ -153,6 +155,15 @@ class World {
     );
   }
 
+  //-------------------------> NEU
+  setAttack() {
+    setInterval(() => {
+      if (this.character.isAttackkeyPressed() && !this.isAttack) {
+        this.isAttack = true;
+      }
+    }, 1000 / 60);
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -190,10 +201,6 @@ class World {
       this.reflectObject(centerX, centerY);
     }
 
-    // if (mo.rotate) {
-    //   this.rotateObject(centerX, centerY, mo.rotate);
-    // }
-
     mo.drawObject(this.ctx);
     mo.drawFrame(this.ctx);
 
@@ -205,21 +212,6 @@ class World {
     this.ctx.scale(-1, 1);
     this.ctx.translate(-centerX, -centerY);
   }
-
-  // rotateObject(centerX, centerY, rotate) {
-  //   let angle = 0;
-  //   switch (rotate) {
-  //     case "up":
-  //       angle = (-25 * Math.PI) / 180;
-  //       break;
-  //     case "down":
-  //       angle = (25 * Math.PI) / 180;
-  //       break;
-  //   }
-  //   this.ctx.translate(centerX, centerY);
-  //   this.ctx.rotate(angle);
-  //   this.ctx.translate(-centerX, -centerY);
-  // }
 
   setWorld() {
     this.sunlight.world = this;

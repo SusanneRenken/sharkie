@@ -20,10 +20,10 @@ class Sunlight extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.ARROWRIGHT && this.x < (this.world.levelEndX - mainWidth)) {
+      if (this.world.keyboard.ARROWRIGHT && this.x < (this.world.levelEndX - mainWidth) && !this.world.isAttack) {
         this.x += this.speed;
       }
-      if (this.world.keyboard.ARROWLEFT && this.x > 0) {
+      if (this.world.keyboard.ARROWLEFT && this.x > 0 && !this.world.isAttack) {
         this.x -= this.speed;
       }
     }, 1000 / 60);

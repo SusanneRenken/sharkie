@@ -11,8 +11,10 @@ class Character extends MovableObject {
   IMAGES_BUB_N;
   IMAGES_BUB_P;
   // rotation = 0;
-  isAttack = false;
-  isFinAttack = false;
+  // isAttack = false;
+  isAttackStart = false;
+  attackType;
+  startAttackSound = 1;
   lastActiveTime = Date.now();
   isSleeping = false;
   isAwake = true;
@@ -39,12 +41,11 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.isFinAttack) {
+      if (this.world.isAttack) {
         this.wakeUp();
-        this.animateFinAttack();
+        this.animateAttack();
       } else if (this.isKeyPressed()) {
         this.wakeUp();
-
         if (this.isArrowkeyPressed()) {
           this.animateMoving(this.IMAGES_SWIM);
           // SOUND_CHARACTER_SWIM.play();
@@ -55,8 +56,12 @@ class Character extends MovableObject {
     }, 180);
 
     setInterval(() => {
-      this.setAttack();
-      if (this.isMovingRight()) {
+      if (this.world.isAttack) {
+        if (this.currentImage <= 1 && this.attackType === this.IMAGES_FIN) {
+          if (this.otherDirection === false) this.moveRight(5);
+          if (this.otherDirection === true) this.moveLeft(5);
+        }
+      } else if (this.isMovingRight()) {
         this.handleRightMovement();
       } else if (this.isMovingLeft()) {
         this.handleLeftMovement();
@@ -72,30 +77,6 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
-  setAttack() {
-    if (this.world.keyboard.KEYD && !this.isFinAttack) {
-      this.isFinAttack = true;
-    }
-  }
-
-  animateFinAttack() {
-    if (!this.isAttack) {
-      this.isAttack = true;
-      this.currentImage = 0;
-    }
-
-    if (this.isFinAttack) {
-      // SOUND_CHARACTER_FINSLAP.play();
-      this.animateMoving(this.IMAGES_FIN);
-      this.isAnimationComplete(this.IMAGES_FIN, "isFinAttack");
-    }
-
-    if (!this.isFinAttack) {
-      // SOUND_CHARACTER_FINSLAP.pause();
-      this.isAttack = false;
-    }
-  }
-
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
@@ -104,7 +85,7 @@ class Character extends MovableObject {
   //-------------------------------------------------------------------------------------
 
   isKeyPressed() {
-    return Object.values(this.world.keyboard).some((value) => value);
+    return this.isArrowkeyPressed() || this.isAttackkeyPressed();
   }
 
   isArrowkeyPressed() {
@@ -116,6 +97,29 @@ class Character extends MovableObject {
     );
   }
 
+  isAttackkeyPressed() {
+    if (!this.world.isAttack) {
+      if (this.world.keyboard.KEYD) {
+        this.attackType = this.IMAGES_FIN;
+        this.attackSound = SOUND_CHARACTER_ATTACK;
+        this.startAttackSound = 5;
+        return true;
+      }
+      if (this.world.keyboard.KEYS) {
+        this.attackType = this.IMAGES_BUB_N;
+        this.attackSound = SOUND_CHARACTER_BUB_N;
+        this.startAttackSound = 7;
+        return true;
+      }
+      if (this.world.keyboard.KEYW) {
+        this.attackType = this.IMAGES_BUB_P;
+        this.attackSound = SOUND_CHARACTER_BUB_P;
+        this.startAttackSound = 7;
+        return true;
+      }
+    }
+  }
+
   wakeUp() {
     this.lastActiveTime = Date.now();
     this.isSleeping = false;
@@ -123,10 +127,31 @@ class Character extends MovableObject {
     SOUND_CHARACTER_SLEEP.pause();
   }
 
+  animateAttack() {
+    if (!this.isAttackStart) {
+      this.isAttackStart = true;
+      this.currentImage = 0;
+    }
+
+    if (this.world.isAttack) {
+      this.animateMoving(this.attackType);
+
+      if (this.currentImage === this.startAttackSound) {
+        this.attackSound.play();
+      }
+
+      if (this.currentImage >= this.attackType.length) {
+        this.world.isAttack = false;
+        this.isAttackStart = false;
+        this.currentImage = 0;
+      }
+    }
+  }
+
   isNoAction() {
     SOUND_CHARACTER_SWIM.pause();
     const currentTime = Date.now();
-    if (currentTime - this.lastActiveTime <= 3000) {
+    if (currentTime - this.lastActiveTime <= 8000) {
       this.animateMoving(this.IMAGES_IDLE);
     } else {
       this.animateSleeping();
@@ -212,7 +237,6 @@ class Character extends MovableObject {
 
   handleNoMovement() {
     // this.rotate = false;
-    this.otherDirection = false;
     if (this.y < 290 * mainScale) {
       this.moveDown(this.verticalSpeed * 0.1);
     }
