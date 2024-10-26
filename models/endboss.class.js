@@ -9,9 +9,10 @@ class Endboss extends MovableObject {
   IMAGES_DEAD;
   world;
 
-  constructor(backgroundRepeat) {
+  constructor(backgroundRepeat, world) {
     super();
-
+    this.world = world;
+    
     this.width = 1041 * mainScale;
     this.height = 1216 * mainScale;
     this.x = 2 * mainWidth * backgroundRepeat - 1.3 * this.width;
@@ -39,7 +40,7 @@ class Endboss extends MovableObject {
         this.y = -70;
         SOUND_ENDBOSS_INTRODUCE.play();
         if (this.introduceNotStarted) {
-          this.animateMoving(this.IMAGES_INT);
+          this.animateMovingOnce(this.IMAGES_INT);
           this.isAnimationComplete(this.IMAGES_INT, "introduceNotStarted");
         }
         if (!this.introduceNotStarted) {

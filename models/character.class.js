@@ -10,8 +10,6 @@ class Character extends MovableObject {
   IMAGES_FIN;
   IMAGES_BUB_N;
   IMAGES_BUB_P;
-  // rotation = 0;
-  // isAttack = false;
   isAttackStart = false;
   attackType;
   startAttackSound = 1;
@@ -134,7 +132,7 @@ class Character extends MovableObject {
     }
 
     if (this.world.isAttack) {
-      this.animateMoving(this.attackType);
+      this.animateMovingOnce(this.attackType);
 
       if (this.currentImage === this.startAttackSound) {
         this.attackSound.play();
@@ -165,7 +163,7 @@ class Character extends MovableObject {
     }
     if (this.isAwake) {
       // SOUND_CHARACTER_SLEEP.play();
-      this.animateMoving(this.IMAGES_TRANS);
+      this.animateMovingOnce(this.IMAGES_TRANS);
       this.isAnimationComplete(this.IMAGES_TRANS, "isAwake");
     }
     if (!this.isAwake) {
@@ -191,12 +189,8 @@ class Character extends MovableObject {
     this.moveRight(this.speed);
     if (this.world.keyboard.ARROWUP && this.y > -400 * mainScale) {
       this.moveUp(this.verticalSpeed);
-      // this.rotate = "up";
     } else if (this.world.keyboard.ARROWDOWN && this.y < 370 * mainScale) {
       this.moveDown(this.verticalSpeed);
-      // this.rotate = "down";
-    } else {
-      // this.rotate = false;
     }
     this.otherDirection = false;
   }
@@ -209,12 +203,8 @@ class Character extends MovableObject {
     this.moveLeft(this.speed);
     if (this.world.keyboard.ARROWUP && this.y > -400 * mainScale) {
       this.moveUp(this.verticalSpeed);
-      // this.rotate = "up";
     } else if (this.world.keyboard.ARROWDOWN && this.y < 370 * mainScale) {
       this.moveDown(this.verticalSpeed);
-      // this.rotate = "down";
-    } else {
-      // this.rotate = false;
     }
     this.otherDirection = true;
   }
@@ -236,7 +226,6 @@ class Character extends MovableObject {
   }
 
   handleNoMovement() {
-    // this.rotate = false;
     if (this.y < 290 * mainScale) {
       this.moveDown(this.verticalSpeed * 0.1);
     }

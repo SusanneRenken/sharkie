@@ -53,6 +53,14 @@ class MovableObject {
   }
 
   animateMoving(arr) {
+    let i = this.currentImage % arr.length;
+    let path = arr[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+    this.i = 0;
+  }
+
+  animateMovingOnce(arr) {
     if (this.currentImage < arr.length) {
       let path = arr[this.currentImage];
       this.img = this.imageCache[path];

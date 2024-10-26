@@ -8,10 +8,11 @@ class Sunlight extends MovableObject {
   IMAGES_SWIM;
   world;
 
-  constructor(imbagePath, characterSpeed, backgroundRepeat) {
+  constructor(imbagePath, characterSpeed, backgroundRepeat, world) {
     super();
+    this.world = world;
     this.loadImage(imbagePath);
-    this.speed = characterSpeed * ((backgroundRepeat - 1) / (backgroundRepeat - 0.5));
+    this.speed = -characterSpeed * ((backgroundRepeat - 1) / (backgroundRepeat - 0.5));
     this.movementSpeed = 180;
     this.animate();
   }

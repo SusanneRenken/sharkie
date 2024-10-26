@@ -1,5 +1,5 @@
 class Jellyfish extends MovableObject {
-  COLOR = ["green", "lila", "pink", "yellow"];
+  COLOR = ["melon", "lila", "pink", "yellow"];
   IMAGES_SWIM;
   backgroundRepeat;
   isMovingDown = true;

@@ -7,12 +7,13 @@ class World {
   sunlight = new Sunlight(
     this.level.sunlight,
     this.level.characterSpeed,
-    this.backgroundRepeat
+    this.backgroundRepeat,
+    this
   );
   character = new Character(this.level.characterSpeed, this);
   isAttack = false;
   enemies = [];
-  finalEnemy = new Endboss(this.backgroundRepeat);
+  finalEnemy = new Endboss(this.backgroundRepeat, this);
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
@@ -34,8 +35,7 @@ class World {
     this.initializeEnemies();
     this.placePoison();
     this.draw();
-    this.setWorld();
-    this.setAttack(); //-------------------------> NEU
+    this.setAttack();
   }
 
   loadBackgroundObjects() {
@@ -155,13 +155,12 @@ class World {
     );
   }
 
-  //-------------------------> NEU
   setAttack() {
     setInterval(() => {
       if (this.character.isAttackkeyPressed() && !this.isAttack) {
         this.isAttack = true;
       }
-    }, 1000 / 60);
+    }, 0);
   }
 
   draw() {
@@ -170,14 +169,17 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.backgroundObjeckts);
+    this.ctx.translate(-this.camera_x, 0);
+
     this.addToMap(this.sunlight);
+
+    this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
     this.addToMap(this.character);
     this.addToMap(this.finalEnemy);
-
     this.ctx.translate(-this.camera_x, 0);
 
     let self = this;
@@ -213,8 +215,4 @@ class World {
     this.ctx.translate(-centerX, -centerY);
   }
 
-  setWorld() {
-    this.sunlight.world = this;
-    this.finalEnemy.world = this;
-  }
 }
