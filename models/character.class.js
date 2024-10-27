@@ -1,8 +1,4 @@
 class Character extends MovableObject {
-  width = 815 * mainScale * 0.9;
-  height = 1000 * mainScale * 0.9;
-  x = 0;
-  y = -100;
   IMAGES_IDLE;
   IMAGES_SWIM;
   IMAGES_TRANS;
@@ -22,6 +18,29 @@ class Character extends MovableObject {
     super();
     this.world = world;
 
+    this.getParameter();
+    this.getImages();
+
+    this.speed = characterSpeed;
+    this.verticalSpeed = 0.5 * characterSpeed;
+    this.movementSpeed = 180;
+
+    this.animate();
+  }
+
+  getParameter() {
+    this.width = 815 * mainScale * 0.9;
+    this.height = 1000 * mainScale * 0.9;
+    this.x = 0;
+    this.y = -100;
+    // Hier muss noch das "Schlafen" berücksichtigt werden
+    this.offsetX = 140 * mainScale;
+    this.offsetY = 420 * mainScale;
+    this.offsetwidth = this.width - 280 * mainScale;
+    this.offsetheight = this.height - 620 * mainScale;
+  }
+
+  getImages() {
     this.IMAGES_IDLE = this.loadAllImages("./img/character", "idle", 18);
     this.IMAGES_SWIM = this.loadAllImages("./img/character", "swim", 6);
     this.IMAGES_TRANS = this.loadAllImages("./img/character", "transition", 10);
@@ -29,12 +48,6 @@ class Character extends MovableObject {
     this.IMAGES_FIN = this.loadAllImages("./img/character", "at_fin-slap", 8);
     this.IMAGES_BUB_N = this.loadAllImages("./img/character", "at_bub_n", 8);
     this.IMAGES_BUB_P = this.loadAllImages("./img/character", "at_bub_p", 8);
-
-    this.speed = characterSpeed;
-    this.verticalSpeed = 0.5 * characterSpeed;
-    this.movementSpeed = 180;
-
-    this.animate();
   }
 
   animate() {

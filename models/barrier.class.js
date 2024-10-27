@@ -1,6 +1,6 @@
 class Barrier extends MovableObject {
-  barrierNumber
-  
+  barrierNumber;
+
   constructor(barrierNumber, width, height, x) {
     super();
 

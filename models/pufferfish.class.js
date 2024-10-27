@@ -10,7 +10,37 @@ class Pufferfish extends MovableObject {
     this.backgroundRepeat = backgroundRepeat;
 
     this.getRandomColor();
+    this.getParameter();
+    this.getImages();
 
+    this.animationRepeat = Math.floor(3 + Math.random() * 4);
+    this.speed = 0.3 + Math.random() * 0.6;
+    this.movementSpeed = 100 + this.speed * 30;
+
+    this.animate();
+  }
+
+  getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * this.COLOR.length);
+    this.selectedColor = this.COLOR[randomIndex];
+  }
+
+  getParameter() {
+    this.width = 241 * mainScale;
+    this.height = 198 * mainScale;
+
+    this.x =
+      mainWidth +
+      Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
+    this.y = Math.random() * (mainHeight - this.height);
+
+    this.offsetX = 0; // Kann evt. gelöscht werden
+    this.offsetY = 0; // Kann evt. gelöscht werden
+    this.offsetwidth = this.width - 20 * mainScale;
+    this.offsetheight = 0; // Kann evt. gelöscht werden
+  }
+
+  getImages() {
     this.IMAGES_SWIM = this.loadAllImages("./img/enemy/pufferfish", "swim", 5);
     this.IMAGES_TRANSITION = this.loadAllImages(
       "./img/enemy/pufferfish",
@@ -22,24 +52,6 @@ class Pufferfish extends MovableObject {
       "bubbleswim",
       5
     );
-
-    this.width = 241 * mainScale;
-    this.height = 198 * mainScale;
-
-    this.x =
-      mainWidth + Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
-    this.y = Math.random() * (mainHeight - this.height);
-
-    this.animationRepeat = Math.floor(3 + Math.random() * 4);
-
-    this.speed = 0.3 + Math.random() * 0.6;
-    this.movementSpeed = 100 + this.speed * 30;
-    this.animate();
-  }
-
-  getRandomColor() {
-    const randomIndex = Math.floor(Math.random() * this.COLOR.length);
-    this.selectedColor = this.COLOR[randomIndex];
   }
 
   animate() {
@@ -67,8 +79,8 @@ class Pufferfish extends MovableObject {
     }, 1000 / 60);
   }
 
-  isAnimateSwim(arr){
-    if (this.currentImage % arr.length  === 0) {
+  isAnimateSwim(arr) {
+    if (this.currentImage % arr.length === 0) {
       this.animationCount++;
       this.currentImage = 0;
     }

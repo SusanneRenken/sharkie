@@ -17,6 +17,11 @@ class World {
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
+  BARRIER_DIMENSIONS = [
+    { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
+    { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
+    { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
+  ];
   barriers = [];
   poisons = [];
   canvas;
@@ -47,7 +52,7 @@ class World {
   }
 
   placeCoins() {
-    getStartPlaces(
+    getStartPlacesCoins(
       this.backgroundRepeat,
       this.xCoinPlaces,
       this.coinCollectionWidth
@@ -56,52 +61,17 @@ class World {
   }
 
   placeBarriers() {
-    const BARRIER_DIMENSIONS = [
-      { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
-      { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
-      { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
-    ];
-
     let barrierAreas = [];
     let isBarrierPlaced = false;
 
-    this.getBarrierAreas(barrierAreas);
-    this.checkBarrierAreas(barrierAreas, BARRIER_DIMENSIONS, isBarrierPlaced);
-  }
-
-  getBarrierAreas(barrierAreas) {
-    for (let i = 0; i < this.xCoinPlaces.length - 1; i++) {
-      let areaWidth = Math.floor(
-        this.xCoinPlaces[i + 1] - this.xCoinPlaces[i] - this.coinCollectionWidth
-      );
-      barrierAreas.push(areaWidth);
-    }
-  }
-
-  checkBarrierAreas(barrierAreas, BARRIER_DIMENSIONS, isBarrierPlaced) {
-    for (let i = 0; i < barrierAreas.length; i++) {
-      const area = barrierAreas[i];
-      for (let j = 0; j < 3; j++) {
-        if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
-          isBarrierPlaced = Math.random() < 0.7 ? true : false;
-          if (isBarrierPlaced) {
-            this.generateBarriers(BARRIER_DIMENSIONS, j + 1, i, area);
-          }
-        }
-      }
-      isBarrierPlaced = false;
-    }
-  }
-
-  generateBarriers(BARRIER_DIMENSIONS, barrierNumber, i, area) {
-    let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
-    let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
-    let randomLength = Math.random() * (area - width);
-    let xBarrierPlace =
-      this.xCoinPlaces[i] + this.coinCollectionWidth + randomLength;
-
-    this.barriers.push(
-      new Barrier(barrierNumber, width, height, xBarrierPlace)
+    getBarrierAreas(barrierAreas, this.xCoinPlaces, this.coinCollectionWidth);
+    checkBarrierAreas(
+      barrierAreas,
+      this.BARRIER_DIMENSIONS,
+      isBarrierPlaced,
+      this.barriers,
+      this.xCoinPlaces,
+      this.coinCollectionWidth
     );
   }
 
@@ -126,7 +96,7 @@ class World {
     while (placedJelly < 1) {
       const jellyX = mainWidth + Math.random() * lengthJellyArea;
 
-      if (!this.isObjectInBarrier(jellyX, 220)) {
+      if (!isObjectInBarrier(jellyX, 220, this.barriers)) {
         this.enemies.push(new Jellyfish(this.backgroundRepeat, jellyX));
         placedJelly++;
       }
@@ -135,25 +105,25 @@ class World {
 
   placePoison() {
     let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
+
     let placedPoisons = 0;
 
     while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
-      if (!this.isObjectInBarrier(poisonX, 190)) {
+      if (!isObjectInBarrier(poisonX, 190, this.barriers)) {
         this.poisons.push(new Poison(poisonX, this));
         placedPoisons++;
       }
     }
   }
 
-  isObjectInBarrier(objectX, objectWidth) {
-    return this.barriers.some(
-      (barrier) =>
-        objectX >= barrier.x - 1.2 * objectWidth * mainScale &&
-        objectX <= barrier.x + barrier.width + 0.2 * objectWidth * mainScale
-    );
-  }
+  // checkCollisions(){
+  //   setInterval(() => {
+
+      
+  //   }, 1000);
+  // }
 
   setAttack() {
     setInterval(() => {
@@ -214,5 +184,4 @@ class World {
     this.ctx.scale(-1, 1);
     this.ctx.translate(-centerX, -centerY);
   }
-
 }

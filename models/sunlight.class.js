@@ -12,16 +12,20 @@ class Sunlight extends MovableObject {
     super();
     this.world = world;
     this.loadImage(imbagePath);
-    this.speed = -characterSpeed * ((backgroundRepeat - 1) / (backgroundRepeat - 0.5));
+    this.speed =
+      (-characterSpeed / 2) *
+      ((backgroundRepeat - 1) / (backgroundRepeat - 0.5)); //Das stimmt noch nicht !!!!!!!!!!!
     this.movementSpeed = 180;
     this.animate();
   }
 
-   
-
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.ARROWRIGHT && this.x < (this.world.levelEndX - mainWidth) && !this.world.isAttack) {
+      if (
+        this.world.keyboard.ARROWRIGHT &&
+        this.x < this.world.levelEndX - mainWidth &&
+        !this.world.isAttack
+      ) {
         this.x += this.speed;
       }
       if (this.world.keyboard.ARROWLEFT && this.x > 0 && !this.world.isAttack) {

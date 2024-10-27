@@ -12,22 +12,36 @@ class Endboss extends MovableObject {
   constructor(backgroundRepeat, world) {
     super();
     this.world = world;
-    
+    this.backgroundRepeat = backgroundRepeat;
+
+    this.getParameter();
+    this.getImages();
+
+    this.speed = 1;
+    this.animate();
+  }
+
+  getParameter() {
     this.width = 1041 * mainScale;
     this.height = 1216 * mainScale;
-    this.x = 2 * mainWidth * backgroundRepeat - 1.3 * this.width;
+
+    this.x = 2 * mainWidth * this.backgroundRepeat - 1.3 * this.width;
     this.y = -mainHeight;
     this.introduceStartX =
-      2 * mainWidth * (backgroundRepeat - 0.5) - 1 * this.width;
+      2 * mainWidth * (this.backgroundRepeat - 0.5) - 1 * this.width;
 
+    this.offsetX = 50 * mainScale;
+    this.offsetY = 575 * mainScale;
+    this.offsetwidth = this.width - 100 * mainScale;
+    this.offsetheight = this.height - 800 * mainScale;
+  }
+
+  getImages() {
     this.IMAGES_INT = this.loadAllImages("./img/enemy/endboss", "int", 10);
     this.IMAGES_SWIM = this.loadAllImages("./img/enemy/endboss", "swim", 13);
     this.IMAGES_ATT = this.loadAllImages("./img/enemy/endboss", "attack", 6);
     this.IMAGES_HURT = this.loadAllImages("./img/enemy/endboss", "hurt", 4);
     this.IMAGES_DEAD = this.loadAllImages("./img/enemy/endboss", "dead", 6);
-
-    this.speed = 1;
-    this.animate();
   }
 
   animate() {
@@ -35,6 +49,7 @@ class Endboss extends MovableObject {
       if (
         !this.introduceComplete &&
         this.introduceNotStarted &&
+        //Hier brauche ich noch eine Flag !!! Damit der Boss kommt, auch wenn ich wieder aus dem x Bereich verschwinde
         this.world.character.x > this.introduceStartX
       ) {
         this.y = -70;

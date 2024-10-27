@@ -3,6 +3,11 @@ class MovableObject {
   height;
   x = 0;
   y = 0;
+  offsetX = 0;
+  offsetY = 0;
+  offsetwidth = 0;
+  offsetheight = 0;
+  backgroundRepeat;
   img;
   imageCache;
   currentImage;
@@ -13,7 +18,6 @@ class MovableObject {
   otherDirection = false;
   animationRepeat;
   animationCount = 0;
-  
 
   constructor() {
     this.currentImage = 0;
@@ -104,6 +108,15 @@ class MovableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  isColliding(obj) {
+    return (
+      this.x + this.offsetX + this.offsetwidth >= obj.x + obj.offsetX &&
+      this.x + this.offsetX <= obj.x + obj.offsetX + obj.offsetwidth &&
+      this.y + this.offsetY + this.offsetheight >= obj.y + obj.offsetY &&
+      this.y + this.offsetY <= obj.y + obj.offsetY + obj.offsetheight
+    );
+  }
+
   drawFrame(ctx) {
     if (this instanceof Character) {
       if (!this.isSleeping) {
@@ -112,9 +125,9 @@ class MovableObject {
         ctx.strokeStyle = "blue";
         ctx.rect(
           this.x + 140 * mainScale,
-          this.y + 410 * mainScale,
+          this.y + 420 * mainScale,
           this.width - 280 * mainScale,
-          this.height - 610 * mainScale
+          this.height - 620 * mainScale
         );
         ctx.stroke();
       }

@@ -1,4 +1,8 @@
-function getStartPlaces(backgroundRepeat, xCoinPlaces, coinCollectionWidth) {
+function getStartPlacesCoins(
+  backgroundRepeat,
+  xCoinPlaces,
+  coinCollectionWidth
+) {
   let numberOfCoinCollection = (backgroundRepeat - 1) * 2;
   let lengthCoinArea =
     2 * mainWidth * (backgroundRepeat - 0.5) - coinCollectionWidth;
@@ -57,4 +61,68 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, coins) {
       )
     );
   });
+}
+
+function getBarrierAreas(barrierAreas, xCoinPlaces, coinCollectionWidth) {
+  for (let i = 0; i < xCoinPlaces.length - 1; i++) {
+    let areaWidth = Math.floor(
+      xCoinPlaces[i + 1] - xCoinPlaces[i] - coinCollectionWidth
+    );
+    barrierAreas.push(areaWidth);
+  }
+}
+
+function checkBarrierAreas(
+  barrierAreas,
+  BARRIER_DIMENSIONS,
+  isBarrierPlaced,
+  barriers,
+  xCoinPlaces,
+  coinCollectionWidth
+) {
+  for (let i = 0; i < barrierAreas.length; i++) {
+    const area = barrierAreas[i];
+    for (let j = 0; j < 3; j++) {
+      if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
+        isBarrierPlaced = Math.random() < 0.7 ? true : false;
+        if (isBarrierPlaced) {
+          generateBarriers(
+            BARRIER_DIMENSIONS,
+            j + 1,
+            i,
+            area,
+            barriers,
+            xCoinPlaces,
+            coinCollectionWidth
+          );
+        }
+      }
+    }
+    isBarrierPlaced = false;
+  }
+}
+
+function generateBarriers(
+  BARRIER_DIMENSIONS,
+  barrierNumber,
+  i,
+  area,
+  barriers,
+  xCoinPlaces,
+  coinCollectionWidth
+) {
+  let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
+  let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
+  let randomLength = Math.random() * (area - width);
+  let xBarrierPlace = xCoinPlaces[i] + coinCollectionWidth + randomLength;
+
+  barriers.push(new Barrier(barrierNumber, width, height, xBarrierPlace));
+}
+
+function isObjectInBarrier(objectX, objectWidth, barriers) {
+  return barriers.some(
+    (barrier) =>
+      objectX >= barrier.x - 1.2 * objectWidth * mainScale &&
+      objectX <= barrier.x + barrier.width + 0.2 * objectWidth * mainScale
+  );
 }
