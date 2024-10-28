@@ -13,6 +13,8 @@ class Pufferfish extends MovableObject {
     this.getParameter();
     this.getImages();
 
+    this.enemyAttack = "IMAGES_HIT_P";
+    this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
     this.animationRepeat = Math.floor(3 + Math.random() * 4);
     this.speed = 0.3 + Math.random() * 0.6;
     this.movementSpeed = 100 + this.speed * 30;
@@ -34,10 +36,10 @@ class Pufferfish extends MovableObject {
       Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
     this.y = Math.random() * (mainHeight - this.height);
 
-    this.offsetX = 0; // Kann evt. gelöscht werden
-    this.offsetY = 0; // Kann evt. gelöscht werden
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.offsetwidth = this.width - 20 * mainScale;
-    this.offsetheight = 0; // Kann evt. gelöscht werden
+    this.offsetheight = this.height;
   }
 
   getImages() {
@@ -58,7 +60,7 @@ class Pufferfish extends MovableObject {
     setInterval(() => {
       if (this.animationCount < this.animationRepeat) {
         this.animateMoving(this.IMAGES_SWIM);
-        this.isAnimateSwim(this.IMAGES_SWIM);
+        this.countAnimationRepeat(this.IMAGES_SWIM);
       } else if (this.animationCount === this.animationRepeat) {
         this.animateMoving(this.IMAGES_TRANSITION);
         this.isAnimateTransition(true);
@@ -67,7 +69,7 @@ class Pufferfish extends MovableObject {
         this.animationCount < 2 * this.animationRepeat + 1
       ) {
         this.animateMoving(this.IMAGES_BUBBLESWIM);
-        this.isAnimateSwim(this.IMAGES_BUBBLESWIM);
+        this.countAnimationRepeat(this.IMAGES_BUBBLESWIM);
       } else if (this.animationCount === 2 * this.animationRepeat + 1) {
         this.animateMovingReverse(this.IMAGES_TRANSITION);
         this.isAnimateTransition(false);
@@ -77,13 +79,6 @@ class Pufferfish extends MovableObject {
     setInterval(() => {
       this.moveLeft(this.speed);
     }, 1000 / 60);
-  }
-
-  isAnimateSwim(arr) {
-    if (this.currentImage % arr.length === 0) {
-      this.animationCount++;
-      this.currentImage = 0;
-    }
   }
 
   isAnimateTransition(countUp) {

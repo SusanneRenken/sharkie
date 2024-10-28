@@ -17,6 +17,15 @@ SOUND_CHARACTER_BUB_N.volume = 0.2;
 const SOUND_CHARACTER_BUB_P = new Audio("./audio/character-bubble-shot2.mp3");
 SOUND_CHARACTER_BUB_P.volume = 0.2;
 
+const SOUND_CHARACTER_HIT_A = new Audio("./audio/character-hurt-attac.mp3");
+SOUND_CHARACTER_HIT_A.volume = 0.2;
+
+const SOUND_CHARACTER_HIT_E = new Audio("./audio/character-hurt-electric-shock1.mp3");
+SOUND_CHARACTER_HIT_E.volume = 0.2;
+
+const SOUND_CHARACTER_HIT_P = new Audio("./audio/character-hurt-poisoned.mp3");
+SOUND_CHARACTER_HIT_P.volume = 0.2;
+
 const SOUND_CHARACTER_SLEEP = new Audio("./audio/character-sleep.mp3");
 SOUND_CHARACTER_SLEEP.volume = 0.2;
 SOUND_CHARACTER_SLEEP.loop = true;

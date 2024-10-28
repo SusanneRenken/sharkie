@@ -17,6 +17,8 @@ class Coin extends MovableObject {
 
     this.x = x;
     this.y = y;
+    this.offsetwidth = this.width;
+    this.offsetheight = this.height;
 
     this.animate();
   }

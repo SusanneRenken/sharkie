@@ -6,6 +6,9 @@ class Character extends MovableObject {
   IMAGES_FIN;
   IMAGES_BUB_N;
   IMAGES_BUB_P;
+  IMAGES_HIT_A;
+  IMAGES_HIT_E;
+  IMAGES_HIT_P;
   isAttackStart = false;
   attackType;
   startAttackSound = 1;
@@ -33,7 +36,6 @@ class Character extends MovableObject {
     this.height = 1000 * mainScale * 0.9;
     this.x = 0;
     this.y = -100;
-    // Hier muss noch das "Schlafen" berücksichtigt werden
     this.offsetX = 140 * mainScale;
     this.offsetY = 420 * mainScale;
     this.offsetwidth = this.width - 280 * mainScale;
@@ -48,6 +50,18 @@ class Character extends MovableObject {
     this.IMAGES_FIN = this.loadAllImages("./img/character", "at_fin-slap", 8);
     this.IMAGES_BUB_N = this.loadAllImages("./img/character", "at_bub_n", 8);
     this.IMAGES_BUB_P = this.loadAllImages("./img/character", "at_bub_p", 8);
+
+    this.IMAGES_HIT_A = this.loadAllImages("./img/character", "hit_attack", 2);
+    this.IMAGES_HIT_E = this.loadAllImages(
+      "./img/character",
+      "hit_electric",
+      3
+    );
+    this.IMAGES_HIT_P = this.loadAllImages(
+      "./img/character",
+      "hit_poisoned",
+      4
+    );
   }
 
   animate() {
@@ -55,6 +69,9 @@ class Character extends MovableObject {
       if (this.world.isAttack) {
         this.wakeUp();
         this.animateAttack();
+      } else if (this.world.isHit) {
+        this.wakeUp();
+        this.animateHit();
       } else if (this.isKeyPressed()) {
         this.wakeUp();
         if (this.isArrowkeyPressed()) {
@@ -68,10 +85,9 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if (this.world.isAttack) {
-        if (this.currentImage <= 1 && this.attackType === this.IMAGES_FIN) {
-          if (this.otherDirection === false) this.moveRight(5);
-          if (this.otherDirection === true) this.moveLeft(5);
-        }
+        this.handleFinAttackMoving();
+      } else if (this.world.isHit) {
+        this.handleHitMoving();
       } else if (this.isMovingRight()) {
         this.handleRightMovement();
       } else if (this.isMovingLeft()) {
@@ -135,7 +151,15 @@ class Character extends MovableObject {
     this.lastActiveTime = Date.now();
     this.isSleeping = false;
     this.isAwake = true;
+    this.getAwakeParameter();
     SOUND_CHARACTER_SLEEP.pause();
+  }
+
+  getAwakeParameter() {
+    this.offsetX = 140 * mainScale;
+    this.offsetY = 420 * mainScale;
+    this.offsetwidth = this.width - 280 * mainScale;
+    this.offsetheight = this.height - 620 * mainScale;
   }
 
   animateAttack() {
@@ -143,19 +167,28 @@ class Character extends MovableObject {
       this.isAttackStart = true;
       this.currentImage = 0;
     }
-
     if (this.world.isAttack) {
       this.animateMovingOnce(this.attackType);
-
       if (this.currentImage === this.startAttackSound) {
         this.attackSound.play();
       }
-
       if (this.currentImage >= this.attackType.length) {
         this.world.isAttack = false;
         this.isAttackStart = false;
         this.currentImage = 0;
       }
+    }
+  }
+
+  animateHit() {
+    this.animationRepeat = 3;
+    if (this.animationCount < this.animationRepeat) {
+      this.hitSound.play();
+      this.animateMoving(this[this.enemyAttack]);
+      this.countAnimationRepeat(this[this.enemyAttack]);
+    } else if (this.animationCount === this.animationRepeat) {
+      this.world.isHit = false;
+      this.animationCount = 0;
     }
   }
 
@@ -183,8 +216,16 @@ class Character extends MovableObject {
       if (this.y >= 290 * mainScale) {
         this.y = 290 * mainScale;
       }
+      this.getSleepingParameter();
       this.animateMoving(this.IMAGES_SLEEP);
     }
+  }
+
+  getSleepingParameter() {
+    this.offsetX = 140 * mainScale;
+    this.offsetY = 540 * mainScale;
+    this.offsetwidth = this.width - 280 * mainScale;
+    this.offsetheight = this.height - 640 * mainScale;
   }
 
   //-------------------------------------------------------------------------------------
@@ -193,6 +234,24 @@ class Character extends MovableObject {
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
+  handleFinAttackMoving() {
+    if (this.currentImage <= 1 && this.attackType === this.IMAGES_FIN) {
+      if (this.otherDirection === false) this.moveRight(5);
+      if (this.otherDirection === true) this.moveLeft(5);
+    }
+    if (this.currentImage >= 6 && this.attackType === this.IMAGES_FIN) {
+      if (this.otherDirection === false) this.moveLeft(5);
+      if (this.otherDirection === true) this.moveRight(5);
+    }
+  }
+
+  //Warum beginnt die Bewegung nicht gleich?
+  handleHitMoving() {
+    if (this.currentImage <= 2 && this.animationCount < 1) {
+      if (this.otherDirection === false) this.moveLeft(5);
+      if (this.otherDirection === true) this.moveRight(5);
+    }
+  }
 
   isMovingRight() {
     return this.world.keyboard.ARROWRIGHT && this.x < this.world.levelEndX;

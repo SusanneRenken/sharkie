@@ -16,6 +16,8 @@ class Endboss extends MovableObject {
 
     this.getParameter();
     this.getImages();
+    this.enemyAttack = "IMAGES_HIT_A";    
+    this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
 
     this.speed = 1;
     this.animate();

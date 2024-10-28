@@ -15,6 +15,9 @@ class Poison extends MovableObject {
     this.y = 0;
     this.x = x;
 
+    this.offsetwidth = this.width;
+    this.offsetheight = this.height;
+
     this.IMAGES_POISON = this.loadAllImages(
       "./img/collectibles/poison",
       "animation",

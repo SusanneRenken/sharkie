@@ -12,8 +12,9 @@ class World {
   );
   character = new Character(this.level.characterSpeed, this);
   isAttack = false;
+  isHit = false;
   enemies = [];
-  finalEnemy = new Endboss(this.backgroundRepeat, this);
+  endBoss = new Endboss(this.backgroundRepeat, this);
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
@@ -40,6 +41,7 @@ class World {
     this.initializeEnemies();
     this.placePoison();
     this.draw();
+    this.checkCollisions();
     this.setAttack();
   }
 
@@ -118,16 +120,62 @@ class World {
     }
   }
 
-  // checkCollisions(){
-  //   setInterval(() => {
+  checkCollisions() {
+    setInterval(() => {
+      this.collisionWithCoin();
+      this.collisionWithPoison();
+      this.collisionWithEnemie();
+      this.collisionWithEndboss();
+    }, 100);
+  }
 
-      
-  //   }, 1000);
-  // }
+  collisionWithCoin() {
+    this.coins.forEach((coin, i) => {
+      if (this.character.isColliding(coin)) {
+        // console.log("Collision mit Coin Nr.", i, coin);
+      }
+    });
+  }
+
+  collisionWithPoison() {
+    this.poisons.forEach((poison, i) => {
+      if (this.character.isColliding(poison)) {
+        // console.log("Collision mit Poison Nr.", i, poison);
+      }
+    });
+  }
+
+  collisionWithEnemie() {
+    this.enemies.forEach((enemy, i) => {
+      if (this.character.isColliding(enemy) && !this.isHit && !this.isAttack) {
+        // console.log("Collision mit Enemy Nr.", i, enemy.enemyAttack);
+        this.character.enemyAttack = enemy.enemyAttack;
+        this.character.hitSound = enemy.enemyAttackSound;
+        this.isHit = true;
+      }
+    });
+  }
+
+  collisionWithEndboss() {
+    if (
+      this.character.isColliding(this.endBoss) &&
+      !this.isHit &&
+      !this.isAttack
+    ) {
+      // console.log("Collision mit Endboss");
+      this.character.enemyAttack = this.endBoss.enemyAttack;
+      this.character.hitSound = this.endBoss.enemyAttackSound;
+      this.isHit = true;
+    }
+  }
 
   setAttack() {
     setInterval(() => {
-      if (this.character.isAttackkeyPressed() && !this.isAttack) {
+      if (
+        this.character.isAttackkeyPressed() &&
+        !this.isAttack &&
+        !this.isHit
+      ) {
         this.isAttack = true;
       }
     }, 0);
@@ -149,7 +197,7 @@ class World {
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
     this.addToMap(this.character);
-    this.addToMap(this.finalEnemy);
+    this.addToMap(this.endBoss);
     this.ctx.translate(-this.camera_x, 0);
 
     let self = this;

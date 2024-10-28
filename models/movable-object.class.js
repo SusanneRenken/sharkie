@@ -12,6 +12,8 @@ class MovableObject {
   imageCache;
   currentImage;
   selectedColor;
+  enemyAttack;
+  enemyAttackSound;
   speed;
   verticalSpeed;
   movementSpeed;
@@ -88,6 +90,13 @@ class MovableObject {
     }
   }
 
+  countAnimationRepeat(arr) {
+    if (this.currentImage % arr.length === 0) {
+      this.animationCount++;
+      this.currentImage = 0;
+    }
+  }
+
   moveLeft(speed) {
     this.x -= speed;
   }
@@ -110,10 +119,10 @@ class MovableObject {
 
   isColliding(obj) {
     return (
-      this.x + this.offsetX + this.offsetwidth >= obj.x + obj.offsetX &&
-      this.x + this.offsetX <= obj.x + obj.offsetX + obj.offsetwidth &&
+      this.x + this.offsetX + this.offsetwidth  >= obj.x + obj.offsetX &&
+      this.x + this.offsetX                     <= obj.x + obj.offsetX + obj.offsetwidth &&
       this.y + this.offsetY + this.offsetheight >= obj.y + obj.offsetY &&
-      this.y + this.offsetY <= obj.y + obj.offsetY + obj.offsetheight
+      this.y + this.offsetY                     <= obj.y + obj.offsetY + obj.offsetheight
     );
   }
 
