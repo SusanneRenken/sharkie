@@ -4,6 +4,7 @@ class Pufferfish extends MovableObject {
   IMAGES_TRANSITION;
   IMAGES_BUBBLESWIM;
   backgroundRepeat;
+  bubble = false;
 
   constructor(backgroundRepeat) {
     super();
@@ -11,13 +12,8 @@ class Pufferfish extends MovableObject {
 
     this.getRandomColor();
     this.getParameter();
+    this.getObjectProperties();
     this.getImages();
-
-    this.enemyAttack = "IMAGES_HIT_P";
-    this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
-    this.animationRepeat = Math.floor(3 + Math.random() * 4);
-    this.speed = 0.3 + Math.random() * 0.6;
-    this.movementSpeed = 100 + this.speed * 30;
 
     this.animate();
   }
@@ -36,10 +32,23 @@ class Pufferfish extends MovableObject {
       Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
     this.y = Math.random() * (mainHeight - this.height);
 
-    this.offsetX = 0;
-    this.offsetY = 0;
-    this.offsetwidth = this.width - 20 * mainScale;
-    this.offsetheight = this.height;
+    this.offsetX = 20 * mainScale;
+    this.offsetY = 20 * mainScale;
+    this.offsetwidth = this.width - 60 * mainScale;
+    this.offsetheight = this.height - 80 * mainScale;
+  }
+
+  
+
+  getObjectProperties() {
+    this.objectLife = 1;
+    this.enemyAttack = "IMAGES_HIT_P";
+    this.enemyAttackRepeat = 1;
+    this.enemyAttackSpeed = 20;
+    this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
+    this.animationRepeat = Math.floor(3 + Math.random() * 4);
+    this.speed = 0.3 + Math.random() * 0.6;
+    this.movementSpeed = 100 + this.speed * 30;
   }
 
   getImages() {
@@ -68,9 +77,13 @@ class Pufferfish extends MovableObject {
         this.animationCount > this.animationRepeat &&
         this.animationCount < 2 * this.animationRepeat + 1
       ) {
+        this.bubble = true;
+        this.getBubbleswimParameter()
         this.animateMoving(this.IMAGES_BUBBLESWIM);
         this.countAnimationRepeat(this.IMAGES_BUBBLESWIM);
       } else if (this.animationCount === 2 * this.animationRepeat + 1) {
+        this.bubble = false;
+        this.getSwimParameter()
         this.animateMovingReverse(this.IMAGES_TRANSITION);
         this.isAnimateTransition(false);
       }
@@ -79,6 +92,14 @@ class Pufferfish extends MovableObject {
     setInterval(() => {
       this.moveLeft(this.speed);
     }, 1000 / 60);
+  }
+
+  getSwimParameter(){
+    this.offsetheight = this.height - 80 * mainScale;
+  }
+
+  getBubbleswimParameter(){
+    this.offsetheight = this.height - 40 * mainScale;
   }
 
   isAnimateTransition(countUp) {

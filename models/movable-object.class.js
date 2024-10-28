@@ -7,12 +7,17 @@ class MovableObject {
   offsetY = 0;
   offsetwidth = 0;
   offsetheight = 0;
+  objectLife;
+  objectCoins;
+  objectPoisons;
   backgroundRepeat;
   img;
   imageCache;
   currentImage;
   selectedColor;
   enemyAttack;
+  enemyAttackRepeat;
+  enemyAttackSpeed;
   enemyAttackSound;
   speed;
   verticalSpeed;
@@ -119,10 +124,10 @@ class MovableObject {
 
   isColliding(obj) {
     return (
-      this.x + this.offsetX + this.offsetwidth  >= obj.x + obj.offsetX &&
-      this.x + this.offsetX                     <= obj.x + obj.offsetX + obj.offsetwidth &&
+      this.x + this.offsetX + this.offsetwidth >= obj.x + obj.offsetX &&
+      this.x + this.offsetX <= obj.x + obj.offsetX + obj.offsetwidth &&
       this.y + this.offsetY + this.offsetheight >= obj.y + obj.offsetY &&
-      this.y + this.offsetY                     <= obj.y + obj.offsetY + obj.offsetheight
+      this.y + this.offsetY <= obj.y + obj.offsetY + obj.offsetheight
     );
   }
 
@@ -133,10 +138,10 @@ class MovableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 140 * mainScale,
-          this.y + 420 * mainScale,
-          this.width - 280 * mainScale,
-          this.height - 620 * mainScale
+          this.x + 160 * mainScale,
+          this.y + 460 * mainScale,
+          this.width - 320 * mainScale,
+          this.height - 680 * mainScale
         );
         ctx.stroke();
       }
@@ -146,10 +151,10 @@ class MovableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 140 * mainScale,
-          this.y + 540 * mainScale,
-          this.width - 280 * mainScale,
-          this.height - 640 * mainScale
+          this.x + 160 * mainScale,
+          this.y + 560 * mainScale,
+          this.width - 320 * mainScale,
+          this.height - 700 * mainScale
         );
         ctx.stroke();
       }
@@ -160,20 +165,40 @@ class MovableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "yellow";
       ctx.rect(
-        this.x,
-        this.y + 10 * mainScale,
-        this.width,
-        this.height - 40 * mainScale
+        this.x + 30 * mainScale,
+        this.y + 50 * mainScale,
+        this.width - 60 * mainScale,
+        this.height - 100 * mainScale
       );
       ctx.stroke();
     }
 
     if (this instanceof Pufferfish) {
-      ctx.beginPath();
+      if (!this.bubble) {
+        ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
-      ctx.rect(this.x, this.y, this.width - 20 * mainScale, this.height);
+      ctx.rect(
+        this.x + 20 * mainScale,
+        this.y + 20 * mainScale,
+        this.width - 60 * mainScale,
+        this.height - 80 * mainScale
+      );
       ctx.stroke();
+      }
+
+      if (this.bubble) {
+        ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "orange";
+      ctx.rect(
+        this.x + 20 * mainScale,
+        this.y + 20 * mainScale,
+        this.width - 60 * mainScale,
+        this.height - 40 * mainScale
+      );
+      ctx.stroke();
+      }
     }
 
     if (this instanceof Endboss) {

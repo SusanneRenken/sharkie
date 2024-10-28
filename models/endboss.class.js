@@ -9,17 +9,15 @@ class Endboss extends MovableObject {
   IMAGES_DEAD;
   world;
 
-  constructor(backgroundRepeat, world) {
+  constructor(world) {
     super();
     this.world = world;
-    this.backgroundRepeat = backgroundRepeat;
+    this.backgroundRepeat = this.world.backgroundRepeat;
 
     this.getParameter();
+    this.getObjectProperties();
     this.getImages();
-    this.enemyAttack = "IMAGES_HIT_A";    
-    this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
 
-    this.speed = 1;
     this.animate();
   }
 
@@ -36,6 +34,14 @@ class Endboss extends MovableObject {
     this.offsetY = 575 * mainScale;
     this.offsetwidth = this.width - 100 * mainScale;
     this.offsetheight = this.height - 800 * mainScale;
+  }
+
+  getObjectProperties() {
+    this.enemyAttack = "IMAGES_HIT_A";
+    this.enemyAttackRepeat = 1;
+    this.enemyAttackSpeed = 30;
+    this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
+    this.speed = 1;
   }
 
   getImages() {

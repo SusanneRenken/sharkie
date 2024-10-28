@@ -10,6 +10,7 @@ class Character extends MovableObject {
   IMAGES_HIT_E;
   IMAGES_HIT_P;
   isAttackStart = false;
+  isHitStart = false;
   attackType;
   startAttackSound = 1;
   lastActiveTime = Date.now();
@@ -17,16 +18,13 @@ class Character extends MovableObject {
   isAwake = true;
   world;
 
-  constructor(characterSpeed, world) {
+  constructor(world) {
     super();
     this.world = world;
 
     this.getParameter();
+    this.getObjectProperties();
     this.getImages();
-
-    this.speed = characterSpeed;
-    this.verticalSpeed = 0.5 * characterSpeed;
-    this.movementSpeed = 180;
 
     this.animate();
   }
@@ -36,14 +34,22 @@ class Character extends MovableObject {
     this.height = 1000 * mainScale * 0.9;
     this.x = 0;
     this.y = -100;
-    this.offsetX = 140 * mainScale;
-    this.offsetY = 420 * mainScale;
-    this.offsetwidth = this.width - 280 * mainScale;
-    this.offsetheight = this.height - 620 * mainScale;
+    this.offsetX = 160 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
   }
 
-  getImages() {
-    this.IMAGES_IDLE = this.loadAllImages("./img/character", "idle", 18);
+  getObjectProperties() {
+    this.objectLife = 5;
+    this.objectCoins = 0;
+    this.objectPoisons = 0;
+    this.speed = 5 + (this.world.gameLevel - 1) / 2;
+    this.verticalSpeed = 0.5 * this.speed;
+    this.movementSpeed = 180;
+  }
+
+  getImages() {    
     this.IMAGES_SWIM = this.loadAllImages("./img/character", "swim", 6);
     this.IMAGES_TRANS = this.loadAllImages("./img/character", "transition", 10);
     this.IMAGES_SLEEP = this.loadAllImages("./img/character", "sleep", 4);
@@ -62,6 +68,7 @@ class Character extends MovableObject {
       "hit_poisoned",
       4
     );
+    this.IMAGES_IDLE = this.loadAllImages("./img/character", "idle", 18);
   }
 
   animate() {
@@ -156,10 +163,10 @@ class Character extends MovableObject {
   }
 
   getAwakeParameter() {
-    this.offsetX = 140 * mainScale;
-    this.offsetY = 420 * mainScale;
-    this.offsetwidth = this.width - 280 * mainScale;
-    this.offsetheight = this.height - 620 * mainScale;
+    this.offsetX = 160 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
   }
 
   animateAttack() {
@@ -181,12 +188,17 @@ class Character extends MovableObject {
   }
 
   animateHit() {
-    this.animationRepeat = 3;
+    this.animationRepeat = this.enemyAttackRepeat;
+    if (!this.isHitStart) {
+      this.isHitStart = true;
+      this.currentImage = 0;
+    }
     if (this.animationCount < this.animationRepeat) {
-      this.hitSound.play();
+      this.hitSound.play();      
       this.animateMoving(this[this.enemyAttack]);
       this.countAnimationRepeat(this[this.enemyAttack]);
     } else if (this.animationCount === this.animationRepeat) {
+      this.isHitStart = false;
       this.world.isHit = false;
       this.animationCount = 0;
     }
@@ -222,10 +234,10 @@ class Character extends MovableObject {
   }
 
   getSleepingParameter() {
-    this.offsetX = 140 * mainScale;
-    this.offsetY = 540 * mainScale;
-    this.offsetwidth = this.width - 280 * mainScale;
-    this.offsetheight = this.height - 640 * mainScale;
+    this.offsetX = 160 * mainScale;
+    this.offsetY = 560 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 700 * mainScale;
   }
 
   //-------------------------------------------------------------------------------------
@@ -245,11 +257,10 @@ class Character extends MovableObject {
     }
   }
 
-  //Warum beginnt die Bewegung nicht gleich?
   handleHitMoving() {
     if (this.currentImage <= 2 && this.animationCount < 1) {
-      if (this.otherDirection === false) this.moveLeft(5);
-      if (this.otherDirection === true) this.moveRight(5);
+      if (this.otherDirection === false) this.moveLeft(this.enemyAttackSpeed);
+      if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);
     }
   }
 

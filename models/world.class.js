@@ -1,5 +1,7 @@
 class World {
   level = getLevel1();
+  gameLevel = 1;
+  gameLevelFactor = Math.floor(this.gameLevel / 2 + 0.5);
   pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
@@ -10,11 +12,11 @@ class World {
     this.backgroundRepeat,
     this
   );
-  character = new Character(this.level.characterSpeed, this);
+  character = new Character(this);
   isAttack = false;
   isHit = false;
   enemies = [];
-  endBoss = new Endboss(this.backgroundRepeat, this);
+  endBoss = new Endboss(this);
   coins = [];
   coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
@@ -47,7 +49,7 @@ class World {
 
   loadBackgroundObjects() {
     this.pathBackgroundObjeckts.forEach((path) => {
-      for (let index = -1; index < this.backgroundRepeat; index++) {
+      for (let index = -1; index < this.backgroundRepeat + 1; index++) {
         this.backgroundObjeckts.push(new BackgroundObject(path, index));
       }
     });
@@ -78,7 +80,7 @@ class World {
   }
 
   initializeEnemies() {
-    let numberOfEnemies = this.backgroundRepeat * 2;
+    let numberOfEnemies = this.backgroundRepeat * (1 + this.gameLevelFactor);
 
     for (let i = 0; i < numberOfEnemies; i++) {
       let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
@@ -150,6 +152,8 @@ class World {
       if (this.character.isColliding(enemy) && !this.isHit && !this.isAttack) {
         // console.log("Collision mit Enemy Nr.", i, enemy.enemyAttack);
         this.character.enemyAttack = enemy.enemyAttack;
+        this.character.enemyAttackRepeat = enemy.enemyAttackRepeat;
+        this.character.enemyAttackSpeed = enemy.enemyAttackSpeed;
         this.character.hitSound = enemy.enemyAttackSound;
         this.isHit = true;
       }
@@ -162,8 +166,9 @@ class World {
       !this.isHit &&
       !this.isAttack
     ) {
-      // console.log("Collision mit Endboss");
       this.character.enemyAttack = this.endBoss.enemyAttack;
+      this.character.enemyAttackRepeat = this.endBoss.enemyAttackRepeat;
+      this.character.enemyAttackSpeed = this.endBoss.enemyAttackSpeed;
       this.character.hitSound = this.endBoss.enemyAttackSound;
       this.isHit = true;
     }
