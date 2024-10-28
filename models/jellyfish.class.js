@@ -53,15 +53,19 @@ class Jellyfish extends MovableObject {
   getAttack() {
     if (this.selectedColor === "melon" || this.selectedColor === "pink") {
       this.enemyAttack = "IMAGES_HIT_E";
+      this.enemyAttackForDeath = "IMAGES_DEAD_E";
       this.enemyAttackRepeat = 2;
       this.enemyAttackSpeed = 20;
       this.enemyAttackSound = SOUND_CHARACTER_HIT_E;
+      this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_E;
     } else {
       this.enemyAttack = "IMAGES_HIT_P";
+      this.enemyAttackForDeath = "IMAGES_DEAD_A";
       this.enemyAttackRepeat = 1;
       this.enemyAttackMovingLength = 1;
       this.enemyAttackSpeed = 20;
       this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
+      this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
     }
   }
 

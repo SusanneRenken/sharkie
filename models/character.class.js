@@ -9,6 +9,8 @@ class Character extends MovableObject {
   IMAGES_HIT_A;
   IMAGES_HIT_E;
   IMAGES_HIT_P;
+  IMAGES_DEAD_A;
+  IMAGES_DEAD_E;
   isAttackStart = false;
   isHitStart = false;
   attackType;
@@ -16,6 +18,7 @@ class Character extends MovableObject {
   lastActiveTime = Date.now();
   isSleeping = false;
   isAwake = true;
+  isDead = false;
   world;
 
   constructor(world) {
@@ -41,7 +44,7 @@ class Character extends MovableObject {
   }
 
   getObjectProperties() {
-    this.objectLife = 5;
+    this.objectLife = 2;
     this.objectCoins = 0;
     this.objectPoisons = 0;
     this.speed = 5 + (this.world.gameLevel - 1) / 2;
@@ -49,44 +52,39 @@ class Character extends MovableObject {
     this.movementSpeed = 180;
   }
 
-  getImages() {    
+  getImages() {
     this.IMAGES_SWIM = this.loadAllImages("./img/character", "swim", 6);
     this.IMAGES_TRANS = this.loadAllImages("./img/character", "transition", 10);
     this.IMAGES_SLEEP = this.loadAllImages("./img/character", "sleep", 4);
     this.IMAGES_FIN = this.loadAllImages("./img/character", "at_fin-slap", 8);
     this.IMAGES_BUB_N = this.loadAllImages("./img/character", "at_bub_n", 8);
     this.IMAGES_BUB_P = this.loadAllImages("./img/character", "at_bub_p", 8);
-
-    this.IMAGES_HIT_A = this.loadAllImages("./img/character", "hit_attack", 2);
-    this.IMAGES_HIT_E = this.loadAllImages(
-      "./img/character",
-      "hit_electric",
-      3
-    );
-    this.IMAGES_HIT_P = this.loadAllImages(
-      "./img/character",
-      "hit_poisoned",
-      4
-    );
+    this.IMAGES_HIT_A = this.loadAllImages("./img/character", "hit_a", 2);
+    this.IMAGES_HIT_E = this.loadAllImages("./img/character", "hit_e", 3);
+    this.IMAGES_HIT_P = this.loadAllImages("./img/character", "hit_p", 4);
+    this.IMAGES_DEAD_A = this.loadAllImages("./img/character", "dead_a", 11);
+    this.IMAGES_DEAD_E = this.loadAllImages("./img/character", "dead_e", 10);
     this.IMAGES_IDLE = this.loadAllImages("./img/character", "idle", 18);
   }
 
   animate() {
     setInterval(() => {
-      if (this.world.isAttack) {
-        this.wakeUp();
-        this.animateAttack();
-      } else if (this.world.isHit) {
-        this.wakeUp();
-        this.animateHit();
-      } else if (this.isKeyPressed()) {
-        this.wakeUp();
-        if (this.isArrowkeyPressed()) {
-          this.animateMoving(this.IMAGES_SWIM);
-          // SOUND_CHARACTER_SWIM.play();
+      if (!this.isDead) {
+        if (this.world.isAttack) {
+          this.wakeUp();
+          this.animateAttack();
+        } else if (this.world.isHit) {
+          this.wakeUp();
+          this.animateHit();
+        } else if (this.isKeyPressed()) {
+          this.wakeUp();
+          if (this.isArrowkeyPressed()) {
+            this.animateMoving(this.IMAGES_SWIM);
+            SOUND_CHARACTER_SWIM.play();
+          }
+        } else {
+          this.isNoAction();
         }
-      } else {
-        this.isNoAction();
       }
     }, 180);
 
@@ -170,6 +168,7 @@ class Character extends MovableObject {
   }
 
   animateAttack() {
+    SOUND_CHARACTER_SWIM.pause();
     if (!this.isAttackStart) {
       this.isAttackStart = true;
       this.currentImage = 0;
@@ -188,19 +187,39 @@ class Character extends MovableObject {
   }
 
   animateHit() {
+    SOUND_CHARACTER_SWIM.pause();
     this.animationRepeat = this.enemyAttackRepeat;
     if (!this.isHitStart) {
       this.isHitStart = true;
+      this.objectLife--;
       this.currentImage = 0;
     }
+    if (this.objectLife > 0) {
+      this.animateHitAnimation();
+    } else {
+      this.animateDeathAnimation();
+    }
+  }
+
+  animateHitAnimation() {
     if (this.animationCount < this.animationRepeat) {
-      this.hitSound.play();      
+      this.enemyAttackSound.play();
       this.animateMoving(this[this.enemyAttack]);
       this.countAnimationRepeat(this[this.enemyAttack]);
     } else if (this.animationCount === this.animationRepeat) {
       this.isHitStart = false;
       this.world.isHit = false;
       this.animationCount = 0;
+    }
+  }
+
+  animateDeathAnimation() {
+    if (this.currentImage === 0) {
+      this.enemyAttackDeadSound.play();
+    }
+    this.animateMovingOnce(this[this.enemyAttackForDeath]);
+    if (this.currentImage >= this[this.enemyAttackForDeath].length) {
+      this.isDead = true;
     }
   }
 
@@ -257,10 +276,35 @@ class Character extends MovableObject {
     }
   }
 
+  isDeathByAttack() {
+    return (
+      this.currentImage === this[this.enemyAttackForDeath].length &&
+      this.enemyAttackForDeath === "IMAGES_DEAD_A" &&
+      this.y > -this.height
+    );
+  }
+
+  isDeathByElectric() {
+    return (
+      this.currentImage === 8 &&
+      this.enemyAttackForDeath === "IMAGES_DEAD_E" &&
+      this.y < 200 * mainScale
+    );
+  }
+
   handleHitMoving() {
-    if (this.currentImage <= 2 && this.animationCount < 1) {
-      if (this.otherDirection === false) this.moveLeft(this.enemyAttackSpeed);
-      if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);
+    if (this.objectLife > 0) {
+      if (this.currentImage <= 2 && this.animationCount < 1) {
+        if (this.otherDirection === false) this.moveLeft(this.enemyAttackSpeed);
+        if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);
+      }
+    } else {
+      if (this.isDeathByAttack()) {
+        this.moveUp(5);
+      }
+      if (this.isDeathByElectric()) {
+        this.moveDown(30);
+      }
     }
   }
 

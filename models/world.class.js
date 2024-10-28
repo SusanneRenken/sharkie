@@ -151,10 +151,12 @@ class World {
     this.enemies.forEach((enemy, i) => {
       if (this.character.isColliding(enemy) && !this.isHit && !this.isAttack) {
         // console.log("Collision mit Enemy Nr.", i, enemy.enemyAttack);
-        this.character.enemyAttack = enemy.enemyAttack;
+        this.character.enemyAttack = enemy.enemyAttack;        
+        this.character.enemyAttackForDeath = enemy.enemyAttackForDeath;
         this.character.enemyAttackRepeat = enemy.enemyAttackRepeat;
         this.character.enemyAttackSpeed = enemy.enemyAttackSpeed;
-        this.character.hitSound = enemy.enemyAttackSound;
+        this.character.enemyAttackSound = enemy.enemyAttackSound;
+        this.character.enemyAttackDeadSound = enemy.enemyAttackDeadSound;
         this.isHit = true;
       }
     });
@@ -167,9 +169,11 @@ class World {
       !this.isAttack
     ) {
       this.character.enemyAttack = this.endBoss.enemyAttack;
+      this.character.enemyAttackForDeath = this.endBoss.enemyAttackForDeath;
       this.character.enemyAttackRepeat = this.endBoss.enemyAttackRepeat;
       this.character.enemyAttackSpeed = this.endBoss.enemyAttackSpeed;
-      this.character.hitSound = this.endBoss.enemyAttackSound;
+      this.character.enemyAttackSound = this.endBoss.enemyAttackSound;      
+      this.character.enemyAttackDeadSound = this.endBoss.enemyAttackDeadSound;
       this.isHit = true;
     }
   }

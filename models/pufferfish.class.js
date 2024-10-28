@@ -43,9 +43,11 @@ class Pufferfish extends MovableObject {
   getObjectProperties() {
     this.objectLife = 1;
     this.enemyAttack = "IMAGES_HIT_P";
+    this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 1;
     this.enemyAttackSpeed = 20;
     this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
+    this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
     this.animationRepeat = Math.floor(3 + Math.random() * 4);
     this.speed = 0.3 + Math.random() * 0.6;
     this.movementSpeed = 100 + this.speed * 30;
@@ -68,20 +70,24 @@ class Pufferfish extends MovableObject {
   animate() {
     setInterval(() => {
       if (this.animationCount < this.animationRepeat) {
+        // console.log("Swim",this.currentImage, this.animationCount);        
         this.animateMoving(this.IMAGES_SWIM);
         this.countAnimationRepeat(this.IMAGES_SWIM);
       } else if (this.animationCount === this.animationRepeat) {
+        // console.log("Trans to bubble",this.currentImage, this.animationCount);
         this.animateMoving(this.IMAGES_TRANSITION);
         this.isAnimateTransition(true);
       } else if (
         this.animationCount > this.animationRepeat &&
         this.animationCount < 2 * this.animationRepeat + 1
       ) {
+        // console.log("Bubble",this.currentImage, this.animationCount);
         this.bubble = true;
         this.getBubbleswimParameter()
         this.animateMoving(this.IMAGES_BUBBLESWIM);
         this.countAnimationRepeat(this.IMAGES_BUBBLESWIM);
       } else if (this.animationCount === 2 * this.animationRepeat + 1) {
+        // console.log("Trans to Swim",this.currentImage, this.animationCount);
         this.bubble = false;
         this.getSwimParameter()
         this.animateMovingReverse(this.IMAGES_TRANSITION);

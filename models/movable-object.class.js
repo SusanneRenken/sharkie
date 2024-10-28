@@ -1,24 +1,15 @@
-class MovableObject {
-  width;
-  height;
-  x = 0;
-  y = 0;
-  offsetX = 0;
-  offsetY = 0;
-  offsetwidth = 0;
-  offsetheight = 0;
+class MovableObject extends DrawableObject {
   objectLife;
   objectCoins;
   objectPoisons;
   backgroundRepeat;
-  img;
-  imageCache;
-  currentImage;
   selectedColor;
   enemyAttack;
+  enemyAttackForDeath;
   enemyAttackRepeat;
   enemyAttackSpeed;
   enemyAttackSound;
+  enemyAttackDeadSound;
   speed;
   verticalSpeed;
   movementSpeed;
@@ -26,41 +17,9 @@ class MovableObject {
   animationRepeat;
   animationCount = 0;
 
-  constructor() {
-    this.currentImage = 0;
-    this.imageCache = {};
-  }
-
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
-  }
-
-  loadAllImages(basePath, action, count) {
-    const images = this.generateImagePaths(
-      basePath,
-      action,
-      this.selectedColor,
-      count
-    );
-    this.loadImages(images);
-    return images;
-  }
-
-  generateImagePaths(basePath, action, color = "", count) {
-    const paths = [];
-    for (let i = 1; i <= count; i++) {
-      paths.push(`${basePath}/${action}/${color}${i}.png`);
-    }
-    return paths;
-  }
-
-  loadImages(arr) {
-    arr.forEach((path) => {
-      this.img = new Image();
-      this.img.src = path;
-      this.imageCache[path] = this.img;
-    });
   }
 
   animateMoving(arr) {
@@ -118,10 +77,6 @@ class MovableObject {
     this.y += speed;
   }
 
-  drawObject(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
   isColliding(obj) {
     return (
       this.x + this.offsetX + this.offsetwidth >= obj.x + obj.offsetX &&
@@ -176,28 +131,28 @@ class MovableObject {
     if (this instanceof Pufferfish) {
       if (!this.bubble) {
         ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "orange";
-      ctx.rect(
-        this.x + 20 * mainScale,
-        this.y + 20 * mainScale,
-        this.width - 60 * mainScale,
-        this.height - 80 * mainScale
-      );
-      ctx.stroke();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "orange";
+        ctx.rect(
+          this.x + 20 * mainScale,
+          this.y + 20 * mainScale,
+          this.width - 60 * mainScale,
+          this.height - 80 * mainScale
+        );
+        ctx.stroke();
       }
 
       if (this.bubble) {
         ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "orange";
-      ctx.rect(
-        this.x + 20 * mainScale,
-        this.y + 20 * mainScale,
-        this.width - 60 * mainScale,
-        this.height - 40 * mainScale
-      );
-      ctx.stroke();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "orange";
+        ctx.rect(
+          this.x + 20 * mainScale,
+          this.y + 20 * mainScale,
+          this.width - 60 * mainScale,
+          this.height - 40 * mainScale
+        );
+        ctx.stroke();
       }
     }
 
