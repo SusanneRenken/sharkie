@@ -15,8 +15,10 @@ class Poison extends MovableObject {
     this.y = 0;
     this.x = x;
 
-    this.offsetwidth = this.width;
-    this.offsetheight = this.height;
+    this.offsetX = 30 * mainScale;
+    this.offsetY = 50 * mainScale;
+    this.offsetwidth = this.width - 60 * mainScale;
+    this.offsetheight = this.height - 70 * mainScale;
 
     this.IMAGES_POISON = this.loadAllImages(
       "./img/collectibles/poison",
@@ -49,4 +51,5 @@ class Poison extends MovableObject {
       }
     }, 1000 / 60);
   }
+
 }

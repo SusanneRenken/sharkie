@@ -27,6 +27,7 @@ class World {
   ];
   barriers = [];
   poisons = [];
+  statusBar = new StatusBar(this);
   canvas;
   ctx;
   keyboard;
@@ -134,7 +135,10 @@ class World {
   collisionWithCoin() {
     this.coins.forEach((coin, i) => {
       if (this.character.isColliding(coin)) {
-        // console.log("Collision mit Coin Nr.", i, coin);
+        SOUND_COLLECT_COIN.currentTime = 0;
+        SOUND_COLLECT_COIN.play();
+        this.coins.splice(i, 1);
+        this.character.objectCoins++;
       }
     });
   }
@@ -142,7 +146,10 @@ class World {
   collisionWithPoison() {
     this.poisons.forEach((poison, i) => {
       if (this.character.isColliding(poison)) {
-        // console.log("Collision mit Poison Nr.", i, poison);
+        SOUND_COLLECT_POISON.currentTime = 0;
+        SOUND_COLLECT_POISON.play();
+        this.poisons.splice(i, 1);
+        this.character.objectPoisons++;
       }
     });
   }
@@ -194,11 +201,11 @@ class World {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     this.ctx.translate(this.camera_x, 0);
-
     this.addObjectsToMap(this.backgroundObjeckts);
     this.ctx.translate(-this.camera_x, 0);
 
     this.addToMap(this.sunlight);
+    this.addToMap(this.statusBar);
 
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.barriers);

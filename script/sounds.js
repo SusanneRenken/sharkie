@@ -43,3 +43,10 @@ SOUND_ENDBOSS_INTRODUCE.volume = 0.2;
 
 const SOUND_ENDBOSS_ATTACK = new Audio("./audio/endboss-attack.mp3");
 SOUND_ENDBOSS_ATTACK.volume = 0.2;
+
+
+const SOUND_COLLECT_COIN = new Audio("./audio/collect-coin.mp3");
+SOUND_COLLECT_COIN.volume = 0.2;
+
+const SOUND_COLLECT_POISON = new Audio("./audio/collect-poison.mp3");
+SOUND_COLLECT_POISON.volume = 0.2;

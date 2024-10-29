@@ -44,7 +44,7 @@ class Character extends MovableObject {
   }
 
   getObjectProperties() {
-    this.objectLife = 2;
+    this.objectLife = 5;
     this.objectCoins = 0;
     this.objectPoisons = 0;
     this.speed = 5 + (this.world.gameLevel - 1) / 2;
