@@ -3,9 +3,11 @@ class Coin extends MovableObject {
   height = 93 * mainScale;
   selectedColor = "";
   IMAGES_COIN;
+  world;
 
-  constructor(x, y) {
+  constructor(x, y, world) {
     super();
+    this.world = world;
 
     this.IMAGES_COIN = this.loadAllImages("./img/collectibles", "coins", 4);
 
@@ -22,4 +24,5 @@ class Coin extends MovableObject {
       this.animateMoving(this.IMAGES_COIN);
     }, 220);
   }
+
 }

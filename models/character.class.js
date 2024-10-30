@@ -68,20 +68,18 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    setInterval(() => {      
       if (!this.isDead) {
-        if (this.world.isAttack) {
+        if (this.isKeyPressed() && this.isSleeping && !this.isAwake) {
           this.wakeUp();
+        } else if (this.world.isAttack) {
           this.animateAttack();
         } else if (this.world.isHit) {
-          this.wakeUp();
           this.animateHit();
-        } else if (this.isKeyPressed()) {
-          this.wakeUp();
-          if (this.isArrowkeyPressed()) {
-            this.animateMoving(this.IMAGES_SWIM);
-            SOUND_CHARACTER_SWIM.play();
-          }
+        } else if (this.isArrowkeyPressed()) {
+          this.lastActiveTime = Date.now();
+          this.animateMoving(this.IMAGES_SWIM);
+          SOUND_CHARACTER_SWIM.play();
         } else {
           this.isNoAction();
         }
@@ -89,9 +87,9 @@ class Character extends MovableObject {
     }, 180);
 
     setInterval(() => {
-      if (this.world.isAttack) {
+      if (this.isAttackStart) {
         this.handleFinAttackMoving();
-      } else if (this.world.isHit) {
+      } else if (this.isHitStart) {
         this.handleHitMoving();
       } else if (this.isMovingRight()) {
         this.handleRightMovement();
@@ -117,7 +115,7 @@ class Character extends MovableObject {
   //-------------------------------------------------------------------------------------
 
   isKeyPressed() {
-    return this.isArrowkeyPressed() || this.isAttackkeyPressed();
+    return this.isArrowkeyPressed() || this.isAttackKeyPressed();
   }
 
   isArrowkeyPressed() {
@@ -129,45 +127,55 @@ class Character extends MovableObject {
     );
   }
 
-  isAttackkeyPressed() {
+  isAttackKeyPressed() {
     if (!this.world.isAttack) {
-      if (this.world.keyboard.KEYD) {
-        this.attackType = this.IMAGES_FIN;
-        this.attackSound = SOUND_CHARACTER_ATTACK;
-        this.startAttackSound = 5;
-        return true;
-      }
-      if (this.world.keyboard.KEYS) {
-        this.attackType = this.IMAGES_BUB_N;
-        this.attackSound = SOUND_CHARACTER_BUB_N;
-        this.startAttackSound = 7;
-        return true;
-      }
-      if (this.world.keyboard.KEYW) {
-        this.attackType = this.IMAGES_BUB_P;
-        this.attackSound = SOUND_CHARACTER_BUB_P;
-        this.startAttackSound = 7;
-        return true;
-      }
+      if (this.setFinAttack()) return true;
+      if (this.setBubbleNormalAttack()) return true;
+      if (this.setBubblePoisondAttack()) return true;
     }
+  }
+
+  setFinAttack() {
+    if (this.world.keyboard.KEYD) {
+      this.attackType = this.IMAGES_FIN;
+      this.attackSound = SOUND_CHARACTER_ATTACK;
+      this.startAttackSound = 5;
+      this.getFinAttackParameter();
+      return true;
+    }
+    return false;
+  }
+
+  setBubbleNormalAttack() {
+    if (this.world.keyboard.KEYS) {
+      this.attackType = this.IMAGES_BUB_N;
+      this.attackSound = SOUND_CHARACTER_BUB_N;
+      this.startAttackSound = 7;
+      return true;
+    }
+    return false;
+  }
+
+  setBubblePoisondAttack() {
+    if (this.world.keyboard.KEYW) {
+      this.attackType = this.IMAGES_BUB_P;
+      this.attackSound = SOUND_CHARACTER_BUB_P;
+      this.startAttackSound = 7;
+      return true;
+    }
+    return false;
   }
 
   wakeUp() {
     this.lastActiveTime = Date.now();
     this.isSleeping = false;
     this.isAwake = true;
-    this.getAwakeParameter();
     SOUND_CHARACTER_SLEEP.pause();
-  }
-
-  getAwakeParameter() {
-    this.offsetX = 160 * mainScale;
-    this.offsetY = 460 * mainScale;
-    this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 680 * mainScale;
+    this.getSwimParameter();
   }
 
   animateAttack() {
+    this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
     if (!this.isAttackStart) {
       this.isAttackStart = true;
@@ -175,18 +183,28 @@ class Character extends MovableObject {
     }
     if (this.world.isAttack) {
       this.animateMovingOnce(this.attackType);
-      if (this.currentImage === this.startAttackSound) {
-        this.attackSound.play();
-      }
-      if (this.currentImage >= this.attackType.length) {
-        this.world.isAttack = false;
-        this.isAttackStart = false;
-        this.currentImage = 0;
-      }
+      this.playAttackSound();
+      this.stopAttack();
+    }
+  }
+
+  playAttackSound() {
+    if (this.currentImage === this.startAttackSound) {
+      this.attackSound.play();
+    }
+  }
+
+  stopAttack() {
+    if (this.currentImage >= this.attackType.length) {
+      this.world.isAttack = false;
+      this.isAttackStart = false;
+      this.currentImage = 0;
+      this.getSwimParameter();
     }
   }
 
   animateHit() {
+    this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
     this.animationRepeat = this.enemyAttackRepeat;
     if (!this.isHitStart) {
@@ -238,11 +256,19 @@ class Character extends MovableObject {
       this.isSleeping = true;
       this.currentImage = 0;
     }
+    this.isFallAsleep();
+    this.isSleepingDeeply();
+  }
+
+  isFallAsleep() {
     if (this.isAwake) {
       // SOUND_CHARACTER_SLEEP.play();
       this.animateMovingOnce(this.IMAGES_TRANS);
       this.isAnimationComplete(this.IMAGES_TRANS, "isAwake");
     }
+  }
+
+  isSleepingDeeply() {
     if (!this.isAwake) {
       if (this.y >= 290 * mainScale) {
         this.y = 290 * mainScale;
@@ -259,37 +285,36 @@ class Character extends MovableObject {
     this.offsetheight = this.height - 700 * mainScale;
   }
 
+  getFinAttackParameter() {
+    this.offsetX = 200 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
+  }
+
+  getSwimParameter() {
+    this.offsetX = 160 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
+  }
+
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------
+
   handleFinAttackMoving() {
     if (this.currentImage <= 1 && this.attackType === this.IMAGES_FIN) {
-      if (this.otherDirection === false) this.moveRight(5);
-      if (this.otherDirection === true) this.moveLeft(5);
+      if (this.otherDirection === false) this.moveRight(10);
+      if (this.otherDirection === true) this.moveLeft(10);
     }
-    if (this.currentImage >= 6 && this.attackType === this.IMAGES_FIN) {
-      if (this.otherDirection === false) this.moveLeft(5);
-      if (this.otherDirection === true) this.moveRight(5);
+    if (this.currentImage >= 7 && this.attackType === this.IMAGES_FIN) {
+      if (this.otherDirection === false) this.moveLeft(10);
+      if (this.otherDirection === true) this.moveRight(10);
     }
-  }
-
-  isDeathByAttack() {
-    return (
-      this.currentImage === this[this.enemyAttackForDeath].length &&
-      this.enemyAttackForDeath === "IMAGES_DEAD_A" &&
-      this.y > -this.height
-    );
-  }
-
-  isDeathByElectric() {
-    return (
-      this.currentImage === 8 &&
-      this.enemyAttackForDeath === "IMAGES_DEAD_E" &&
-      this.y < 200 * mainScale
-    );
   }
 
   handleHitMoving() {
@@ -306,6 +331,22 @@ class Character extends MovableObject {
         this.moveDown(30);
       }
     }
+  }
+  
+  isDeathByAttack() {
+    return (
+      this.currentImage === this[this.enemyAttackForDeath].length &&
+      this.enemyAttackForDeath === "IMAGES_DEAD_A" &&
+      this.y > -this.height
+    );
+  }
+
+  isDeathByElectric() {
+    return (
+      this.currentImage === 8 &&
+      this.enemyAttackForDeath === "IMAGES_DEAD_E" &&
+      this.y < 200 * mainScale
+    );
   }
 
   isMovingRight() {

@@ -18,7 +18,7 @@ function getStartPlacesCoins(
   }
 }
 
-function generateCoins(xCoinPlaces, coins) {
+function generateCoins(xCoinPlaces, coins, thisWorld) {
   xCoinPlaces.forEach((place) => {
     let xPlace = place;
     let yPlace = 0.1 * mainHeight + Math.random() * 0.7 * mainHeight;
@@ -26,24 +26,24 @@ function generateCoins(xCoinPlaces, coins) {
     let coinDirection = yPlace < 0.5 * mainHeight ? 1 : -1;
 
     if (coinForm) {
-      placeCoinInLine(xPlace, yPlace, coinDirection, coins);
+      placeCoinInLine(xPlace, yPlace, coinDirection, coins, thisWorld);
     } else {
-      placeCoinOnParabola(xPlace, yPlace, coinDirection, coins);
+      placeCoinOnParabola(xPlace, yPlace, coinDirection, coins, thisWorld);
     }
   });
 }
 
-function placeCoinInLine(xPlace, yPlace, coinDirection, coins) {
+function placeCoinInLine(xPlace, yPlace, coinDirection, coins, thisWorld) {
   let numberOfCoins = 2 + Math.floor(Math.random() * 4);
 
   for (let i = 0; i < numberOfCoins; i++) {
-    coins.push(new Coin(xPlace, yPlace));
+    coins.push(new Coin(xPlace, yPlace, thisWorld));
     xPlace += 120 * mainScale;
     yPlace += 95 * mainScale * coinDirection;
   }
 }
 
-function placeCoinOnParabola(xPlace, yPlace, coinDirection, coins) {
+function placeCoinOnParabola(xPlace, yPlace, coinDirection, coins, thisWorld) {
   const coinPositions = [
     { x: 0, y: 0 },
     { x: 95, y: 155 },
@@ -57,7 +57,8 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, coins) {
     coins.push(
       new Coin(
         xPlace + position.x * mainScale,
-        yPlace + position.y * mainScale * coinDirection
+        yPlace + position.y * mainScale * coinDirection, 
+        thisWorld
       )
     );
   });

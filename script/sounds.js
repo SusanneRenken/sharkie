@@ -27,7 +27,7 @@ const SOUND_CHARACTER_HIT_P = new Audio("./audio/character-hurt-poisoned.mp3");
 SOUND_CHARACTER_HIT_P.volume = 0.2;
 
 const SOUND_CHARACTER_DEAD_A = new Audio("./audio/character-dead-a.mp3");
-SOUND_CHARACTER_DEAD_A.volume = 0.4;
+SOUND_CHARACTER_DEAD_A.volume = 0.2;
 
 const SOUND_CHARACTER_DEAD_E = new Audio("./audio/character-dead-e.mp3");
 SOUND_CHARACTER_DEAD_E.volume = 0.4;

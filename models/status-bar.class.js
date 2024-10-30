@@ -13,7 +13,7 @@ class StatusBar extends DrawableObject {
     this.imageProperties = [
       {
         x: 40 * mainScale,
-        y: 42 * mainScale,
+        y: 34 * mainScale,
         width: 140 * mainScale,
         height: 140 * mainScale,
         numberWidth: -10 * mainScale,
@@ -49,7 +49,7 @@ class StatusBar extends DrawableObject {
       let fontSize = 84 * mainScale;
       ctx.drawImage(img, x, y, width, height);
       ctx.font = `${fontSize}px LuckiestGuy`;
-      ctx.fillStyle = "#FEFFA4";
+      ctx.fillStyle = "white";
       ctx.fillText(value, x + width + numberWidth, 150 * mainScale);
     });
   }

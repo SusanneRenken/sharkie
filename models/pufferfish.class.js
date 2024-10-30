@@ -3,12 +3,15 @@ class Pufferfish extends MovableObject {
   IMAGES_SWIM;
   IMAGES_TRANSITION;
   IMAGES_BUBBLESWIM;
-  backgroundRepeat;
+  IMAGES_DEAD;
   bubble = false;
 
-  constructor(backgroundRepeat) {
+  constructor(world) {
     super();
-    this.backgroundRepeat = backgroundRepeat;
+    this.world = world;
+    this.isDying = false;
+    this.animationIntervalId = null;
+    this.movementIntervalId = null;
 
     this.getRandomColor();
     this.getParameter();
@@ -29,7 +32,7 @@ class Pufferfish extends MovableObject {
 
     this.x =
       mainWidth +
-      Math.random() * (2 * mainWidth * (this.backgroundRepeat - 1.2));
+      Math.random() * (2 * mainWidth * (this.world.backgroundRepeat - 1.2));
     this.y = Math.random() * (mainHeight - this.height);
 
     this.offsetX = 20 * mainScale;
@@ -37,8 +40,6 @@ class Pufferfish extends MovableObject {
     this.offsetwidth = this.width - 60 * mainScale;
     this.offsetheight = this.height - 80 * mainScale;
   }
-
-  
 
   getObjectProperties() {
     this.objectLife = 1;
@@ -65,46 +66,49 @@ class Pufferfish extends MovableObject {
       "bubbleswim",
       5
     );
+    this.IMAGES_DEAD = this.loadAllImages("./img/enemy/pufferfish", "dead", 3);
   }
 
   animate() {
-    setInterval(() => {
-      if (this.animationCount < this.animationRepeat) {
-        // console.log("Swim",this.currentImage, this.animationCount);        
+    this.animationIntervalId = setInterval(() => {
+      if (this.isDying) {
+        this.animateDying();
+      } else if (this.animationCount < this.animationRepeat) {
         this.animateMoving(this.IMAGES_SWIM);
         this.countAnimationRepeat(this.IMAGES_SWIM);
       } else if (this.animationCount === this.animationRepeat) {
-        // console.log("Trans to bubble",this.currentImage, this.animationCount);
         this.animateMoving(this.IMAGES_TRANSITION);
         this.isAnimateTransition(true);
       } else if (
         this.animationCount > this.animationRepeat &&
         this.animationCount < 2 * this.animationRepeat + 1
       ) {
-        // console.log("Bubble",this.currentImage, this.animationCount);
         this.bubble = true;
-        this.getBubbleswimParameter()
+        this.getBubbleswimParameter();
         this.animateMoving(this.IMAGES_BUBBLESWIM);
         this.countAnimationRepeat(this.IMAGES_BUBBLESWIM);
       } else if (this.animationCount === 2 * this.animationRepeat + 1) {
-        // console.log("Trans to Swim",this.currentImage, this.animationCount);
         this.bubble = false;
-        this.getSwimParameter()
+        this.getSwimParameter();
         this.animateMovingReverse(this.IMAGES_TRANSITION);
         this.isAnimateTransition(false);
       }
     }, this.movementSpeed);
 
-    setInterval(() => {
-      this.moveLeft(this.speed);
+    this.movementIntervalId = setInterval(() => {
+      if (this.isDying) {
+        this.movingWhenDead();
+      } else {
+        this.moveLeft(this.speed);
+      }
     }, 1000 / 60);
   }
 
-  getSwimParameter(){
+  getSwimParameter() {
     this.offsetheight = this.height - 80 * mainScale;
   }
 
-  getBubbleswimParameter(){
+  getBubbleswimParameter() {
     this.offsetheight = this.height - 40 * mainScale;
   }
 
@@ -116,6 +120,36 @@ class Pufferfish extends MovableObject {
         this.animationCount = 0;
       }
       this.currentImage = 0;
+    }
+  }
+
+  animateDying() {
+    let imgIndex = 1;
+    if (this.bubble) {
+      imgIndex = 0;
+    } else if(this.y > 750 * mainScale){
+      imgIndex = 2;
+    }
+    this.img = this.imageCache[this.IMAGES_DEAD[imgIndex]];
+
+    setTimeout(() => {
+      this.world.enemies = this.world.enemies.filter((enemy) => enemy !== this);
+      this.stopAllIntervals();
+    }, 3000);
+  }
+
+  movingWhenDead() {
+    if (this.y < 900 * mainScale) {
+      if (this.bubble) {
+        this.moveUp(12);
+      } else {
+        this.moveDown(12);
+      }
+      if (!this.world.character.otherDirection) {
+        this.moveRight(8);
+      } else {
+        this.moveLeft(8);
+      }
     }
   }
 }

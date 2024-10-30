@@ -25,7 +25,6 @@ class Poison extends MovableObject {
       "animation",
       8
     );
-
     this.animate();
   }
 

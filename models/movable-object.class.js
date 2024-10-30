@@ -4,12 +4,16 @@ class MovableObject extends DrawableObject {
   objectPoisons;
   backgroundRepeat;
   selectedColor;
+  enemyNumber;
   enemyAttack;
   enemyAttackForDeath;
   enemyAttackRepeat;
   enemyAttackSpeed;
   enemyAttackSound;
   enemyAttackDeadSound;
+  animationIntervalId;
+  movementIntervalId;
+  isDying;
   speed;
   verticalSpeed;
   movementSpeed;
@@ -58,6 +62,17 @@ class MovableObject extends DrawableObject {
     if (this.currentImage % arr.length === 0) {
       this.animationCount++;
       this.currentImage = 0;
+    }
+  }
+
+  stopAllIntervals() {
+    if (this.animationIntervalId) {
+      clearInterval(this.animationIntervalId);
+      this.animationIntervalId = null;
+    }
+    if (this.movementIntervalId) {
+      clearInterval(this.movementIntervalId);
+      this.movementIntervalId = null;
     }
   }
 

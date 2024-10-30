@@ -62,7 +62,7 @@ class World {
       this.xCoinPlaces,
       this.coinCollectionWidth
     );
-    generateCoins(this.xCoinPlaces, this.coins);
+    generateCoins(this.xCoinPlaces, this.coins, this);
   }
 
   placeBarriers() {
@@ -87,7 +87,7 @@ class World {
       let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
 
       if (enemyClass == Pufferfish) {
-        this.enemies.push(new Pufferfish(this.backgroundRepeat));
+        this.enemies.push(new Pufferfish(this));
       } else {
         this.placeJelly();
       }
@@ -155,18 +155,45 @@ class World {
   }
 
   collisionWithEnemie() {
-    this.enemies.forEach((enemy, i) => {
-      if (this.character.isColliding(enemy) && !this.isHit && !this.isAttack) {
-        // console.log("Collision mit Enemy Nr.", i, enemy.enemyAttack);
-        this.character.enemyAttack = enemy.enemyAttack;        
-        this.character.enemyAttackForDeath = enemy.enemyAttackForDeath;
-        this.character.enemyAttackRepeat = enemy.enemyAttackRepeat;
-        this.character.enemyAttackSpeed = enemy.enemyAttackSpeed;
-        this.character.enemyAttackSound = enemy.enemyAttackSound;
-        this.character.enemyAttackDeadSound = enemy.enemyAttackDeadSound;
-        this.isHit = true;
+    this.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        if (this.isFinAttack()) {
+          this.handleFinAttack(enemy);
+        } else if (!this.isHit && !enemy.isDying) {
+          this.handleCharacterBeingHit(enemy);
+          this.isHit = true;
+        }
       }
     });
+  }
+
+  isFinAttack() {
+    return (
+      this.character.attackType === this.character.IMAGES_FIN && this.isAttack
+    );
+  }
+
+  handleFinAttack(enemy) {
+    if (enemy instanceof Jellyfish) {
+      this.stopFinAttack(enemy);
+    }
+    if (this.isPufferfish(enemy)) {
+      enemy.isDying = true;
+    }
+  }
+
+  stopFinAttack(enemy) {
+    this.isAttack = false;
+    this.character.isAttackStart = false;
+    this.handleCharacterBeingHit(enemy);
+  }
+
+  isPufferfish(enemy) {
+    return (
+      enemy instanceof Pufferfish &&
+      !enemy.isDying &&
+      this.character.currentImage === this.character.startAttackSound
+    );
   }
 
   collisionWithEndboss() {
@@ -175,20 +202,24 @@ class World {
       !this.isHit &&
       !this.isAttack
     ) {
-      this.character.enemyAttack = this.endBoss.enemyAttack;
-      this.character.enemyAttackForDeath = this.endBoss.enemyAttackForDeath;
-      this.character.enemyAttackRepeat = this.endBoss.enemyAttackRepeat;
-      this.character.enemyAttackSpeed = this.endBoss.enemyAttackSpeed;
-      this.character.enemyAttackSound = this.endBoss.enemyAttackSound;      
-      this.character.enemyAttackDeadSound = this.endBoss.enemyAttackDeadSound;
+      this.handleCharacterBeingHit(this.endBoss);
       this.isHit = true;
     }
+  }
+
+  handleCharacterBeingHit(enemy) {
+    this.character.enemyAttack = enemy.enemyAttack;
+    this.character.enemyAttackForDeath = enemy.enemyAttackForDeath;
+    this.character.enemyAttackRepeat = enemy.enemyAttackRepeat;
+    this.character.enemyAttackSpeed = enemy.enemyAttackSpeed;
+    this.character.enemyAttackSound = enemy.enemyAttackSound;
+    this.character.enemyAttackDeadSound = enemy.enemyAttackDeadSound;
   }
 
   setAttack() {
     setInterval(() => {
       if (
-        this.character.isAttackkeyPressed() &&
+        this.character.isAttackKeyPressed() &&
         !this.isAttack &&
         !this.isHit
       ) {
@@ -205,16 +236,16 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
 
     this.addToMap(this.sunlight);
-    this.addToMap(this.statusBar);
 
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.barriers);
-    this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
     this.addToMap(this.character);
+    this.addObjectsToMap(this.enemies);
     this.addToMap(this.endBoss);
     this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.statusBar);
 
     let self = this;
     requestAnimationFrame(() => {
@@ -238,7 +269,7 @@ class World {
     }
 
     mo.drawObject(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     this.ctx.restore();
   }

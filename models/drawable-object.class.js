@@ -49,12 +49,25 @@ class DrawableObject {
 
   drawFrame(ctx) {
     if (this instanceof Character) {
-      if (!this.isSleeping) {
+      if (!this.isSleeping && !this.isAttackStart) {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
           this.x + 160 * mainScale,
+          this.y + 460 * mainScale,
+          this.width - 320 * mainScale,
+          this.height - 680 * mainScale
+        );
+        ctx.stroke();
+      }
+
+      if (this.isAttackStart && this.attackType === this.IMAGES_FIN) {
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "blue";
+        ctx.rect(
+          this.x + 200 * mainScale,
           this.y + 460 * mainScale,
           this.width - 320 * mainScale,
           this.height - 680 * mainScale
