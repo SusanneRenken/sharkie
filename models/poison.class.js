@@ -29,7 +29,7 @@ class Poison extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    this.animationIntervalId = setInterval(() => {
       this.distanceToPoison = this.x - this.world.character.x;
 
       if (this.distanceToPoison < mainWidth) {
@@ -44,7 +44,7 @@ class Poison extends MovableObject {
       }
     }, 100);
 
-    setInterval(() => {
+    this.movementIntervalId = setInterval(() => {
       if (this.isFalling && this.y < 830 * mainScale) {
         this.y += 1;
       }

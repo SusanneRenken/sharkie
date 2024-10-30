@@ -15,6 +15,11 @@ class DrawableObject {
     this.currentImage = 0;
     this.imageCache = {};
   }
+  
+  loadImage(path) {
+    this.img = new Image();
+    this.img.src = path;
+  }
 
   loadAllImages(basePath, action, count) {
     const images = this.generateImagePaths(
@@ -144,6 +149,14 @@ class DrawableObject {
     }
 
     if (this instanceof Coin) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "purple";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+
+    if (this instanceof Bubble) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "purple";

@@ -21,10 +21,6 @@ class MovableObject extends DrawableObject {
   animationRepeat;
   animationCount = 0;
 
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
 
   animateMoving(arr) {
     let i = this.currentImage % arr.length;
@@ -101,5 +97,4 @@ class MovableObject extends DrawableObject {
     );
   }
 
-  
 }

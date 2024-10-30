@@ -5,6 +5,7 @@ class Pufferfish extends MovableObject {
   IMAGES_BUBBLESWIM;
   IMAGES_DEAD;
   bubble = false;
+  pufferSound = false;
 
   constructor(world) {
     super();
@@ -130,6 +131,10 @@ class Pufferfish extends MovableObject {
     } else if(this.y > 750 * mainScale){
       imgIndex = 2;
     }
+    if (!this.pufferSound) {
+      SOUND_PUFFER_DEAD.play();
+      this.pufferSound = true;
+    }    
     this.img = this.imageCache[this.IMAGES_DEAD[imgIndex]];
 
     setTimeout(() => {

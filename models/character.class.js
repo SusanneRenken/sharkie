@@ -44,7 +44,7 @@ class Character extends MovableObject {
   }
 
   getObjectProperties() {
-    this.objectLife = 5;
+    this.objectLife = 3;
     this.objectCoins = 0;
     this.objectPoisons = 0;
     this.speed = 5 + (this.world.gameLevel - 1) / 2;
@@ -183,6 +183,7 @@ class Character extends MovableObject {
     }
     if (this.world.isAttack) {
       this.animateMovingOnce(this.attackType);
+      this.setBubbleAttack();
       this.playAttackSound();
       this.stopAttack();
     }
@@ -191,6 +192,13 @@ class Character extends MovableObject {
   playAttackSound() {
     if (this.currentImage === this.startAttackSound) {
       this.attackSound.play();
+    }
+  }
+
+  setBubbleAttack(){
+    if (this.attackType != this.IMAGES_FIN && this.currentImage === this.startAttackSound) {
+
+      this.world.generateBubble(this.attackType === this.IMAGES_BUB_N ? 1 : 2);
     }
   }
 
@@ -211,6 +219,7 @@ class Character extends MovableObject {
       this.isHitStart = true;
       this.objectLife--;
       this.currentImage = 0;
+      this.wakeUp();
     }
     if (this.objectLife > 0) {
       this.animateHitAnimation();

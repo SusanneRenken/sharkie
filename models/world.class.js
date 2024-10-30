@@ -13,6 +13,7 @@ class World {
     this
   );
   character = new Character(this);
+  bubbles = [];
   isAttack = false;
   isHit = false;
   enemies = [];
@@ -128,6 +129,7 @@ class World {
       this.collisionWithCoin();
       this.collisionWithPoison();
       this.collisionWithEnemie();
+      this.collisionBubbleWithEnemie();
       this.collisionWithEndboss();
     }, 100);
   }
@@ -139,6 +141,7 @@ class World {
         SOUND_COLLECT_COIN.play();
         this.coins.splice(i, 1);
         this.character.objectCoins++;
+        coin.stopAllIntervals();
       }
     });
   }
@@ -150,6 +153,7 @@ class World {
         SOUND_COLLECT_POISON.play();
         this.poisons.splice(i, 1);
         this.character.objectPoisons++;
+        poison.stopAllIntervals();
       }
     });
   }
@@ -185,6 +189,7 @@ class World {
   stopFinAttack(enemy) {
     this.isAttack = false;
     this.character.isAttackStart = false;
+    this.character.getSwimParameter();
     this.handleCharacterBeingHit(enemy);
   }
 
@@ -194,6 +199,23 @@ class World {
       !enemy.isDying &&
       this.character.currentImage === this.character.startAttackSound
     );
+  }
+
+  collisionBubbleWithEnemie() {
+    this.bubbles.forEach((bubble, bubbleIndex) => {
+      this.enemies.forEach((enemy, enemyIndex) => {
+        if (bubble.isColliding(enemy)) {
+          SOUND_BUBBLE_BURST.play();
+          this.bubbles.splice(bubbleIndex, 1);
+
+          if (enemy instanceof Jellyfish && !enemy.isDying && bubble.attackType === 1) {
+            enemy.isDying = true;
+            console.log("Jetzt ist der Jelly tod!");
+            
+          }
+        }
+      });
+    });
   }
 
   collisionWithEndboss() {
@@ -228,6 +250,10 @@ class World {
     }, 0);
   }
 
+  generateBubble(attackType) {
+    this.bubbles.push(new Bubble(this, attackType));
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -241,6 +267,7 @@ class World {
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
+    this.addObjectsToMap(this.bubbles);
     this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
     this.addToMap(this.endBoss);
@@ -269,7 +296,7 @@ class World {
     }
 
     mo.drawObject(this.ctx);
-    // mo.drawFrame(this.ctx);
+    mo.drawFrame(this.ctx);
 
     this.ctx.restore();
   }

@@ -31,11 +31,19 @@ SOUND_CHARACTER_DEAD_A.volume = 0.2;
 
 const SOUND_CHARACTER_DEAD_E = new Audio("./audio/character-dead-e.mp3");
 SOUND_CHARACTER_DEAD_E.volume = 0.4;
+SOUND_CHARACTER_DEAD_E.playbackRate = 0.8;
 
 const SOUND_CHARACTER_SLEEP = new Audio("./audio/character-sleep.mp3");
 SOUND_CHARACTER_SLEEP.volume = 0.2;
 SOUND_CHARACTER_SLEEP.loop = true;
 
+
+const SOUND_BUBBLE_BURST = new Audio("./audio/bubble-burst.mp3");
+SOUND_BUBBLE_BURST.volume = 0.2;
+
+const SOUND_PUFFER_DEAD = new Audio("./audio/puffer-dead.mp3");
+SOUND_PUFFER_DEAD.volume = 0.2;
+SOUND_PUFFER_DEAD.playbackRate = 2;
 
 
 const SOUND_ENDBOSS_INTRODUCE = new Audio("./audio/endboss-introduce.mp3");
@@ -43,6 +51,7 @@ SOUND_ENDBOSS_INTRODUCE.volume = 0.2;
 
 const SOUND_ENDBOSS_ATTACK = new Audio("./audio/endboss-attack.mp3");
 SOUND_ENDBOSS_ATTACK.volume = 0.2;
+
 
 
 const SOUND_COLLECT_COIN = new Audio("./audio/collect-coin.mp3");
