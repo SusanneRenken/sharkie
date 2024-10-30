@@ -191,8 +191,7 @@ class Character extends MovableObject {
       this.currentImage = 0;
     }
 
-    if (this.world.isAttack) {    
-      
+    if (this.world.isAttack) {          
       this.setBubbleAttack();  
       this.animateMoving(this.attackType);
       this.playAttackSound();
@@ -211,20 +210,14 @@ class Character extends MovableObject {
       this.attackType != this.IMAGES_FIN &&
       this.currentImage === this.startAttack
     ) {
-
-      if (this.attackType === this.IMAGES_BUB_P) {
-        console.log("Grün");
-        
+      if (this.attackType === this.IMAGES_BUB_P) {      
         this.objectPoisons--;
         this.world.generateBubble(2);
       } else if (!this.isPoisonAttack) {
-        console.log("Weiß");
         this.world.generateBubble(1);
       } else {
-        console.log("Fail");
         this.isPoisonAttack = false;
       }
-
     }
   }
 
