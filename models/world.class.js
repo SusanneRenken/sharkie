@@ -197,7 +197,7 @@ class World {
     return (
       enemy instanceof Pufferfish &&
       !enemy.isDying &&
-      this.character.currentImage === this.character.startAttackSound
+      this.character.currentImage === this.character.startAttack
     );
   }
 

@@ -66,8 +66,11 @@ class Endboss extends MovableObject {
         this.y = -70;
         SOUND_ENDBOSS_INTRODUCE.play();
         if (this.introduceNotStarted) {
-          this.animateMovingOnce(this.IMAGES_INT);
-          this.isAnimationComplete(this.IMAGES_INT, "introduceNotStarted");
+          this.animateMoving(this.IMAGES_INT);
+          if (this.currentImage >= this.IMAGES_INT.length) {
+            this.introduceNotStarted = false;
+            this.currentImage = 0;
+          }
         }
         if (!this.introduceNotStarted) {
           this.introduceComplete = true;

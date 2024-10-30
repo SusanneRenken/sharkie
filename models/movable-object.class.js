@@ -27,17 +27,6 @@ class MovableObject extends DrawableObject {
     let path = arr[i];
     this.img = this.imageCache[path];
     this.currentImage++;
-    this.i = 0;
-  }
-
-  animateMovingOnce(arr) {
-    if (this.currentImage < arr.length) {
-      let path = arr[this.currentImage];
-      this.img = this.imageCache[path];
-      this.currentImage++;
-    } else {
-      this.currentImage = 0;
-    }
   }
 
   animateMovingReverse(arr) {
@@ -45,13 +34,6 @@ class MovableObject extends DrawableObject {
     let path = arr[i];
     this.img = this.imageCache[path];
     this.currentImage++;
-  }
-
-  isAnimationComplete(arr, propertyName) {
-    if (this.currentImage % arr.length === 0) {
-      this[propertyName] = false;
-      this.currentImage = 0;
-    }
   }
 
   countAnimationRepeat(arr) {

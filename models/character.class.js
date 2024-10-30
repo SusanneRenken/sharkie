@@ -12,9 +12,10 @@ class Character extends MovableObject {
   IMAGES_DEAD_A;
   IMAGES_DEAD_E;
   isAttackStart = false;
+  isPoisonAttack = false;
   isHitStart = false;
   attackType;
-  startAttackSound = 1;
+  startAttack = 1;
   lastActiveTime = Date.now();
   isSleeping = false;
   isAwake = true;
@@ -68,7 +69,7 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {      
+    setInterval(() => {
       if (!this.isDead) {
         if (this.isKeyPressed() && this.isSleeping && !this.isAwake) {
           this.wakeUp();
@@ -139,7 +140,7 @@ class Character extends MovableObject {
     if (this.world.keyboard.KEYD) {
       this.attackType = this.IMAGES_FIN;
       this.attackSound = SOUND_CHARACTER_ATTACK;
-      this.startAttackSound = 5;
+      this.startAttack = 5;
       this.getFinAttackParameter();
       return true;
     }
@@ -150,7 +151,7 @@ class Character extends MovableObject {
     if (this.world.keyboard.KEYS) {
       this.attackType = this.IMAGES_BUB_N;
       this.attackSound = SOUND_CHARACTER_BUB_N;
-      this.startAttackSound = 7;
+      this.startAttack = 7;
       return true;
     }
     return false;
@@ -158,9 +159,16 @@ class Character extends MovableObject {
 
   setBubblePoisondAttack() {
     if (this.world.keyboard.KEYW) {
-      this.attackType = this.IMAGES_BUB_P;
-      this.attackSound = SOUND_CHARACTER_BUB_P;
-      this.startAttackSound = 7;
+      this.isPoisonAttack = true;
+      if (this.objectPoisons <= 0) {
+        this.attackType = this.IMAGES_BUB_N;
+        this.attackSound = SOUND_BUBBLE_BURST;
+        this.startAttack = 7;
+      } else {
+        this.attackType = this.IMAGES_BUB_P;
+        this.attackSound = SOUND_CHARACTER_BUB_P;
+        this.startAttack = 7;
+      }
       return true;
     }
     return false;
@@ -177,28 +185,46 @@ class Character extends MovableObject {
   animateAttack() {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
+
     if (!this.isAttackStart) {
       this.isAttackStart = true;
       this.currentImage = 0;
     }
-    if (this.world.isAttack) {
-      this.animateMovingOnce(this.attackType);
-      this.setBubbleAttack();
+
+    if (this.world.isAttack) {    
+      
+      this.setBubbleAttack();  
+      this.animateMoving(this.attackType);
       this.playAttackSound();
       this.stopAttack();
     }
   }
 
   playAttackSound() {
-    if (this.currentImage === this.startAttackSound) {
+    if (this.currentImage === this.startAttack) {
       this.attackSound.play();
     }
   }
 
-  setBubbleAttack(){
-    if (this.attackType != this.IMAGES_FIN && this.currentImage === this.startAttackSound) {
+  setBubbleAttack() {
+    if (
+      this.attackType != this.IMAGES_FIN &&
+      this.currentImage === this.startAttack
+    ) {
 
-      this.world.generateBubble(this.attackType === this.IMAGES_BUB_N ? 1 : 2);
+      if (this.attackType === this.IMAGES_BUB_P) {
+        console.log("Grün");
+        
+        this.objectPoisons--;
+        this.world.generateBubble(2);
+      } else if (!this.isPoisonAttack) {
+        console.log("Weiß");
+        this.world.generateBubble(1);
+      } else {
+        console.log("Fail");
+        this.isPoisonAttack = false;
+      }
+
     }
   }
 
@@ -215,6 +241,7 @@ class Character extends MovableObject {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
     this.animationRepeat = this.enemyAttackRepeat;
+
     if (!this.isHitStart) {
       this.isHitStart = true;
       this.objectLife--;
@@ -244,7 +271,7 @@ class Character extends MovableObject {
     if (this.currentImage === 0) {
       this.enemyAttackDeadSound.play();
     }
-    this.animateMovingOnce(this[this.enemyAttackForDeath]);
+    this.animateMoving(this[this.enemyAttackForDeath]);
     if (this.currentImage >= this[this.enemyAttackForDeath].length) {
       this.isDead = true;
     }
@@ -272,8 +299,12 @@ class Character extends MovableObject {
   isFallAsleep() {
     if (this.isAwake) {
       // SOUND_CHARACTER_SLEEP.play();
-      this.animateMovingOnce(this.IMAGES_TRANS);
-      this.isAnimationComplete(this.IMAGES_TRANS, "isAwake");
+
+      this.animateMoving(this.IMAGES_TRANS);
+      if (this.currentImage >= this.IMAGES_TRANS.length) {
+        this.isAwake = false;
+        this.currentImage = 0;
+      }
     }
   }
 
@@ -341,7 +372,7 @@ class Character extends MovableObject {
       }
     }
   }
-  
+
   isDeathByAttack() {
     return (
       this.currentImage === this[this.enemyAttackForDeath].length &&
