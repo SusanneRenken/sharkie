@@ -5,7 +5,7 @@ class Pufferfish extends MovableObject {
   IMAGES_BUBBLESWIM;
   IMAGES_DEAD;
   bubble = false;
-  pufferSound = false;
+
 
   constructor(world) {
     super();
@@ -98,7 +98,7 @@ class Pufferfish extends MovableObject {
 
     this.movementIntervalId = setInterval(() => {
       if (this.isDying) {
-        this.movingWhenDead();
+        this.handleDeadMovement();
       } else {
         this.moveLeft(this.speed);
       }
@@ -131,9 +131,9 @@ class Pufferfish extends MovableObject {
     } else if(this.y > 750 * mainScale){
       imgIndex = 2;
     }
-    if (!this.pufferSound) {
+    if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
-      this.pufferSound = true;
+      this.deadSound = true;
     }    
     this.img = this.imageCache[this.IMAGES_DEAD[imgIndex]];
 
@@ -143,7 +143,7 @@ class Pufferfish extends MovableObject {
     }, 3000);
   }
 
-  movingWhenDead() {
+  handleDeadMovement() {
     if (this.y < 900 * mainScale) {
       if (this.bubble) {
         this.moveUp(12);

@@ -38,12 +38,19 @@ SOUND_CHARACTER_SLEEP.volume = 0.2;
 SOUND_CHARACTER_SLEEP.loop = true;
 
 
+
+
 const SOUND_BUBBLE_BURST = new Audio("./audio/bubble-burst.mp3");
 SOUND_BUBBLE_BURST.volume = 0.2;
 
 const SOUND_PUFFER_DEAD = new Audio("./audio/puffer-dead.mp3");
 SOUND_PUFFER_DEAD.volume = 0.2;
 SOUND_PUFFER_DEAD.playbackRate = 2;
+
+const SOUND_JELLY_DEAD = new Audio("./audio/jelly-dead.mp3");
+SOUND_JELLY_DEAD.volume = 0.2;
+SOUND_JELLY_DEAD.playbackRate = 1.2;
+
 
 
 const SOUND_ENDBOSS_INTRODUCE = new Audio("./audio/endboss-introduce.mp3");

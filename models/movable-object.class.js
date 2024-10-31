@@ -14,6 +14,7 @@ class MovableObject extends DrawableObject {
   animationIntervalId;
   movementIntervalId;
   isDying;
+  deadSound = false;
   speed;
   verticalSpeed;
   movementSpeed;
@@ -47,6 +48,10 @@ class MovableObject extends DrawableObject {
     if (this.animationIntervalId) {
       clearInterval(this.animationIntervalId);
       this.animationIntervalId = null;
+    }
+    if (this.deadIntervalId) {
+      clearInterval(this.deadIntervalId);
+      this.deadIntervalId = null;
     }
     if (this.movementIntervalId) {
       clearInterval(this.movementIntervalId);

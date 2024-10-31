@@ -103,7 +103,7 @@ class World {
       const jellyX = mainWidth + Math.random() * lengthJellyArea;
 
       if (!isObjectInBarrier(jellyX, 220, this.barriers)) {
-        this.enemies.push(new Jellyfish(this.backgroundRepeat, jellyX));
+        this.enemies.push(new Jellyfish(this, jellyX));
         placedJelly++;
       }
     }
@@ -178,7 +178,7 @@ class World {
   }
 
   handleFinAttack(enemy) {
-    if (enemy instanceof Jellyfish) {
+    if (enemy instanceof Jellyfish && !enemy.isDying) {
       this.stopFinAttack(enemy);
     }
     if (this.isPufferfish(enemy)) {
@@ -203,15 +203,13 @@ class World {
 
   collisionBubbleWithEnemie() {
     this.bubbles.forEach((bubble, bubbleIndex) => {
-      this.enemies.forEach((enemy, enemyIndex) => {
-        if (bubble.isColliding(enemy)) {
+      this.enemies.forEach((enemy) => {
+        if (bubble.isColliding(enemy) && !enemy.isDying) {
           SOUND_BUBBLE_BURST.play();
           this.bubbles.splice(bubbleIndex, 1);
-
-          if (enemy instanceof Jellyfish && !enemy.isDying && bubble.attackType === 1) {
+          if (enemy instanceof Jellyfish && !enemy.isDying) {
+            enemy.direction = bubble.direction;
             enemy.isDying = true;
-            console.log("Jetzt ist der Jelly tod!");
-            
           }
         }
       });
