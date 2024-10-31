@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-  introduceNotStarted = true;
+  introduceStarted = false;
   introduceComplete = false;
   introduceStartX;
   IMAGES_INT;
@@ -7,6 +7,7 @@ class Endboss extends MovableObject {
   IMAGES_ATT;
   IMAGES_HURT;
   IMAGES_DEAD;
+  endBossIsHit = false;
   world;
 
   constructor(world) {
@@ -38,13 +39,13 @@ class Endboss extends MovableObject {
 
   getObjectProperties() {
     this.objectLife = 3;
+    this.speed = 1 + (this.world.gameLevel - 1) / 2;
     this.enemyAttack = "IMAGES_HIT_A";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 1;
     this.enemyAttackSpeed = 30;
     this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
     this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
-    this.speed = 1;
   }
 
   getImages() {
@@ -56,36 +57,32 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (
-        !this.introduceComplete &&
-        this.introduceNotStarted &&
-        //Hier brauche ich noch eine Flag !!! Damit der Boss kommt, auch wenn ich wieder aus dem x Bereich verschwinde
-        this.world.character.x > this.introduceStartX
-      ) {
-        this.y = -70;
-        SOUND_ENDBOSS_INTRODUCE.play();
-        if (this.introduceNotStarted) {
-          this.animateMoving(this.IMAGES_INT);
-          if (this.currentImage >= this.IMAGES_INT.length) {
-            this.introduceNotStarted = false;
-            this.currentImage = 0;
-          }
-        }
-        if (!this.introduceNotStarted) {
-          this.introduceComplete = true;
-          this.startMoving();
-        }
+    this.animationIntervalId = setInterval(() => {
+      if (this.world.character.x > this.introduceStartX) {
+        this.introduceStarted = true;
+      }
+      if (!this.introduceComplete && this.introduceStarted) {
+        this.animateIntroduce();
       } else if (this.introduceComplete) {
         this.animateSwimAndAttack();
       }
     }, 250);
+
+    this.movementIntervalId = setInterval(() => {
+      if (this.introduceComplete) {
+        this.moveLeft(this.speed);
+      }
+    }, 1000 / 60);
   }
 
-  startMoving() {
-    this.movementInterval = setInterval(() => {
-      this.moveLeft(this.speed);
-    }, 1000 / 60);
+  animateIntroduce() {
+    this.y = -70;
+    SOUND_ENDBOSS_INTRODUCE.play();
+    this.animateMoving(this.IMAGES_INT);
+    if (this.currentImage >= this.IMAGES_INT.length) {
+      this.introduceComplete = true;
+      this.currentImage = 0;
+    }
   }
 
   animateSwimAndAttack() {

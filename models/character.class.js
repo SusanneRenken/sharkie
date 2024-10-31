@@ -174,14 +174,6 @@ class Character extends MovableObject {
     return false;
   }
 
-  wakeUp() {
-    this.lastActiveTime = Date.now();
-    this.isSleeping = false;
-    this.isAwake = true;
-    SOUND_CHARACTER_SLEEP.pause();
-    this.getSwimParameter();
-  }
-
   animateAttack() {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
@@ -191,8 +183,8 @@ class Character extends MovableObject {
       this.currentImage = 0;
     }
 
-    if (this.world.isAttack) {          
-      this.setBubbleAttack();  
+    if (this.world.isAttack) {
+      this.setBubbleAttack();
       this.animateMoving(this.attackType);
       this.playAttackSound();
       this.stopAttack();
@@ -210,8 +202,9 @@ class Character extends MovableObject {
       this.attackType != this.IMAGES_FIN &&
       this.currentImage === this.startAttack
     ) {
-      if (this.attackType === this.IMAGES_BUB_P) {      
+      if (this.attackType === this.IMAGES_BUB_P) {
         this.objectPoisons--;
+        this.isPoisonAttack = false;
         this.world.generateBubble(2);
       } else if (!this.isPoisonAttack) {
         this.world.generateBubble(1);
@@ -234,7 +227,6 @@ class Character extends MovableObject {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
     this.animationRepeat = this.enemyAttackRepeat;
-
     if (!this.isHitStart) {
       this.isHitStart = true;
       this.objectLife--;
@@ -280,6 +272,14 @@ class Character extends MovableObject {
     }
   }
 
+  wakeUp() {
+    this.lastActiveTime = Date.now();
+    this.isSleeping = false;
+    this.isAwake = true;
+    SOUND_CHARACTER_SLEEP.pause();
+    this.getSwimParameter();
+  }
+
   animateSleeping() {
     if (!this.isSleeping) {
       this.isSleeping = true;
@@ -311,13 +311,13 @@ class Character extends MovableObject {
     }
   }
 
-  getSleepingParameter() {
+  getSwimParameter() {
     this.offsetX = 160 * mainScale;
-    this.offsetY = 560 * mainScale;
+    this.offsetY = 460 * mainScale;
     this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 700 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
   }
-
+  
   getFinAttackParameter() {
     this.offsetX = 200 * mainScale;
     this.offsetY = 460 * mainScale;
@@ -325,11 +325,11 @@ class Character extends MovableObject {
     this.offsetheight = this.height - 680 * mainScale;
   }
 
-  getSwimParameter() {
+  getSleepingParameter() {
     this.offsetX = 160 * mainScale;
-    this.offsetY = 460 * mainScale;
+    this.offsetY = 560 * mainScale;
     this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 680 * mainScale;
+    this.offsetheight = this.height - 700 * mainScale;
   }
 
   //-------------------------------------------------------------------------------------

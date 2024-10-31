@@ -78,7 +78,7 @@ class Jellyfish extends MovableObject {
   }
 
   animate() {
-    this.animationIntervalId = setInterval(() => {
+    this.animationIntervalId = setInterval(() => {      
       if (!this.isDying) {
         this.animateMoving(this.IMAGES_SWIM);
       }

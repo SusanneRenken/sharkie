@@ -131,6 +131,7 @@ class World {
       this.collisionWithEnemie();
       this.collisionBubbleWithEnemie();
       this.collisionWithEndboss();
+      this.collisionBubbleWithEndboss();
     }, 100);
   }
 
@@ -225,6 +226,18 @@ class World {
       this.handleCharacterBeingHit(this.endBoss);
       this.isHit = true;
     }
+  }
+
+  collisionBubbleWithEndboss() {
+    this.bubbles.forEach((bubble, bubbleIndex) => {
+      if (this.endBoss.isColliding(bubble)) {
+        SOUND_BUBBLE_BURST.play();
+        this.bubbles.splice(bubbleIndex, 1);
+        if (bubble.attackType === 2) {
+          this.endBoss.endBossIsHit = true;
+        }
+      }
+    });
   }
 
   handleCharacterBeingHit(enemy) {
