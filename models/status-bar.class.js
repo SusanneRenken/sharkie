@@ -1,8 +1,8 @@
 class StatusBar extends DrawableObject {
   IMAGES_STATUSBAR = [
-    "img/collectibles/heart.png",
-    "img/collectibles/coin.png",
-    "img/collectibles/poison.png",
+    "./img/collectibles/heart.png",
+    "./img/collectibles/coin.png",
+    "./img/collectibles/poison.png",
   ];
   world;
 

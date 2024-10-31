@@ -13,7 +13,9 @@ class MovableObject extends DrawableObject {
   enemyAttackDeadSound;
   animationIntervalId;
   movementIntervalId;
+  isHitStart = false;
   isDying;
+  isDead = false;
   deadSound = false;
   speed;
   verticalSpeed;

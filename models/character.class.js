@@ -13,13 +13,11 @@ class Character extends MovableObject {
   IMAGES_DEAD_E;
   isAttackStart = false;
   isPoisonAttack = false;
-  isHitStart = false;
   attackType;
   startAttack = 1;
   lastActiveTime = Date.now();
   isSleeping = false;
   isAwake = true;
-  isDead = false;
   world;
 
   constructor(world) {
