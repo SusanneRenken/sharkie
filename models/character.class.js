@@ -46,7 +46,12 @@ class Character extends MovableObject {
     this.objectLife = 3;
     this.objectCoins = 0;
     this.objectPoisons = 0;
-    this.speed = 5 + (this.world.gameLevel - 1) / 2;
+
+
+    this.speed = 5;
+    // this.speed = 5 + (this.world.gameLevel - 1) / 2;
+
+    
     this.verticalSpeed = 0.5 * this.speed;
     this.movementSpeed = 180;
   }

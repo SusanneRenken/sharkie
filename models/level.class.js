@@ -1,11 +1,9 @@
 class Level {
     backgroundObjects;
-    sunlight;
     backgroundRepeat;
 
-    constructor(backgroundObjects, sunlight, backgroundRepeat, characterSpeed){
+    constructor(backgroundObjects, backgroundRepeat){
         this.backgroundObjects = backgroundObjects;
-        this.sunlight = sunlight;
         this.backgroundRepeat = backgroundRepeat;
     }
 }

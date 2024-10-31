@@ -6,13 +6,8 @@ class World {
   backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
   levelEndX;
-  sunlight = new Sunlight(
-    this.level.sunlight,
-    this.level.characterSpeed,
-    this.backgroundRepeat,
-    this
-  );
-  character = new Character(this);
+  character = new Character(this);  
+  sunlight = new Sunlight(this);
   bubbles = [];
   isAttack = false;
   isHit = false;
