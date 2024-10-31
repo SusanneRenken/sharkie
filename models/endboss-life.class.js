@@ -7,7 +7,7 @@ class EndBossLife extends DrawableObject {
       super();
       this.endBoss = endBoss;
       this.x = endBoss.x;
-      this.y = endBoss.y - 60; // Positionierung über dem Endboss
+      this.y = endBoss.y - 60;
       this.loadImage("./img/collectibles/heart.png");
     }
   
