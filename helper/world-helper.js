@@ -7,6 +7,12 @@ const COIN_POSITIONS = [
   { x: 775, y: 0 },
 ];
 
+const BARRIER_DIMENSIONS = [
+  { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
+  { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
+  { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
+];
+
 function getStartPlacesCoins(world) {
   let numberOfCoinCollection = (world.backgroundRepeat - 1) * 2;
   let lengthCoinArea =
@@ -77,7 +83,7 @@ function checkBarrierAreas(
   for (let i = 0; i < barrierAreas.length; i++) {
     const area = barrierAreas[i];
     for (let j = 0; j < 3; j++) {
-      if (area > world.BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
+      if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
         isBarrierPlaced = Math.random() < 0.7 ? true : false;
         if (isBarrierPlaced) {
           generateBarriers(
@@ -99,8 +105,8 @@ function generateBarriers(
   i,
   area,
 ) {
-  let width = world.BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
-  let height = world.BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
+  let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
+  let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
   let randomLength = Math.random() * (area - width);
   let xBarrierPlace = world.xCoinPlaces[i] + world.coinCollectionWidth + randomLength;
 

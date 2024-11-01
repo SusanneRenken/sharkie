@@ -3,27 +3,26 @@ class World {
   gameLevel = 1;
   gameLevelFactor = Math.floor(this.gameLevel / 2 + 0.5);
   pathBackgroundObjeckts = this.level.backgroundObjects;
-  backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
-  levelEndX;
+  coinCollectionWidth = 1000 * mainScale; 
+
   character = new Character(this);
   sunlight = new Sunlight(this);
-  bubbles = [];
-  isAttack = false;
-  isHit = false;
-  enemies = [];
   endBoss = new Endboss(this);
+  statusBar = new StatusBar(this);
+
+  backgroundObjeckts = [];
   coins = [];
-  coinCollectionWidth = 1000 * mainScale;
   xCoinPlaces = [];
-  BARRIER_DIMENSIONS = [
-    { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
-    { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
-    { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
-  ];
   barriers = [];
   poisons = [];
-  statusBar = new StatusBar(this);
+  enemies = [];
+  bubbles = [];
+
+  isAttack = false;
+  isHit = false;
+
+  levelEndX;
   canvas;
   ctx;
   keyboard;
