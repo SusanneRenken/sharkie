@@ -6,7 +6,7 @@ class World {
   backgroundObjeckts = [];
   backgroundRepeat = this.level.backgroundRepeat;
   levelEndX;
-  character = new Character(this);  
+  character = new Character(this);
   sunlight = new Sunlight(this);
   bubbles = [];
   isAttack = false;
@@ -53,53 +53,39 @@ class World {
   }
 
   placeCoins() {
-    getStartPlacesCoins(
-      this.backgroundRepeat,
-      this.xCoinPlaces,
-      this.coinCollectionWidth
-    );
-    generateCoins(this.xCoinPlaces, this.coins, this);
+    getStartPlacesCoins(this);
+    generateCoins(this);
   }
 
   placeBarriers() {
     let barrierAreas = [];
     let isBarrierPlaced = false;
 
-    getBarrierAreas(barrierAreas, this.xCoinPlaces, this.coinCollectionWidth);
-    checkBarrierAreas(
-      barrierAreas,
-      this.BARRIER_DIMENSIONS,
-      isBarrierPlaced,
-      this.barriers,
-      this.xCoinPlaces,
-      this.coinCollectionWidth
-    );
+    getBarrierAreas(barrierAreas, this);
+    checkBarrierAreas(this, barrierAreas, isBarrierPlaced);
   }
 
   initializeEnemies() {
-    let numberOfEnemies = this.backgroundRepeat * (1 + this.gameLevelFactor);
+    let numberOfEnemies =
+      this.level.backgroundRepeat * (1 + this.gameLevelFactor);
 
     for (let i = 0; i < numberOfEnemies; i++) {
-      let enemyClass = Math.random() < 0.5 ? Jellyfish : Pufferfish;
-
-      if (enemyClass == Pufferfish) {
-        this.enemies.push(new Pufferfish(this));
-      } else {
-        this.placeJelly();
-      }
+      this.enemies.push(
+        Math.random() < 0.5 ? new Pufferfish(this) : this.createJelly()
+      );
     }
   }
 
-  placeJelly() {
-    let lengthJellyArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
+  createJelly() {
+    let lengthJellyArea = 2 * mainWidth * (this.level.backgroundRepeat - 1.2);
     let placedJelly = 0;
 
     while (placedJelly < 1) {
       const jellyX = mainWidth + Math.random() * lengthJellyArea;
 
       if (!isObjectInBarrier(jellyX, 220, this.barriers)) {
-        this.enemies.push(new Jellyfish(this, jellyX));
         placedJelly++;
+        return new Jellyfish(this, jellyX);
       }
     }
   }
@@ -121,127 +107,13 @@ class World {
 
   checkCollisions() {
     setInterval(() => {
-      this.collisionWithCoin();
-      this.collisionWithPoison();
-      this.collisionWithEnemie();
-      this.collisionBubbleWithEnemie();
-      this.collisionWithEndboss();
-      this.collisionBubbleWithEndboss();
+      collisionWithCoin(this);
+      collisionWithPoison(this);
+      collisionWithEnemie(this);
+      collisionBubbleWithEnemie(this);
+      collisionWithEndboss(this);
+      collisionBubbleWithEndboss(this);
     }, 100);
-  }
-
-  collisionWithCoin() {
-    this.coins.forEach((coin, i) => {
-      if (this.character.isColliding(coin)) {
-        SOUND_COLLECT_COIN.currentTime = 0;
-        SOUND_COLLECT_COIN.play();
-        this.coins.splice(i, 1);
-        this.character.objectCoins++;
-        coin.stopAllIntervals();
-      }
-    });
-  }
-
-  collisionWithPoison() {
-    this.poisons.forEach((poison, i) => {
-      if (this.character.isColliding(poison)) {
-        SOUND_COLLECT_POISON.currentTime = 0;
-        SOUND_COLLECT_POISON.play();
-        this.poisons.splice(i, 1);
-        this.character.objectPoisons++;
-        poison.stopAllIntervals();
-      }
-    });
-  }
-
-  collisionWithEnemie() {
-    this.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        if (this.isFinAttack()) {
-          this.handleFinAttack(enemy);
-        } else if (!this.isHit && !enemy.isDying) {
-          this.handleCharacterBeingHit(enemy);
-          this.isHit = true;
-        }
-      }
-    });
-  }
-
-  isFinAttack() {
-    return (
-      this.character.attackType === this.character.IMAGES_FIN && this.isAttack
-    );
-  }
-
-  handleFinAttack(enemy) {
-    if (enemy instanceof Jellyfish && !enemy.isDying) {
-      this.stopFinAttack(enemy);
-    }
-    if (this.isPufferfish(enemy)) {
-      enemy.isDying = true;
-    }
-  }
-
-  stopFinAttack(enemy) {
-    this.isAttack = false;
-    this.character.isAttackStart = false;
-    this.character.getSwimParameter();
-    this.handleCharacterBeingHit(enemy);
-  }
-
-  isPufferfish(enemy) {
-    return (
-      enemy instanceof Pufferfish &&
-      !enemy.isDying &&
-      this.character.currentImage === this.character.startAttack
-    );
-  }
-
-  collisionBubbleWithEnemie() {
-    this.bubbles.forEach((bubble, bubbleIndex) => {
-      this.enemies.forEach((enemy) => {
-        if (bubble.isColliding(enemy) && !enemy.isDying) {
-          SOUND_BUBBLE_BURST.play();
-          this.bubbles.splice(bubbleIndex, 1);
-          if (enemy instanceof Jellyfish && !enemy.isDying) {
-            enemy.direction = bubble.direction;
-            enemy.isDying = true;
-          }
-        }
-      });
-    });
-  }
-
-  collisionWithEndboss() {
-    if (
-      this.character.isColliding(this.endBoss) &&
-      !this.isHit &&
-      !this.isAttack
-    ) {
-      this.handleCharacterBeingHit(this.endBoss);
-      this.isHit = true;
-    }
-  }
-
-  collisionBubbleWithEndboss() {
-    this.bubbles.forEach((bubble, bubbleIndex) => {
-      if (this.endBoss.isColliding(bubble)) {
-        SOUND_BUBBLE_BURST.play();
-        this.bubbles.splice(bubbleIndex, 1);
-        if (bubble.attackType === 2) {
-          this.endBoss.endBossIsHit = true;
-        }
-      }
-    });
-  }
-
-  handleCharacterBeingHit(enemy) {
-    this.character.enemyAttack = enemy.enemyAttack;
-    this.character.enemyAttackForDeath = enemy.enemyAttackForDeath;
-    this.character.enemyAttackRepeat = enemy.enemyAttackRepeat;
-    this.character.enemyAttackSpeed = enemy.enemyAttackSpeed;
-    this.character.enemyAttackSound = enemy.enemyAttackSound;
-    this.character.enemyAttackDeadSound = enemy.enemyAttackDeadSound;
   }
 
   setAttack() {

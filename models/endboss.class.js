@@ -165,6 +165,8 @@ class Endboss extends MovableObject {
     }
   }
 
+  
+
   animateEndBossLife() {
     this.lifeObjects.forEach((life) => {
       life.updatePosition();
