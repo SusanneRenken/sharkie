@@ -7,12 +7,6 @@ const COIN_POSITIONS = [
   { x: 775, y: 0 },
 ];
 
-const BARRIER_DIMENSIONS = [
-  { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
-  { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
-  { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
-];
-
 function getStartPlacesCoins(world) {
   let numberOfCoinCollection = (world.backgroundRepeat - 1) * 2;
   let lengthCoinArea =
@@ -66,25 +60,33 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
   });
 }
 
-function getBarrierAreas(barrierAreas, world) {
+function getBarrierAreas(world) {
   for (let i = 0; i < world.xCoinPlaces.length - 1; i++) {
     let areaWidth = Math.floor(
       world.xCoinPlaces[i + 1] -
         world.xCoinPlaces[i] -
         world.coinCollectionWidth
     );
-    barrierAreas.push(areaWidth);
+    world.barrierAreas.push(areaWidth);
   }
 }
 
-function checkBarrierAreas(world, barrierAreas, isBarrierPlaced) {
-  for (let i = 0; i < barrierAreas.length; i++) {
-    const area = barrierAreas[i];
+function checkBarrierAreas(world) {
+  let isBarrierPlaced = false;
+
+  const BARRIER_DIMENSIONS = [
+    { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
+    { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
+    { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
+  ];
+
+  for (let i = 0; i < world.barrierAreas.length; i++) {
+    const area = world.barrierAreas[i];
     for (let j = 0; j < 3; j++) {
       if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
         isBarrierPlaced = Math.random() < 0.7 ? true : false;
         if (isBarrierPlaced) {
-          generateBarriers(world, j + 1, i, area);
+          generateBarriers(world, j + 1, i, area, BARRIER_DIMENSIONS);
         }
       }
     }
@@ -92,7 +94,7 @@ function checkBarrierAreas(world, barrierAreas, isBarrierPlaced) {
   }
 }
 
-function generateBarriers(world, barrierNumber, i, area) {
+function generateBarriers(world, barrierNumber, i, area, BARRIER_DIMENSIONS) {
   let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
   let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
   let randomLength = Math.random() * (area - width);

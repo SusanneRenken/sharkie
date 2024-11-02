@@ -14,6 +14,7 @@ class World {
   backgroundObjeckts = [];
   coins = [];
   xCoinPlaces = [];
+  barrierAreas = [];
   barriers = [];
   poisons = [];
   enemies = [];
@@ -57,11 +58,9 @@ class World {
   }
 
   placeBarriers() {
-    let barrierAreas = [];
-    let isBarrierPlaced = false;
 
-    getBarrierAreas(barrierAreas, this);
-    checkBarrierAreas(this, barrierAreas, isBarrierPlaced);
+    getBarrierAreas(this);
+    checkBarrierAreas(this);
   }
 
   initializeEnemies() {
