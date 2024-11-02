@@ -21,7 +21,10 @@ class Endboss extends MovableObject {
     this.getSwimParameter();
     this.getImages();
 
-    this.createLifeObjects(this.objectLife, "./img/enemy/endboss/heart-full.png");
+    this.createLifeObjects(
+      this.objectLife,
+      "./img/enemy/endboss/heart-full.png"
+    );
     this.animate();
   }
 
@@ -116,11 +119,11 @@ class Endboss extends MovableObject {
   animateSwimAndAttack() {
     if (this.animationCount < 1) {
       SOUND_ENDBOSS_ATTACK.play();
-      this.speed = 3;
+      this.speed = 2;
       this.animateMoving(this.IMAGES_ATT);
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
-      this.speed = 2;
+      this.speed = 1;
       // SOUND_ENDBOSS_ATTACK.play();
       this.animateMoving(this.IMAGES_SWIM);
       this.handleHitBox();
@@ -166,16 +169,21 @@ class Endboss extends MovableObject {
   }
 
   handleEndBossLife() {
-    this.objectLife -= 0.5;
-
-    this.fullHeart = Math.floor(this.objectLife); // 3
-    this.halfeHeart = this.objectLife - this.fullHeart === 0.5 ? 1 : 0; // 1
+    if (this.objectLife <= 0) {
+      this.objectLife = 0;
+    }
+    this.fullHeart = Math.floor(this.objectLife);
+    this.halfeHeart = this.objectLife - this.fullHeart === 0.5 ? 1 : 0;
 
     this.lifeObjects = [];
-    this.createLifeObjects(this.fullHeart, "./img/enemy/endboss/heart-full.png");
-    this.createLifeObjects(this.halfeHeart, "./img/enemy/endboss/heart-half.png");
-
-
+    this.createLifeObjects(
+      this.fullHeart,
+      "./img/enemy/endboss/heart-full.png"
+    );
+    this.createLifeObjects(
+      this.halfeHeart,
+      "./img/enemy/endboss/heart-half.png"
+    );
   }
 
   animateHitAnimation() {

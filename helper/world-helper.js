@@ -194,9 +194,11 @@ function collisionWithEndboss(world) {
   if (
     world.character.isColliding(world.endBoss) &&
     !world.isHit &&
-    !world.endBoss.isDead
+    !world.endBoss.isDead &&
+    !world.endBoss.endBossIsHit
   ) {
-    if (world.character.attackType === world.character.IMAGES_FIN  && world.isAttack) {
+    if (isAttackEndboss()) {
+      world.endBoss.objectLife -= 0.5;
       world.endBoss.endBossIsHit = true;
     } else {
       handleCharacterBeingHit(world.character, world.endBoss);
@@ -205,12 +207,19 @@ function collisionWithEndboss(world) {
   }
 }
 
+function isAttackEndboss() {
+  return (
+    world.character.attackType === world.character.IMAGES_FIN && world.isAttack
+  );
+}
+
 function collisionBubbleWithEndboss(world) {
   world.bubbles.forEach((bubble, bubbleIndex) => {
     if (world.endBoss.isColliding(bubble)) {
       SOUND_BUBBLE_BURST.play();
       world.bubbles.splice(bubbleIndex, 1);
       if (bubble.attackType === 2) {
+        world.endBoss.objectLife -= 1;
         world.endBoss.endBossIsHit = true;
       }
     }

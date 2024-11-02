@@ -65,9 +65,7 @@ class Character extends MovableObject {
     this.objectCoins = 0;
     this.objectPoisons = 0;
 
-
-    this.speed = 5;
-    // this.speed = 5 + (this.world.gameLevel - 1) / 2;
+    this.speed = 5 + (this.world.gameLevel - 1) / 2;
 
     
     this.verticalSpeed = 0.5 * this.speed;
@@ -212,12 +210,6 @@ class Character extends MovableObject {
     }
   }
 
-  playAttackSound() {
-    if (this.currentImage === this.startAttack) {
-      this.attackSound.play();
-    }
-  }
-
   setBubbleAttack() {
     if (
       this.attackType != this.IMAGES_FIN &&
@@ -232,6 +224,12 @@ class Character extends MovableObject {
       } else {
         this.isPoisonAttack = false;
       }
+    }
+  }
+
+  playAttackSound() {
+    if (this.currentImage === this.startAttack) {
+      this.attackSound.play();
     }
   }
 
@@ -331,8 +329,6 @@ class Character extends MovableObject {
       this.animateMoving(this.IMAGES_SLEEP);
     }
   }
-
-
 
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------

@@ -65,9 +65,8 @@ class World {
   }
 
   initializeEnemies() {
-    // let numberOfEnemies =
-    //   this.level.backgroundRepeat * (1 + this.gameLevelFactor);
-    let numberOfEnemies = 1;
+    let numberOfEnemies =
+      this.level.backgroundRepeat * (1 + this.gameLevelFactor);
 
     for (let i = 0; i < numberOfEnemies; i++) {
       this.enemies.push(
@@ -95,8 +94,7 @@ class World {
 
     let placedPoisons = 0;
 
-    while (placedPoisons < (this.backgroundRepeat - 1) * 5) {
-      //5 = 2
+    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!isObjectInBarrier(poisonX, 190, this.barriers)) {
