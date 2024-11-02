@@ -20,11 +20,6 @@ class Endboss extends MovableObject {
     this.getObjectProperties();
     this.getSwimParameter();
     this.getImages();
-
-    this.createLifeObjects(
-      this.objectLife,
-      "./img/enemy/endboss/heart-full.png"
-    );
     this.animate();
   }
 
@@ -39,9 +34,9 @@ class Endboss extends MovableObject {
   }
 
   getSwimParameter() {
-    this.offsetX = 80 * mainScale;
+    this.offsetX = 130 * mainScale;
     this.offsetY = 650 * mainScale;
-    this.offsetwidth = this.width - 160 * mainScale;
+    this.offsetwidth = this.width - 240 * mainScale;
     this.offsetheight = this.height - 900 * mainScale;
   }
 
@@ -57,7 +52,7 @@ class Endboss extends MovableObject {
     this.speed = 1 + (this.world.gameLevel - 1) / 2;
     this.enemyAttack = "IMAGES_HIT_A";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
-    this.enemyAttackRepeat = 1;
+    this.enemyAttackRepeat = 3;
     this.enemyAttackSpeed = 30;
     this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
     this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
@@ -80,6 +75,11 @@ class Endboss extends MovableObject {
   }
 
   animate() {
+    this.setAnimationInterval();
+    this.setMovmentInterval();
+  }
+
+  setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (!this.isDead) {
         if (this.world.character.x > this.introduceStartX) {
@@ -94,7 +94,9 @@ class Endboss extends MovableObject {
         }
       }
     }, 250);
+  }
 
+  setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       this.animateEndBossLife();
       if (this.introduceComplete && !this.endBossIsHit) {
@@ -113,6 +115,10 @@ class Endboss extends MovableObject {
     if (this.currentImage >= this.IMAGES_INT.length) {
       this.introduceComplete = true;
       this.currentImage = 0;
+      this.createLifeObjects(
+        this.objectLife,
+        "./img/enemy/endboss/heart-full.png"
+      );
     }
   }
 
@@ -124,7 +130,7 @@ class Endboss extends MovableObject {
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
       this.speed = 1;
-      // SOUND_ENDBOSS_ATTACK.play();
+      SOUND_ENDBOSS_ATTACK.play();
       this.animateMoving(this.IMAGES_SWIM);
       this.handleHitBox();
       this.isAnimateAttack();
@@ -187,7 +193,7 @@ class Endboss extends MovableObject {
   }
 
   animateHitAnimation() {
-    // add sound boss hit
+    SOUND_ENDBOSS_HIT.play();
     this.animateMoving(this.IMAGES_HIT);
     if (this.currentImage >= this.IMAGES_HIT.length) {
       this.isHitStart = false;
@@ -198,7 +204,7 @@ class Endboss extends MovableObject {
   }
 
   animateDeathAnimation() {
-    // add sound boss dead
+    SOUND_ENDBOSS_DEAD.play();
     this.animateMoving(this.IMAGES_DEAD);
     if (this.currentImage >= this.IMAGES_DEAD.length) {
       this.isDead = true;

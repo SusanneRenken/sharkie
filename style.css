@@ -10,7 +10,8 @@ body {
   background-image: url(./img/background/background-body.png);
   background-size: cover;
   margin: 0;
-  font-family: 'LuckiestGuy';
+  font-family: 'LuckiestGuy', Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   overflow: hidden;
   display: flex;
   flex-direction: column;

@@ -59,6 +59,12 @@ SOUND_ENDBOSS_INTRODUCE.volume = 0.2;
 const SOUND_ENDBOSS_ATTACK = new Audio("./audio/endboss-attack.mp3");
 SOUND_ENDBOSS_ATTACK.volume = 0.2;
 
+const SOUND_ENDBOSS_HIT = new Audio("./audio/endboss-hit2.mp3");
+SOUND_ENDBOSS_HIT.volume = 0.2;
+SOUND_ENDBOSS_HIT.playbackRate = 2;
+
+const SOUND_ENDBOSS_DEAD = new Audio("./audio/endboss-dead.mp3");
+SOUND_ENDBOSS_DEAD.volume = 0.2;
 
 
 const SOUND_COLLECT_COIN = new Audio("./audio/collect-coin.mp3");

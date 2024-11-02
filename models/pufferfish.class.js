@@ -6,7 +6,6 @@ class Pufferfish extends MovableObject {
   IMAGES_DEAD;
   bubble = false;
 
-
   constructor(world) {
     super();
     this.world = world;
@@ -71,6 +70,11 @@ class Pufferfish extends MovableObject {
   }
 
   animate() {
+    this.setAnimationInterval();
+    this.setMovmentInterval();
+  }
+
+  setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (this.isDying) {
         this.animateDying();
@@ -95,7 +99,9 @@ class Pufferfish extends MovableObject {
         this.isAnimateTransition(false);
       }
     }, this.movementSpeed);
+  }
 
+  setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       if (this.isDying) {
         this.handleDeadMovement();
@@ -125,22 +131,32 @@ class Pufferfish extends MovableObject {
   }
 
   animateDying() {
-    let imgIndex = 1;
-    if (this.bubble) {
-      imgIndex = 0;
-    } else if(this.y > 750 * mainScale){
-      imgIndex = 2;
-    }
-    if (!this.deadSound) {
-      SOUND_PUFFER_DEAD.play();
-      this.deadSound = true;
-    }
+    let imgIndex = this.getDyingImage();
+    this.startDyingSound();
+
     this.img = this.imageCache[this.IMAGES_DEAD[imgIndex]];
 
     setTimeout(() => {
       this.world.enemies = this.world.enemies.filter((enemy) => enemy !== this);
       this.stopAllIntervals();
     }, 3000);
+  }
+
+  getDyingImage(){
+    let imgIndex = 1;
+    if (this.bubble) {
+      imgIndex = 0;
+    } else if (this.y > 750 * mainScale) {
+      imgIndex = 2;
+    }
+    return imgIndex
+  }
+
+  startDyingSound(){
+    if (!this.deadSound) {
+      SOUND_PUFFER_DEAD.play();
+      this.deadSound = true;
+    }
   }
 
   handleDeadMovement() {

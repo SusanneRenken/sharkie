@@ -9,7 +9,7 @@ class Coin extends MovableObject {
     super();
     this.world = world;
 
-    this.IMAGES_COIN = this.loadAllImages("./img/collectibles", "coins", 4);
+    this.IMAGES_COIN = this.loadAllImages("./img/collectibles", "coins", 8);
 
     this.x = x;
     this.y = y;
@@ -22,7 +22,7 @@ class Coin extends MovableObject {
   animate() {
     this.animationIntervalId = setInterval(() => {
       this.animateMoving(this.IMAGES_COIN);      
-    }, 220);
+    }, 110);
   }
 
 }

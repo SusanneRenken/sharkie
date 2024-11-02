@@ -29,6 +29,11 @@ class Poison extends MovableObject {
   }
 
   animate() {
+    this.setAnimationInterval();
+    this.setMovmentInterval();
+  }
+
+  setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       this.distanceToPoison = this.x - this.world.character.x;
 
@@ -43,12 +48,13 @@ class Poison extends MovableObject {
         this.loadImage(`./img/collectibles/poison/${this.direction}.png`);
       }
     }, 100);
+  }
 
+  setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       if (this.isFalling && this.y < 830 * mainScale) {
         this.y += 1;
       }
     }, 1000 / 60);
   }
-
 }

@@ -112,13 +112,13 @@ class World {
       collisionBubbleWithEnemie(this);
       collisionWithEndboss(this);
       collisionBubbleWithEndboss(this);
-    }, 100);
+    }, 0);
   }
 
   setAttack() {
     setInterval(() => {
       if (
-        this.character.isAttackKeyPressed() &&
+        isAttackKeyPressed(this.character) &&
         !this.isAttack &&
         !this.isHit
       ) {
@@ -174,7 +174,7 @@ class World {
     }
 
     mo.drawObject(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     this.ctx.restore();
   }

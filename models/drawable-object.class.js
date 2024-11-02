@@ -72,7 +72,7 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 200 * mainScale,
+          this.x + 250 * mainScale,
           this.y + 460 * mainScale,
           this.width - 320 * mainScale,
           this.height - 680 * mainScale
@@ -140,9 +140,9 @@ class DrawableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
       ctx.rect(
-        this.x + 0 * mainScale,
+        this.x + 130 * mainScale,
         this.y + 650 * mainScale,
-        this.width - 80 * mainScale,
+        this.width - 240 * mainScale,
         this.height - 900 * mainScale
       );
       ctx.stroke();

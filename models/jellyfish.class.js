@@ -78,18 +78,28 @@ class Jellyfish extends MovableObject {
   }
 
   animate() {
+    this.setAnimationInterval();
+    this.setSecondaryIntervalId();
+    this.setMovmentInterval();
+  }
+
+  setAnimationInterval(){
     this.animationIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.animateMoving(this.IMAGES_SWIM);
       }
     }, this.movementSpeed);
+  }
 
-    this.deadIntervalId = setInterval(() => {
+  setSecondaryIntervalId(){
+    this.secondaryIntervalId = setInterval(() => {
       if (this.isDying) {
         this.animateDying();
       }
     }, 60);
+  }
 
+  setMovmentInterval(){
     this.movementIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.handleSwimMovment();
