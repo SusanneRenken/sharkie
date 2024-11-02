@@ -25,6 +25,7 @@ class Character extends MovableObject {
     this.world = world;
 
     this.getParameter();
+    this.getSwimParameter();
     this.getObjectProperties();
     this.getImages();
 
@@ -36,14 +37,31 @@ class Character extends MovableObject {
     this.height = 1000 * mainScale * 0.9;
     this.x = 0;
     this.y = -100;
+  }
+
+  getSwimParameter() {
     this.offsetX = 160 * mainScale;
     this.offsetY = 460 * mainScale;
     this.offsetwidth = this.width - 320 * mainScale;
     this.offsetheight = this.height - 680 * mainScale;
   }
+  
+  getFinAttackParameter() {
+    this.offsetX = 200 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
+  }
+
+  getSleepingParameter() {
+    this.offsetX = 160 * mainScale;
+    this.offsetY = 560 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 700 * mainScale;
+  }
 
   getObjectProperties() {
-    this.objectLife = 3;
+    this.objectLife = 10;
     this.objectCoins = 0;
     this.objectPoisons = 0;
 
@@ -314,26 +332,7 @@ class Character extends MovableObject {
     }
   }
 
-  getSwimParameter() {
-    this.offsetX = 160 * mainScale;
-    this.offsetY = 460 * mainScale;
-    this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 680 * mainScale;
-  }
-  
-  getFinAttackParameter() {
-    this.offsetX = 200 * mainScale;
-    this.offsetY = 460 * mainScale;
-    this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 680 * mainScale;
-  }
 
-  getSleepingParameter() {
-    this.offsetX = 160 * mainScale;
-    this.offsetY = 560 * mainScale;
-    this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 700 * mainScale;
-  }
 
   //-------------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------------

@@ -69,29 +69,22 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
 function getBarrierAreas(barrierAreas, world) {
   for (let i = 0; i < world.xCoinPlaces.length - 1; i++) {
     let areaWidth = Math.floor(
-      world.xCoinPlaces[i + 1] - world.xCoinPlaces[i] - world.coinCollectionWidth
+      world.xCoinPlaces[i + 1] -
+        world.xCoinPlaces[i] -
+        world.coinCollectionWidth
     );
     barrierAreas.push(areaWidth);
   }
 }
 
-function checkBarrierAreas( 
-  world, 
-  barrierAreas,
-  isBarrierPlaced,
-) {
+function checkBarrierAreas(world, barrierAreas, isBarrierPlaced) {
   for (let i = 0; i < barrierAreas.length; i++) {
     const area = barrierAreas[i];
     for (let j = 0; j < 3; j++) {
       if (area > BARRIER_DIMENSIONS[j].barrierWidth && !isBarrierPlaced) {
         isBarrierPlaced = Math.random() < 0.7 ? true : false;
         if (isBarrierPlaced) {
-          generateBarriers(
-            world,
-            j + 1,
-            i,
-            area,
-          );
+          generateBarriers(world, j + 1, i, area);
         }
       }
     }
@@ -99,16 +92,12 @@ function checkBarrierAreas(
   }
 }
 
-function generateBarriers(
-  world,
-  barrierNumber,
-  i,
-  area,
-) {
+function generateBarriers(world, barrierNumber, i, area) {
   let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
   let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
   let randomLength = Math.random() * (area - width);
-  let xBarrierPlace = world.xCoinPlaces[i] + world.coinCollectionWidth + randomLength;
+  let xBarrierPlace =
+    world.xCoinPlaces[i] + world.coinCollectionWidth + randomLength;
 
   world.barriers.push(new Barrier(barrierNumber, width, height, xBarrierPlace));
 }
@@ -205,11 +194,14 @@ function collisionWithEndboss(world) {
   if (
     world.character.isColliding(world.endBoss) &&
     !world.isHit &&
-    !world.isAttack &&
-    !world.endBoss.isDead // Warum funktioniert das nicht?
+    !world.endBoss.isDead
   ) {
-    handleCharacterBeingHit(world.character, world.endBoss);
-    world.isHit = true;
+    if (world.character.attackType === world.character.IMAGES_FIN  && world.isAttack) {
+      world.endBoss.endBossIsHit = true;
+    } else {
+      handleCharacterBeingHit(world.character, world.endBoss);
+      world.isHit = true;
+    }
   }
 }
 

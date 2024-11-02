@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
   IMAGES_DEAD;
   endBossIsHit = false;
   world;
+  objectLife;
   lifeObjects = [];
 
   constructor(world) {
@@ -17,9 +18,10 @@ class Endboss extends MovableObject {
 
     this.getParameter();
     this.getObjectProperties();
+    this.getSwimParameter();
     this.getImages();
 
-    this.createLifeObjects();
+    this.createLifeObjects(this.objectLife, "./img/enemy/endboss/heart-full.png");
     this.animate();
   }
 
@@ -31,11 +33,20 @@ class Endboss extends MovableObject {
     this.y = -mainHeight;
     this.introduceStartX =
       2 * mainWidth * (this.world.backgroundRepeat - 0.5) - 1 * this.width;
+  }
 
-    this.offsetX = 50 * mainScale;
-    this.offsetY = 575 * mainScale;
-    this.offsetwidth = this.width - 100 * mainScale;
-    this.offsetheight = this.height - 800 * mainScale;
+  getSwimParameter() {
+    this.offsetX = 80 * mainScale;
+    this.offsetY = 650 * mainScale;
+    this.offsetwidth = this.width - 160 * mainScale;
+    this.offsetheight = this.height - 900 * mainScale;
+  }
+
+  getAttackParameter() {
+    this.offsetX = 200 * mainScale;
+    this.offsetY = 460 * mainScale;
+    this.offsetwidth = this.width - 320 * mainScale;
+    this.offsetheight = this.height - 680 * mainScale;
   }
 
   getObjectProperties() {
@@ -57,10 +68,10 @@ class Endboss extends MovableObject {
     this.IMAGES_DEAD = this.loadAllImages("./img/enemy/endboss", "dead", 6);
   }
 
-  createLifeObjects() {
-    for (let i = 0; i < this.objectLife; i++) {
-      const life = new EndBossLife(this);
-      life.x += i * (life.width + 5); // Abstand zwischen den Herzen
+  createLifeObjects(objectLife, imagePath) {
+    const existingObjectsCount = this.lifeObjects.length;
+    for (let i = 0; i < objectLife; i++) {
+      const life = new EndBossLife(this, i + existingObjectsCount, imagePath);
       this.lifeObjects.push(life);
     }
   }
@@ -68,7 +79,6 @@ class Endboss extends MovableObject {
   animate() {
     this.animationIntervalId = setInterval(() => {
       if (!this.isDead) {
-        this.animateEndBossLife();
         if (this.world.character.x > this.introduceStartX) {
           this.introduceStarted = true;
         }
@@ -80,16 +90,16 @@ class Endboss extends MovableObject {
           this.animateHit();
         }
       }
-      
     }, 250);
 
     this.movementIntervalId = setInterval(() => {
+      this.animateEndBossLife();
       if (this.introduceComplete && !this.endBossIsHit) {
         this.moveLeft(this.speed);
-      }if (this.isDead) {
+      }
+      if (this.isDead) {
         this.moveUp(5);
       }
-
     }, 1000 / 60);
   }
 
@@ -105,13 +115,15 @@ class Endboss extends MovableObject {
 
   animateSwimAndAttack() {
     if (this.animationCount < 1) {
-      this.speed = 1;
-      this.animateMoving(this.IMAGES_SWIM);
-      this.isAnimateSwim(this.IMAGES_SWIM);
+      SOUND_ENDBOSS_ATTACK.play();
+      this.speed = 3;
+      this.animateMoving(this.IMAGES_ATT);
+      this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
       this.speed = 2;
-      SOUND_ENDBOSS_ATTACK.play();
-      this.animateMoving(this.IMAGES_ATT);
+      // SOUND_ENDBOSS_ATTACK.play();
+      this.animateMoving(this.IMAGES_SWIM);
+      this.handleHitBox();
       this.isAnimateAttack();
     }
   }
@@ -123,8 +135,17 @@ class Endboss extends MovableObject {
     }
   }
 
+  handleHitBox() {
+    if (this.currentImage === 1) {
+      this.getAttackParameter();
+    }
+    if (this.currentImage === 4) {
+      this.getSwimParameter();
+    }
+  }
+
   isAnimateAttack() {
-    if (this.currentImage >= this.IMAGES_ATT.length) {
+    if (this.currentImage >= this.IMAGES_SWIM.length) {
       this.animationCount = 0;
       this.currentImage = 0;
     }
@@ -134,7 +155,7 @@ class Endboss extends MovableObject {
     SOUND_ENDBOSS_ATTACK.pause();
     if (!this.isHitStart) {
       this.isHitStart = true;
-      this.objectLife--;
+      this.handleEndBossLife();
       this.currentImage = 0;
     }
     if (this.objectLife > 0) {
@@ -144,12 +165,26 @@ class Endboss extends MovableObject {
     }
   }
 
+  handleEndBossLife() {
+    this.objectLife -= 0.5;
+
+    this.fullHeart = Math.floor(this.objectLife); // 3
+    this.halfeHeart = this.objectLife - this.fullHeart === 0.5 ? 1 : 0; // 1
+
+    this.lifeObjects = [];
+    this.createLifeObjects(this.fullHeart, "./img/enemy/endboss/heart-full.png");
+    this.createLifeObjects(this.halfeHeart, "./img/enemy/endboss/heart-half.png");
+
+
+  }
+
   animateHitAnimation() {
     // add sound boss hit
     this.animateMoving(this.IMAGES_HIT);
     if (this.currentImage >= this.IMAGES_HIT.length) {
       this.isHitStart = false;
       this.endBossIsHit = false;
+      this.animationCount = 0;
       this.currentImage = 0;
     }
   }
@@ -164,8 +199,6 @@ class Endboss extends MovableObject {
       }, 3000);
     }
   }
-
-  
 
   animateEndBossLife() {
     this.lifeObjects.forEach((life) => {

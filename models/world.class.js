@@ -4,7 +4,7 @@ class World {
   gameLevelFactor = Math.floor(this.gameLevel / 2 + 0.5);
   pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundRepeat = this.level.backgroundRepeat;
-  coinCollectionWidth = 1000 * mainScale; 
+  coinCollectionWidth = 1000 * mainScale;
 
   character = new Character(this);
   sunlight = new Sunlight(this);
@@ -65,8 +65,9 @@ class World {
   }
 
   initializeEnemies() {
-    let numberOfEnemies =
-      this.level.backgroundRepeat * (1 + this.gameLevelFactor);
+    // let numberOfEnemies =
+    //   this.level.backgroundRepeat * (1 + this.gameLevelFactor);
+    let numberOfEnemies = 1;
 
     for (let i = 0; i < numberOfEnemies; i++) {
       this.enemies.push(
@@ -94,7 +95,8 @@ class World {
 
     let placedPoisons = 0;
 
-    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
+    while (placedPoisons < (this.backgroundRepeat - 1) * 5) {
+      //5 = 2
       const poisonX = mainWidth + Math.random() * lengthPoisonArea;
 
       if (!isObjectInBarrier(poisonX, 190, this.barriers)) {
@@ -148,6 +150,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
     this.addToMap(this.endBoss);
+    this.addObjectsToMap(this.endBoss.lifeObjects);
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar);
 

@@ -134,7 +134,7 @@ class Pufferfish extends MovableObject {
     if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
       this.deadSound = true;
-    }    
+    }
     this.img = this.imageCache[this.IMAGES_DEAD[imgIndex]];
 
     setTimeout(() => {

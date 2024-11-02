@@ -32,7 +32,7 @@ class Jellyfish extends MovableObject {
 
     this.x = x;
     this.y = 0.1 * mainHeight;
- 
+
     this.offsetX = 30 * mainScale;
     this.offsetY = 50 * mainScale;
     this.offsetwidth = this.width - 60 * mainScale;
@@ -78,7 +78,7 @@ class Jellyfish extends MovableObject {
   }
 
   animate() {
-    this.animationIntervalId = setInterval(() => {      
+    this.animationIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.animateMoving(this.IMAGES_SWIM);
       }
@@ -103,7 +103,7 @@ class Jellyfish extends MovableObject {
     if (!this.deadSound) {
       SOUND_JELLY_DEAD.play();
       this.deadSound = true;
-    }  
+    }
     this.animateMoving(this.IMAGES_DEAD);
 
     setTimeout(() => {
@@ -121,7 +121,7 @@ class Jellyfish extends MovableObject {
     this.y += this.isMovingDown ? this.speed : -this.speed;
   }
 
-  handleDeadMovement(){
+  handleDeadMovement() {
     if (!this.parabolaStarted) {
       this.urX = this.x;
       this.urY = this.y;
@@ -130,6 +130,5 @@ class Jellyfish extends MovableObject {
     this.x += 5 * this.direction;
     const PARABOLA_WIDTH = 0.002;
     this.y = -(PARABOLA_WIDTH * Math.pow(this.x - this.urX, 2)) + this.urY;
-
   }
 }

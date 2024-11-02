@@ -11,6 +11,10 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
 document.addEventListener("keydown", (event) => setKey(event.code, true));
 document.addEventListener("keyup", (event) => setKey(event.code, false));
 

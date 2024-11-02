@@ -13,10 +13,6 @@ class Sunlight extends MovableObject {
     this.world = world;
     this.loadImage("./img/background/layers/light/3.png");
 
-    // this.speed =
-    //   (this.world.character.speed) *
-    //   ((this.world.backgroundRepeat - 1) / (this.world.backgroundRepeat - 0.5));
-
     this.speed = -((this.world.backgroundRepeat - 1) / (this.world.backgroundRepeat - 0.5));
 
     this.animate();
