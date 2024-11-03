@@ -130,7 +130,6 @@ class Endboss extends MovableObject {
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
       this.speed = 2;
-      SOUND_ENDBOSS_ATTACK.play();
       this.animateMoving(this.IMAGES_SWIM);
       this.handleHitBox();
       this.isAnimateAttack();

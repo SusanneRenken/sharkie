@@ -64,7 +64,7 @@ class World {
   }
 
   initializeEnemies() {
-    let numberOfEnemies =
+      let numberOfEnemies =
       this.level.backgroundRepeat * (1 + this.gameLevelFactor);
 
     for (let i = 0; i < numberOfEnemies; i++) {
@@ -90,7 +90,6 @@ class World {
 
   placePoison() {
     let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
-
     let placedPoisons = 0;
 
     while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
@@ -109,7 +108,7 @@ class World {
       collisionWithCoin(this);
       collisionWithPoison(this);
       collisionWithEnemie(this);
-      collisionWithEndboss(this);
+      collisionWithEndboss(this);      
       collisionBubbleWithBarrier(this);
       collisionBubbleWithEnemie(this);
       collisionBubbleWithEndboss(this);
@@ -138,6 +137,8 @@ class World {
     this.addToMap(this.sunlight);
 
     this.ctx.translate(this.camera_x, 0);
+    // this.addToMap(this.sunlight);
+
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
