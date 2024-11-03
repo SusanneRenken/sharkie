@@ -1,40 +1,40 @@
 function getParameter(obj) {
-    obj.width = 815 * mainScale * 0.9;
-    obj.height = 1000 * mainScale * 0.9;
-    obj.x = 0;
-    obj.y = -100;
+  obj.width = 815 * mainScale * 0.9;
+  obj.height = 1000 * mainScale * 0.9;
+  obj.x = 0;
+  obj.y = -100;
 }
 
 function getSwimParameter(obj) {
-    obj.offsetX = 160 * mainScale;
+  obj.offsetX = 160 * mainScale;
   obj.offsetY = 460 * mainScale;
   obj.offsetwidth = obj.width - 320 * mainScale;
   obj.offsetheight = obj.height - 680 * mainScale;
 }
 
 function getFinAttackParameter(obj) {
-    obj.offsetX = 250 * mainScale;
-    obj.offsetY = 460 * mainScale;
-    obj.offsetwidth = obj.width - 320 * mainScale;
-    obj.offsetheight = obj.height - 680 * mainScale;
+  obj.offsetX = 250 * mainScale;
+  obj.offsetY = 460 * mainScale;
+  obj.offsetwidth = obj.width - 320 * mainScale;
+  obj.offsetheight = obj.height - 680 * mainScale;
 }
 
 function getSleepingParameter(obj) {
-    obj.offsetX = 160 * mainScale;
+  obj.offsetX = 160 * mainScale;
   obj.offsetY = 560 * mainScale;
   obj.offsetwidth = obj.width - 320 * mainScale;
   obj.offsetheight = obj.height - 700 * mainScale;
 }
 
 function getObjectProperties(obj) {
-    obj.objectLife = 10;
-    obj.objectCoins = 0;
-    obj.objectPoisons = 0;
+  obj.objectLife = 3;
+  obj.objectCoins = 0;
+  obj.objectPoisons = 0;
 
-    obj.speed = 5 + (obj.world.gameLevel - 1) / 2;
+  obj.speed = 5 + (obj.world.gameLevel - 1) / 2;
 
-    obj.verticalSpeed = 0.5 * obj.speed;
-    obj.movementSpeed = 180;
+  obj.verticalSpeed = 0.5 * obj.speed;
+  obj.movementSpeed = 180;
 }
 
 function getImages(obj) {
@@ -77,13 +77,13 @@ function setBubblePoisondAttack(obj) {
   if (obj.world.keyboard.KEYW) {
     obj.isPoisonAttack = true;
     if (obj.objectPoisons <= 0) {
-        obj.attackType = obj.IMAGES_BUB_N;
-        obj.attackSound = SOUND_BUBBLE_BURST;
-        obj.startAttack = 7;
+      obj.attackType = obj.IMAGES_BUB_N;
+      obj.attackSound = SOUND_BUBBLE_BURST;
+      obj.startAttack = 7;
     } else {
-        obj.attackType = obj.IMAGES_BUB_P;
-        obj.attackSound = SOUND_CHARACTER_BUB_P;
-        obj.startAttack = 7;
+      obj.attackType = obj.IMAGES_BUB_P;
+      obj.attackSound = SOUND_CHARACTER_BUB_P;
+      obj.startAttack = 7;
     }
     return true;
   }
@@ -96,13 +96,13 @@ function setBubbleAttack(obj) {
     obj.currentImage === obj.startAttack
   ) {
     if (obj.attackType === obj.IMAGES_BUB_P) {
-        obj.objectPoisons--;
-        obj.isPoisonAttack = false;
-        obj.world.generateBubble(2);
+      obj.objectPoisons--;
+      obj.isPoisonAttack = false;
+      obj.world.generateBubble(2);
     } else if (!obj.isPoisonAttack) {
-        obj.world.generateBubble(1);
+      obj.world.generateBubble(1);
     } else {
-        obj.isPoisonAttack = false;
+      obj.isPoisonAttack = false;
     }
   }
 }
@@ -140,9 +140,7 @@ function animateDeathAnimation(obj) {
     obj.enemyAttackDeadSound.play();
   }
   obj.animateMoving(obj[obj.enemyAttackForDeath]);
-  if (
-    obj.currentImage >= obj[obj.enemyAttackForDeath].length
-  ) {
+  if (obj.currentImage >= obj[obj.enemyAttackForDeath].length) {
     obj.isDead = true;
   }
 }
@@ -153,8 +151,8 @@ function isFallAsleep(obj) {
 
     obj.animateMoving(obj.IMAGES_TRANS);
     if (obj.currentImage >= obj.IMAGES_TRANS.length) {
-        obj.isAwake = false;
-        obj.currentImage = 0;
+      obj.isAwake = false;
+      obj.currentImage = 0;
     }
   }
 }
@@ -162,7 +160,7 @@ function isFallAsleep(obj) {
 function isSleepingDeeply(obj) {
   if (!obj.isAwake) {
     if (obj.y >= 290 * mainScale) {
-        obj.y = 290 * mainScale;
+      obj.y = 290 * mainScale;
     }
     getSleepingParameter(obj);
     obj.animateMoving(obj.IMAGES_SLEEP);

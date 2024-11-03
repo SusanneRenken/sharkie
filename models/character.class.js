@@ -11,6 +11,8 @@ class Character extends MovableObject {
   IMAGES_HIT_P;
   IMAGES_DEAD_A;
   IMAGES_DEAD_E;
+  lastX;
+  lastY;
   isAttackStart = false;
   isPoisonAttack = false;
   attackType;
@@ -56,6 +58,11 @@ class Character extends MovableObject {
     }, 180);
   }
 
+  saveLastPosition() {
+    this.lastX = this.x;
+    this.lastY = this.y;
+  }
+
   setSecondaryIntervalId() {
     this.secondaryIntervalId = setInterval(() => {
       if (isAliveAndAttack(this)) {
@@ -66,6 +73,7 @@ class Character extends MovableObject {
 
   setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
+      this.saveLastPosition();
       if (this.isAttackStart) {
         this.handleFinAttackMoving();
       } else if (this.isHitStart) {
@@ -81,6 +89,7 @@ class Character extends MovableObject {
       } else {
         this.handleNoMovement();
       }
+
       this.world.camera_x = -this.x + 62 * mainScale;
     }, 1000 / 60);
   }
@@ -148,12 +157,12 @@ class Character extends MovableObject {
 
   handleFinAttackMoving() {
     if (isFinAttackFirstMove(this)) {
-      if (this.otherDirection === false) this.moveRight(20);
-      if (this.otherDirection === true) this.moveLeft(20);
+      if (this.otherDirection === false) this.moveRight(18);
+      if (this.otherDirection === true) this.moveLeft(18);
     }
     if (isFinAttackSecondMove(this)) {
-      if (this.otherDirection === false) this.moveLeft(20);
-      if (this.otherDirection === true) this.moveRight(20);
+      if (this.otherDirection === false) this.moveLeft(23);
+      if (this.otherDirection === true) this.moveRight(23);
     }
   }
 
@@ -164,10 +173,10 @@ class Character extends MovableObject {
         if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);
       }
     } else {
-      if (this.isDeathByAttack(this)) {
+      if (isDeathByAttack(this)) {
         this.moveUp(5);
       }
-      if (this.isDeathByElectric(this)) {
+      if (isDeathByElectric(this)) {
         this.moveDown(30);
       }
     }

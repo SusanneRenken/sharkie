@@ -16,6 +16,7 @@ class World {
   xCoinPlaces = [];
   barrierAreas = [];
   barriers = [];
+  barrierHitboxes = [];
   poisons = [];
   enemies = [];
   bubbles = [];
@@ -105,6 +106,7 @@ class World {
 
   checkCollisions() {
     setInterval(() => {
+      collisionWithBarrier(this);
       collisionWithCoin(this);
       collisionWithPoison(this);
       collisionWithEnemie(this);

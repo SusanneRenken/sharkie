@@ -101,7 +101,9 @@ function generateBarriers(world, barrierNumber, i, area, BARRIER_DIMENSIONS) {
   let xBarrierPlace =
     world.xCoinPlaces[i] + world.coinCollectionWidth + randomLength;
 
-  world.barriers.push(new Barrier(barrierNumber, width, height, xBarrierPlace));
+  world.barriers.push(
+    new Barrier(barrierNumber, width, height, xBarrierPlace, world)
+  );
 }
 
 function isObjectInBarrier(objectX, objectWidth, barriers) {
@@ -110,6 +112,86 @@ function isObjectInBarrier(objectX, objectWidth, barriers) {
       objectX >= barrier.x - 1.2 * objectWidth * mainScale &&
       objectX <= barrier.x + barrier.width + 0.2 * objectWidth * mainScale
   );
+}
+
+function collisionWithBarrier(world) {
+  world.barrierHitboxes.forEach((barrier) => {
+    if (world.character.isColliding(barrier)) {
+
+      if (isCollidingFromLeft(world, barrier)) {
+        stopMovingRight(world, barrier);
+      } else if (isCollidingFromRight(world, barrier)) {
+        stopMovingLeft(world, barrier);
+      }
+
+      if (isCollidingFromAbove(world, barrier)) {
+        stopMovingDownwards(world, barrier);
+      } else if (isCollidingFromBelow(world, barrier)) {
+        stopMovingUpwards(world, barrier);
+      }
+    }
+  });
+}
+
+function isCollidingFromLeft(world, barrier) {
+  return (
+    world.character.lastX +
+      world.character.offsetX +
+      world.character.offsetwidth <=
+    barrier.x + barrier.offsetX
+  );
+}
+
+function stopMovingRight(world, barrier) {
+  world.character.x =
+    barrier.x +
+    barrier.offsetX -
+    world.character.offsetwidth -
+    world.character.offsetX;
+}
+
+function isCollidingFromRight(world, barrier) {
+  return (
+    world.character.lastX + world.character.offsetX >=
+    barrier.x + barrier.offsetX + barrier.offsetwidth
+  );
+}
+
+function stopMovingLeft(world, barrier) {
+  world.character.x =
+    barrier.x + barrier.offsetX + barrier.offsetwidth - world.character.offsetX;
+}
+
+function isCollidingFromAbove(world, barrier) {
+  return (
+    world.character.lastY +
+      world.character.offsetY +
+      world.character.offsetheight <=
+    barrier.y + barrier.offsetY
+  );
+}
+
+function stopMovingDownwards(world, barrier) {
+  world.character.y =
+    barrier.y +
+    barrier.offsetY -
+    world.character.offsetheight -
+    world.character.offsetY;
+}
+
+function isCollidingFromBelow(world, barrier) {
+  return (
+    world.character.lastY + world.character.offsetY >=
+    barrier.y + barrier.offsetY + barrier.offsetheight
+  );
+}
+
+function stopMovingUpwards(world, barrier) {
+  world.character.y =
+    barrier.y +
+    barrier.offsetY +
+    barrier.offsetheight -
+    world.character.offsetY;
 }
 
 function collisionWithCoin(world) {
@@ -165,7 +247,7 @@ function handleFinAttack(character, enemy, world) {
 function stopFinAttack(character, enemy, world) {
   world.isAttack = false;
   character.isAttackStart = false;
-  character.getSwimParameter();
+  getSwimParameter(character);
   handleCharacterBeingHit(character, enemy);
 }
 

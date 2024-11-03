@@ -177,6 +177,12 @@ class DrawableObject {
       ctx.stroke();
     }
 
+
+
+
+
+
+
     if (this instanceof Barrier) {
       if (this.barrierNumber === 1) {
         ctx.beginPath();
@@ -245,6 +251,12 @@ class DrawableObject {
         );
         ctx.stroke();
       }
+
+
+
+
+
+
       if (this.barrierNumber === 2) {
         ctx.beginPath();
         ctx.lineWidth = "5";
@@ -290,6 +302,12 @@ class DrawableObject {
         );
         ctx.stroke();
       }
+
+
+
+
+
+      
       if (this.barrierNumber === 3) {
         ctx.beginPath();
         ctx.lineWidth = "5";
