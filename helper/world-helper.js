@@ -114,6 +114,11 @@ function isObjectInBarrier(objectX, objectWidth, barriers) {
   );
 }
 
+
+
+
+
+
 function collisionWithBarrier(world) {
   world.barrierHitboxes.forEach((barrier) => {
     if (world.character.isColliding(barrier)) {
@@ -259,21 +264,6 @@ function isPufferfish(character, enemy) {
   );
 }
 
-function collisionBubbleWithEnemie(world) {
-  world.bubbles.forEach((bubble, bubbleIndex) => {
-    world.enemies.forEach((enemy) => {
-      if (bubble.isColliding(enemy) && !enemy.isDying) {
-        SOUND_BUBBLE_BURST.play();
-        world.bubbles.splice(bubbleIndex, 1);
-        if (enemy instanceof Jellyfish && !enemy.isDying) {
-          enemy.direction = bubble.direction;
-          enemy.isDying = true;
-        }
-      }
-    });
-  });
-}
-
 function collisionWithEndboss(world) {
   if (
     world.character.isColliding(world.endBoss) &&
@@ -295,6 +285,32 @@ function isAttackEndboss() {
   return (
     world.character.attackType === world.character.IMAGES_FIN && world.isAttack
   );
+}
+
+function collisionBubbleWithEnemie(world) {
+  world.bubbles.forEach((bubble, bubbleIndex) => {
+    world.enemies.forEach((enemy) => {
+      if (bubble.isColliding(enemy) && !enemy.isDying) {
+        SOUND_BUBBLE_BURST.play();
+        world.bubbles.splice(bubbleIndex, 1);
+        if (enemy instanceof Jellyfish && !enemy.isDying) {
+          enemy.direction = bubble.direction;
+          enemy.isDying = true;
+        }
+      }
+    });
+  });
+}
+
+function collisionBubbleWithBarrier(world) {
+  world.bubbles.forEach((bubble, bubbleIndex) => {
+    world.barrierHitboxes.forEach((barrier) => {
+      if (bubble.isColliding(barrier)) {
+        SOUND_BUBBLE_BURST.play();
+        world.bubbles.splice(bubbleIndex, 1);
+      }
+    });
+  });
 }
 
 function collisionBubbleWithEndboss(world) {

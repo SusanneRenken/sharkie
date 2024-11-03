@@ -15,7 +15,7 @@ class DrawableObject {
     this.currentImage = 0;
     this.imageCache = {};
   }
-  
+
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
@@ -177,19 +177,13 @@ class DrawableObject {
       ctx.stroke();
     }
 
-
-
-
-
-
-
     if (this instanceof Barrier) {
       if (this.barrierNumber === 1) {
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "yellow";
         ctx.rect(
-          this.x + 20 * mainScale,
+          this.x + 40 * mainScale,
           this.y,
           this.width - 600 * mainScale,
           this.height - 780 * mainScale
@@ -198,7 +192,7 @@ class DrawableObject {
 
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "orange";
         ctx.rect(
           this.x + 1150 * mainScale,
           this.y,
@@ -209,7 +203,7 @@ class DrawableObject {
 
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "red";
         ctx.rect(
           this.x + 1350 * mainScale,
           this.y,
@@ -222,16 +216,16 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x,
-          this.y + 930 * mainScale,
+          this.x + 20 * mainScale,
+          this.y + 950 * mainScale,
           this.width - 1600 * mainScale,
-          this.height - 930 * mainScale
+          this.height - 950 * mainScale
         );
         ctx.stroke();
 
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "blue";
         ctx.rect(
           this.x + 130 * mainScale,
           this.y + 850 * mainScale,
@@ -242,7 +236,7 @@ class DrawableObject {
 
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "pink";
         ctx.rect(
           this.x + 550 * mainScale,
           this.y + 800 * mainScale,
@@ -252,31 +246,37 @@ class DrawableObject {
         ctx.stroke();
       }
 
-
-
-
-
-
       if (this.barrierNumber === 2) {
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "yellow";
         ctx.rect(
           this.x + 50 * mainScale,
-          this.y + 330 * mainScale,
+          this.y + 340 * mainScale,
           this.width - 1180 * mainScale,
-          this.height - 330 * mainScale
+          this.height - 340 * mainScale
         );
         ctx.stroke();
 
         ctx.beginPath();
         ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "orange";
         ctx.rect(
-          this.x + 290 * mainScale,
-          this.y + 120 * mainScale,
+          this.x + 310 * mainScale,
+          this.y + 130 * mainScale,
           this.width - 1100 * mainScale,
-          this.height - 120 * mainScale
+          this.height - 130 * mainScale
+        );
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "red";
+        ctx.rect(
+          this.x + 630 * mainScale,
+          this.y + 40 * mainScale,
+          this.width - 900 * mainScale,
+          this.height - 40 * mainScale
         );
         ctx.stroke();
 
@@ -284,18 +284,7 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x + 610 * mainScale,
-          this.y + 20 * mainScale,
-          this.width - 860 * mainScale,
-          this.height - 20 * mainScale
-        );
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "green";
-        ctx.rect(
-          this.x + 1170 * mainScale,
+          this.x + 1150 * mainScale,
           this.y + 260 * mainScale,
           this.width - 1210 * mainScale,
           this.height - 260 * mainScale
@@ -303,19 +292,14 @@ class DrawableObject {
         ctx.stroke();
       }
 
-
-
-
-
-      
       if (this.barrierNumber === 3) {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x + 30 * mainScale,
+          this.x + 50 * mainScale,
           this.y,
-          this.width - 50 * mainScale,
+          this.width - 70 * mainScale,
           this.height
         );
         ctx.stroke();

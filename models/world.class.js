@@ -59,7 +59,6 @@ class World {
   }
 
   placeBarriers() {
-
     getBarrierAreas(this);
     checkBarrierAreas(this);
   }
@@ -110,19 +109,16 @@ class World {
       collisionWithCoin(this);
       collisionWithPoison(this);
       collisionWithEnemie(this);
-      collisionBubbleWithEnemie(this);
       collisionWithEndboss(this);
+      collisionBubbleWithBarrier(this);
+      collisionBubbleWithEnemie(this);
       collisionBubbleWithEndboss(this);
     }, 0);
   }
 
   setAttack() {
     setInterval(() => {
-      if (
-        isAttackKeyPressed(this.character) &&
-        !this.isAttack &&
-        !this.isHit
-      ) {
+      if (isAttackKeyPressed(this.character) && !this.isAttack && !this.isHit) {
         this.isAttack = true;
       }
     }, 0);
