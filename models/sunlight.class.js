@@ -13,25 +13,17 @@ class Sunlight extends MovableObject {
     this.world = world;
     this.loadImage("./img/background/layers/light/3.png");
 
-    // this.speed = -(this.world.character.speed - (this.world.character.speed * ((this.world.backgroundRepeat - 1) / (this.world.backgroundRepeat - 0.5))));
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.x = -(this.world.character.x - (this.world.character.x * ((this.world.backgroundRepeat - 1) / (this.world.backgroundRepeat - 0.5))));
-
-      // if (
-      //   this.world.keyboard.ARROWRIGHT &&
-      //   this.world.character.x < this.world.levelEndX &&
-      //   !this.world.isAttack
-      // ) {
-      //   this.moveRight(this.speed);
-      // }
-
-      // if (this.world.keyboard.ARROWLEFT && this.world.character.x > 0 && !this.world.isAttack) {
-      //   this.moveLeft(this.speed);
-      // }
+      this.x = -(
+        this.world.character.x -
+        this.world.character.x *
+          ((this.world.backgroundRepeat - 1) /
+            (this.world.backgroundRepeat - 0.5))
+      );
     }, 1000 / 60);
   }
 }
