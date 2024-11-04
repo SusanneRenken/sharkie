@@ -24,27 +24,27 @@ class Endboss extends MovableObject {
   }
 
   getParameter() {
-    this.width = 1041 * mainScale;
-    this.height = 1216 * mainScale;
+    this.width = 1041;
+    this.height = 1216;
 
-    this.x = 2 * mainWidth * this.world.backgroundRepeat - 1.3 * this.width;
-    this.y = -mainHeight;
+    this.x = 2 * 1920 * this.world.backgroundRepeat - 1.3 * this.width;
+    this.y = -1080;
     this.introduceStartX =
-      2 * mainWidth * (this.world.backgroundRepeat - 0.5) - 1 * this.width;
+      2 * 1920 * (this.world.backgroundRepeat - 0.5) - 1 * this.width;
   }
 
   getSwimParameter() {
-    this.offsetX = 130 * mainScale;
-    this.offsetY = 650 * mainScale;
-    this.offsetwidth = this.width - 240 * mainScale;
-    this.offsetheight = this.height - 900 * mainScale;
+    this.offsetX = 130;
+    this.offsetY = 650;
+    this.offsetwidth = this.width - 240;
+    this.offsetheight = this.height - 900;
   }
 
   getAttackParameter() {
-    this.offsetX = 200 * mainScale;
-    this.offsetY = 460 * mainScale;
-    this.offsetwidth = this.width - 320 * mainScale;
-    this.offsetheight = this.height - 680 * mainScale;
+    this.offsetX = 200;
+    this.offsetY = 460;
+    this.offsetwidth = this.width - 320;
+    this.offsetheight = this.height - 680;
   }
 
   getObjectProperties() {

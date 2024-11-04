@@ -1,6 +1,6 @@
 class Bubble extends MovableObject {
-  width = 172 * mainScale;
-  height = 172 * mainScale;
+  width = 172;
+  height = 172;
   selectedColor = "";
   IMAGES_BUBBLE;
   world;
@@ -26,8 +26,8 @@ class Bubble extends MovableObject {
   getParameter(){
     this.direction = !this.world.character.otherDirection ? 1 : -1;
     this.startX = !this.world.character.otherDirection ? 600 : 0;
-    this.x = this.world.character.x + this.startX * mainScale;
-    this.y = this.world.character.y + 480 * mainScale;
+    this.x = this.world.character.x + this.startX;
+    this.y = this.world.character.y + 480;
     this.offsetwidth = this.width;
     this.offsetheight = this.height;
   }

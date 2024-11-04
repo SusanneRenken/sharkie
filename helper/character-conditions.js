@@ -40,11 +40,11 @@ function isMovingLeft(obj) {
 }
 
 function isMovingUp(obj) {
-  return obj.world.keyboard.ARROWUP && obj.y > -400 * mainScale;
+  return obj.world.keyboard.ARROWUP && obj.y > -400;
 }
 
 function isMovingDown(obj) {
-  return obj.world.keyboard.ARROWDOWN && obj.y < 320 * mainScale;
+  return obj.world.keyboard.ARROWDOWN && obj.y < 320;
 }
 
 function isFinAttackFirstMove(obj) {
@@ -67,14 +67,14 @@ function isDeathByElectric(obj) {
   return (
     obj.currentImage === 8 &&
     obj.enemyAttackForDeath === "IMAGES_DEAD_E" &&
-    obj.y < 200 * mainScale
+    obj.y < 200
   );
 }
 
 function isInWorldUp(obj){
-    return obj.world.keyboard.ARROWUP && obj.y > -400 * mainScale
+    return obj.world.keyboard.ARROWUP && obj.y > -400
 }
 
 function isInWorldDown(obj){
-    return obj.world.keyboard.ARROWDOWN && obj.y < 370 * mainScale
+    return obj.world.keyboard.ARROWDOWN && obj.y < 370
 }

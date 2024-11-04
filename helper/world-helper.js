@@ -10,8 +10,8 @@ const COIN_POSITIONS = [
 function getStartPlacesCoins(world) {
   let numberOfCoinCollection = (world.backgroundRepeat - 1) * 2;
   let lengthCoinArea =
-    2 * mainWidth * (world.backgroundRepeat - 0.5) - world.coinCollectionWidth;
-  let newStart = mainWidth;
+    2 * 1920 * (world.backgroundRepeat - 0.5) - world.coinCollectionWidth;
+  let newStart = 1920;
   let newXPlace = 0;
 
   for (let i = 0; i < numberOfCoinCollection; i++) {
@@ -26,9 +26,9 @@ function getStartPlacesCoins(world) {
 function generateCoins(world) {
   world.xCoinPlaces.forEach((place) => {
     let xPlace = place;
-    let yPlace = 0.1 * mainHeight + Math.random() * 0.7 * mainHeight;
+    let yPlace = 0.1 * 1080 + Math.random() * 0.7 * 1080;
     let isCoinFormLine = Math.random() < 0.5 ? false : true;
-    let coinDirection = yPlace < 0.5 * mainHeight ? 1 : -1;
+    let coinDirection = yPlace < 0.5 * 1080 ? 1 : -1;
 
     if (isCoinFormLine) {
       placeCoinInLine(xPlace, yPlace, coinDirection, world);
@@ -43,8 +43,8 @@ function placeCoinInLine(xPlace, yPlace, coinDirection, world) {
 
   for (let i = 0; i < numberOfCoins; i++) {
     world.coins.push(new Coin(xPlace, yPlace, world));
-    xPlace += 120 * mainScale;
-    yPlace += 95 * mainScale * coinDirection;
+    xPlace += 120;
+    yPlace += 95 * coinDirection;
   }
 }
 
@@ -52,8 +52,8 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
   COIN_POSITIONS.forEach((position) => {
     world.coins.push(
       new Coin(
-        xPlace + position.x * mainScale,
-        yPlace + position.y * mainScale * coinDirection,
+        xPlace + position.x,
+        yPlace + position.y * coinDirection,
         world
       )
     );
@@ -75,9 +75,9 @@ function checkBarrierAreas(world) {
   let isBarrierPlaced = false;
 
   const BARRIER_DIMENSIONS = [
-    { barrierWidth: 1682 * mainScale, barrierHeight: 1080 * mainScale },
-    { barrierWidth: 1415 * mainScale, barrierHeight: 649 * mainScale },
-    { barrierWidth: 320 * mainScale, barrierHeight: 660 * mainScale },
+    { barrierWidth: 1682, barrierHeight: 1080},
+    { barrierWidth: 1415, barrierHeight: 649},
+    { barrierWidth: 320, barrierHeight: 660},
   ];
 
   for (let i = 0; i < world.barrierAreas.length; i++) {
@@ -109,7 +109,7 @@ function generateBarriers(world, barrierNumber, i, area, BARRIER_DIMENSIONS) {
 function isObjectInBarrier(objectX, objectWidth, barriers) {
   return barriers.some(
     (barrier) =>
-      objectX >= barrier.x - 1.2 * objectWidth * mainScale &&
-      objectX <= barrier.x + barrier.width + 0.2 * objectWidth * mainScale
+      objectX >= barrier.x - 1.2 * objectWidth &&
+      objectX <= barrier.x + barrier.width + 0.2 * objectWidth
   );
 }

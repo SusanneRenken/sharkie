@@ -27,18 +27,17 @@ class Pufferfish extends MovableObject {
   }
 
   getParameter() {
-    this.width = 241 * mainScale;
-    this.height = 198 * mainScale;
+    this.width = 241;
+    this.height = 198;
 
     this.x =
-      mainWidth +
-      Math.random() * (2 * mainWidth * (this.world.backgroundRepeat - 1.2));
-    this.y = Math.random() * (mainHeight - this.height);
+      1920 + Math.random() * (2 * 1920 * (this.world.backgroundRepeat - 1.2));
+    this.y = Math.random() * (1080 - this.height);
 
-    this.offsetX = 20 * mainScale;
-    this.offsetY = 20 * mainScale;
-    this.offsetwidth = this.width - 60 * mainScale;
-    this.offsetheight = this.height - 80 * mainScale;
+    this.offsetX = 20;
+    this.offsetY = 20;
+    this.offsetwidth = this.width - 60;
+    this.offsetheight = this.height - 80;
   }
 
   getObjectProperties() {
@@ -50,7 +49,7 @@ class Pufferfish extends MovableObject {
     this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
     this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
     this.animationRepeat = Math.floor(3 + Math.random() * 4);
-    this.speed = 0.3 + Math.random() * 0.6;
+    this.speed = 0.6 + Math.random() * 1.2;
     this.movementSpeed = 100 + this.speed * 30;
   }
 
@@ -112,11 +111,11 @@ class Pufferfish extends MovableObject {
   }
 
   getSwimParameter() {
-    this.offsetheight = this.height - 80 * mainScale;
+    this.offsetheight = this.height - 80;
   }
 
   getBubbleswimParameter() {
-    this.offsetheight = this.height - 40 * mainScale;
+    this.offsetheight = this.height - 40;
   }
 
   isAnimateTransition(countUp) {
@@ -142,17 +141,17 @@ class Pufferfish extends MovableObject {
     }, 3000);
   }
 
-  getDyingImage(){
+  getDyingImage() {
     let imgIndex = 1;
     if (this.bubble) {
       imgIndex = 0;
-    } else if (this.y > 750 * mainScale) {
+    } else if (this.y > 750) {
       imgIndex = 2;
     }
-    return imgIndex
+    return imgIndex;
   }
 
-  startDyingSound(){
+  startDyingSound() {
     if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
       this.deadSound = true;
@@ -160,7 +159,7 @@ class Pufferfish extends MovableObject {
   }
 
   handleDeadMovement() {
-    if (this.y < 900 * mainScale) {
+    if (this.y < 900) {
       if (this.bubble) {
         this.moveUp(12);
       } else {

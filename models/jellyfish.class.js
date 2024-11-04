@@ -27,21 +27,21 @@ class Jellyfish extends MovableObject {
   }
 
   getParameter(x) {
-    this.width = 211 * mainScale;
-    this.height = 300 * mainScale;
+    this.width = 211;
+    this.height = 300;
 
     this.x = x;
-    this.y = 0.1 * mainHeight;
+    this.y = 0.1 * 1080;
 
-    this.offsetX = 30 * mainScale;
-    this.offsetY = 50 * mainScale;
-    this.offsetwidth = this.width - 60 * mainScale;
-    this.offsetheight = this.height - 100 * mainScale;
+    this.offsetX = 30;
+    this.offsetY = 50;
+    this.offsetwidth = this.width - 60;
+    this.offsetheight = this.height - 100;
   }
 
   getObjectProperties() {
     this.objectLife = 1;
-    this.speed = 0.5 + Math.random() * 0.5;
+    this.speed = 1 + Math.random() * 1;
     this.movementSpeed = 180 + this.speed * 30;
     this.isDying = false;
   }
@@ -123,8 +123,8 @@ class Jellyfish extends MovableObject {
   }
 
   handleSwimMovment() {
-    const upperLimit = 0 * mainHeight;
-    const lowerLimit = 0.7 * mainHeight;
+    const upperLimit = 0 * 1080;
+    const lowerLimit = 0.7 * 1080;
     if (this.y >= lowerLimit || this.y <= upperLimit) {
       this.isMovingDown = !this.isMovingDown;
     }

@@ -4,7 +4,7 @@ class World {
   gameLevelFactor = Math.floor(this.gameLevel / 2 + 0.5);
   pathBackgroundObjeckts = this.level.backgroundObjects;
   backgroundRepeat = this.level.backgroundRepeat;
-  coinCollectionWidth = 1000 * mainScale;
+  coinCollectionWidth = 1000;
 
   character = new Character(this);
   sunlight = new Sunlight(this);
@@ -34,7 +34,7 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.ctx = canvas.getContext("2d");
-    this.levelEndX = this.backgroundRepeat * 2 * mainWidth - mainWidth;
+    this.levelEndX = this.backgroundRepeat * 2 * 1920 - 1920;
     this.loadBackgroundObjects();
     this.placeCoins();
     this.placeBarriers();
@@ -75,11 +75,11 @@ class World {
   }
 
   createJelly() {
-    let lengthJellyArea = 2 * mainWidth * (this.level.backgroundRepeat - 1.2);
+    let lengthJellyArea = 2 * 1920 * (this.level.backgroundRepeat - 1.2);
     let placedJelly = 0;
 
     while (placedJelly < 1) {
-      const jellyX = mainWidth + Math.random() * lengthJellyArea;
+      const jellyX = 1920 + Math.random() * lengthJellyArea;
 
       if (!isObjectInBarrier(jellyX, 220, this.barriers)) {
         placedJelly++;
@@ -89,11 +89,11 @@ class World {
   }
 
   placePoison() {
-    let lengthPoisonArea = 2 * mainWidth * (this.backgroundRepeat - 1.2);
+    let lengthPoisonArea = 2 * 1920 * (this.backgroundRepeat - 1.2);
     let placedPoisons = 0;
 
     while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
-      const poisonX = mainWidth + Math.random() * lengthPoisonArea;
+      const poisonX = 1920 + Math.random() * lengthPoisonArea;
 
       if (!isObjectInBarrier(poisonX, 190, this.barriers)) {
         this.poisons.push(new Poison(poisonX, this));

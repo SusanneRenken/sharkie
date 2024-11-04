@@ -90,7 +90,7 @@ class Character extends MovableObject {
         this.handleNoMovement();
       }
 
-      this.world.camera_x = -this.x + 62 * mainScale;
+      this.world.camera_x = -this.x + 62;
     }, 1000 / 60);
   }
 
@@ -211,7 +211,7 @@ class Character extends MovableObject {
   }
 
   handleNoMovement() {
-    if (this.y < 290 * mainScale) {
+    if (this.y < 290) {
       this.moveDown(this.verticalSpeed * 0.1);
     }
   }

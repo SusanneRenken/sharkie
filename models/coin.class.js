@@ -1,6 +1,6 @@
 class Coin extends MovableObject {
-  width = 99 * mainScale;
-  height = 93 * mainScale;
+  width = 99;
+  height = 93;
   selectedColor = "";
   IMAGES_COIN;
   world;

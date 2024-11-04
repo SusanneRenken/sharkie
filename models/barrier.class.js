@@ -9,7 +9,7 @@ class Barrier extends MovableObject {
     this.barrierNumber = barrierNumber;
     this.width = width;
     this.height = height;
-    this.y = mainHeight - height;
+    this.y = 1080 - height;
     this.x = x;
     this.offsetwidth = this.width;
     this.offsetheight = this.height;

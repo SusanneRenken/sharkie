@@ -59,10 +59,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 160 * mainScale,
-          this.y + 460 * mainScale,
-          this.width - 320 * mainScale,
-          this.height - 680 * mainScale
+          this.x + 160,
+          this.y + 460,
+          this.width - 320,
+          this.height - 680
         );
         ctx.stroke();
       }
@@ -72,10 +72,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 250 * mainScale,
-          this.y + 460 * mainScale,
-          this.width - 320 * mainScale,
-          this.height - 680 * mainScale
+          this.x + 250,
+          this.y + 460,
+          this.width - 320,
+          this.height - 680
         );
         ctx.stroke();
       }
@@ -85,10 +85,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 160 * mainScale,
-          this.y + 560 * mainScale,
-          this.width - 320 * mainScale,
-          this.height - 700 * mainScale
+          this.x + 160,
+          this.y + 560,
+          this.width - 320,
+          this.height - 700
         );
         ctx.stroke();
       }
@@ -99,10 +99,10 @@ class DrawableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "yellow";
       ctx.rect(
-        this.x + 30 * mainScale,
-        this.y + 50 * mainScale,
-        this.width - 60 * mainScale,
-        this.height - 100 * mainScale
+        this.x + 30,
+        this.y + 50,
+        this.width - 60,
+        this.height - 100
       );
       ctx.stroke();
     }
@@ -113,10 +113,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
         ctx.rect(
-          this.x + 20 * mainScale,
-          this.y + 20 * mainScale,
-          this.width - 60 * mainScale,
-          this.height - 80 * mainScale
+          this.x + 20,
+          this.y + 20,
+          this.width - 60,
+          this.height - 80
         );
         ctx.stroke();
       }
@@ -126,10 +126,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
         ctx.rect(
-          this.x + 20 * mainScale,
-          this.y + 20 * mainScale,
-          this.width - 60 * mainScale,
-          this.height - 40 * mainScale
+          this.x + 20,
+          this.y + 20,
+          this.width - 60,
+          this.height - 40
         );
         ctx.stroke();
       }
@@ -140,10 +140,10 @@ class DrawableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
       ctx.rect(
-        this.x + 130 * mainScale,
-        this.y + 650 * mainScale,
-        this.width - 240 * mainScale,
-        this.height - 900 * mainScale
+        this.x + 130,
+        this.y + 650,
+        this.width - 240,
+        this.height - 900
       );
       ctx.stroke();
     }
@@ -169,10 +169,10 @@ class DrawableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "purple";
       ctx.rect(
-        this.x + 30 * mainScale,
-        this.y + 50 * mainScale,
-        this.width - 60 * mainScale,
-        this.height - 70 * mainScale
+        this.x + 30,
+        this.y + 50,
+        this.width - 60,
+        this.height - 70
       );
       ctx.stroke();
     }
@@ -183,10 +183,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "yellow";
         ctx.rect(
-          this.x + 40 * mainScale,
+          this.x + 40,
           this.y,
-          this.width - 600 * mainScale,
-          this.height - 780 * mainScale
+          this.width - 600,
+          this.height - 780
         );
         ctx.stroke();
 
@@ -194,10 +194,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
         ctx.rect(
-          this.x + 1150 * mainScale,
+          this.x + 1150,
           this.y,
-          this.width - 1500 * mainScale,
-          this.height - 680 * mainScale
+          this.width - 1500,
+          this.height - 680
         );
         ctx.stroke();
 
@@ -205,10 +205,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "red";
         ctx.rect(
-          this.x + 1350 * mainScale,
+          this.x + 1350,
           this.y,
-          this.width - 1380 * mainScale,
-          this.height - 760 * mainScale
+          this.width - 1380,
+          this.height - 760
         );
         ctx.stroke();
 
@@ -216,10 +216,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x + 20 * mainScale,
-          this.y + 950 * mainScale,
-          this.width - 1600 * mainScale,
-          this.height - 950 * mainScale
+          this.x + 20,
+          this.y + 950,
+          this.width - 1600,
+          this.height - 950
         );
         ctx.stroke();
 
@@ -227,10 +227,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "blue";
         ctx.rect(
-          this.x + 130 * mainScale,
-          this.y + 850 * mainScale,
-          this.width - 190 * mainScale,
-          this.height - 850 * mainScale
+          this.x + 130,
+          this.y + 850,
+          this.width - 190,
+          this.height - 850
         );
         ctx.stroke();
 
@@ -238,10 +238,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "pink";
         ctx.rect(
-          this.x + 550 * mainScale,
-          this.y + 800 * mainScale,
-          this.width - 800 * mainScale,
-          this.height - 1040 * mainScale
+          this.x + 550,
+          this.y + 800,
+          this.width - 800,
+          this.height - 1040
         );
         ctx.stroke();
       }
@@ -251,10 +251,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "yellow";
         ctx.rect(
-          this.x + 50 * mainScale,
-          this.y + 340 * mainScale,
-          this.width - 1180 * mainScale,
-          this.height - 340 * mainScale
+          this.x + 50,
+          this.y + 340,
+          this.width - 1180,
+          this.height - 340
         );
         ctx.stroke();
 
@@ -262,10 +262,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
         ctx.rect(
-          this.x + 310 * mainScale,
-          this.y + 130 * mainScale,
-          this.width - 1100 * mainScale,
-          this.height - 130 * mainScale
+          this.x + 310,
+          this.y + 130,
+          this.width - 1100,
+          this.height - 130
         );
         ctx.stroke();
 
@@ -273,10 +273,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "red";
         ctx.rect(
-          this.x + 630 * mainScale,
-          this.y + 40 * mainScale,
-          this.width - 900 * mainScale,
-          this.height - 40 * mainScale
+          this.x + 630,
+          this.y + 40,
+          this.width - 900,
+          this.height - 40
         );
         ctx.stroke();
 
@@ -284,10 +284,10 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x + 1150 * mainScale,
-          this.y + 260 * mainScale,
-          this.width - 1210 * mainScale,
-          this.height - 260 * mainScale
+          this.x + 1150,
+          this.y + 260,
+          this.width - 1210,
+          this.height - 260
         );
         ctx.stroke();
       }
@@ -297,9 +297,9 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
         ctx.rect(
-          this.x + 50 * mainScale,
+          this.x + 50,
           this.y,
-          this.width - 70 * mainScale,
+          this.width - 70,
           this.height
         );
         ctx.stroke();

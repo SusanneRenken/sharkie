@@ -1,29 +1,29 @@
 function getParameter(obj) {
-  obj.width = 815 * mainScale * 0.9;
-  obj.height = 1000 * mainScale * 0.9;
+  obj.width = 815 * 0.9;
+  obj.height = 1000 * 0.9;
   obj.x = 0;
   obj.y = -100;
 }
 
 function getSwimParameter(obj) {
-  obj.offsetX = 160 * mainScale;
-  obj.offsetY = 460 * mainScale;
-  obj.offsetwidth = obj.width - 320 * mainScale;
-  obj.offsetheight = obj.height - 680 * mainScale;
+  obj.offsetX = 160;
+  obj.offsetY = 460;
+  obj.offsetwidth = obj.width - 320;
+  obj.offsetheight = obj.height - 680;
 }
 
 function getFinAttackParameter(obj) {
-  obj.offsetX = 250 * mainScale;
-  obj.offsetY = 460 * mainScale;
-  obj.offsetwidth = obj.width - 320 * mainScale;
-  obj.offsetheight = obj.height - 680 * mainScale;
+  obj.offsetX = 250;
+  obj.offsetY = 460;
+  obj.offsetwidth = obj.width - 320;
+  obj.offsetheight = obj.height - 680;
 }
 
 function getSleepingParameter(obj) {
-  obj.offsetX = 160 * mainScale;
-  obj.offsetY = 560 * mainScale;
-  obj.offsetwidth = obj.width - 320 * mainScale;
-  obj.offsetheight = obj.height - 700 * mainScale;
+  obj.offsetX = 160;
+  obj.offsetY = 560;
+  obj.offsetwidth = obj.width - 320;
+  obj.offsetheight = obj.height - 700;
 }
 
 function getObjectProperties(obj) {
@@ -31,7 +31,7 @@ function getObjectProperties(obj) {
   obj.objectCoins = 0;
   obj.objectPoisons = 0;
 
-  obj.speed = 5 + (obj.world.gameLevel - 1) / 2;
+  obj.speed = 10 + (obj.world.gameLevel - 1);
 
   obj.verticalSpeed = 0.5 * obj.speed;
   obj.movementSpeed = 180;
@@ -159,8 +159,8 @@ function isFallAsleep(obj) {
 
 function isSleepingDeeply(obj) {
   if (!obj.isAwake) {
-    if (obj.y >= 290 * mainScale) {
-      obj.y = 290 * mainScale;
+    if (obj.y >= 290) {
+      obj.y = 290;
     }
     getSleepingParameter(obj);
     obj.animateMoving(obj.IMAGES_SLEEP);

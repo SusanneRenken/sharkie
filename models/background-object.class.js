@@ -1,6 +1,6 @@
 class BackgroundObject extends MovableObject {
-  width = mainWidth * 2;
-  height = mainHeight;
+  width = 1920 * 2;
+  height = 1080;
 
   constructor(imbagePath, position) {
     super();

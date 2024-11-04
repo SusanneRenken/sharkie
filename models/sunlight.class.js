@@ -1,6 +1,6 @@
 class Sunlight extends MovableObject {
-  width = mainWidth * 2;
-  height = mainHeight;
+  width = 1920 * 2;
+  height = 1080;
   x = 0;
   y = 0;
   selectedColor = "";

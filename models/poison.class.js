@@ -1,6 +1,6 @@
 class Poison extends MovableObject {
-  width = 179 * mainScale;
-  height = 244 * mainScale;
+  width = 179;
+  height = 244;
   direction;
   IMAGES_POISON;
   isFalling = false;
@@ -15,10 +15,10 @@ class Poison extends MovableObject {
     this.y = 0;
     this.x = x;
 
-    this.offsetX = 30 * mainScale;
-    this.offsetY = 50 * mainScale;
-    this.offsetwidth = this.width - 60 * mainScale;
-    this.offsetheight = this.height - 70 * mainScale;
+    this.offsetX = 30;
+    this.offsetY = 50;
+    this.offsetwidth = this.width - 60;
+    this.offsetheight = this.height - 70;
 
     this.IMAGES_POISON = this.loadAllImages(
       "./img/collectibles/poison",
@@ -37,13 +37,13 @@ class Poison extends MovableObject {
     this.animationIntervalId = setInterval(() => {
       this.distanceToPoison = this.x - this.world.character.x;
 
-      if (this.distanceToPoison < mainWidth) {
+      if (this.distanceToPoison < 1920) {
         this.isFalling = true;
       }
 
-      if (this.isFalling && this.y < 830 * mainScale) {
+      if (this.isFalling && this.y < 830) {
         this.animateMoving(this.IMAGES_POISON);
-      } else if (this.y >= 830 * mainScale && !this.isStopped) {
+      } else if (this.y >= 830 && !this.isStopped) {
         this.isStopped = true;
         this.loadImage(`./img/collectibles/poison/${this.direction}.png`);
       }
@@ -52,8 +52,8 @@ class Poison extends MovableObject {
 
   setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
-      if (this.isFalling && this.y < 830 * mainScale) {
-        this.y += 1;
+      if (this.isFalling && this.y < 830) {
+        this.y += 3.5;
       }
     }, 1000 / 60);
   }
