@@ -20,5 +20,3 @@ function setKey(code, isPressed) {
     keyboard[keyUpperCase] = isPressed;
   }
 }
-
-
