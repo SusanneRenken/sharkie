@@ -41,10 +41,10 @@ class Endboss extends MovableObject {
   }
 
   getAttackParameter() {
-    this.offsetX = 200;
-    this.offsetY = 460;
-    this.offsetwidth = this.width - 320;
-    this.offsetheight = this.height - 680;
+    this.offsetX = 30;
+    this.offsetY = 650;
+    this.offsetwidth = this.width - 240;
+    this.offsetheight = this.height - 900;
   }
 
   getObjectProperties() {
@@ -126,12 +126,12 @@ class Endboss extends MovableObject {
     if (this.animationCount < 1) {
       SOUND_ENDBOSS_ATTACK.play();
       this.speed = 3;
-      this.animateMoving(this.IMAGES_ATT);
+      this.animateMoving(this.IMAGES_ATT);      
+      this.handleHitBox();
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
       this.speed = 2;
       this.animateMoving(this.IMAGES_SWIM);
-      this.handleHitBox();
       this.isAnimateAttack();
     }
   }

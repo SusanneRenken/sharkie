@@ -53,7 +53,7 @@ function getImages(obj) {
 }
 
 function setFinAttack(obj) {
-  if (obj.world.keyboard.KEYD) {
+  if (obj.world.keyboard.KEYL) {
     obj.attackType = obj.IMAGES_FIN;
     obj.attackSound = SOUND_CHARACTER_ATTACK;
     obj.startAttack = 5;
@@ -64,7 +64,7 @@ function setFinAttack(obj) {
 }
 
 function setBubbleNormalAttack(obj) {
-  if (obj.world.keyboard.KEYS) {
+  if (obj.world.keyboard.KEYK) {
     obj.attackType = obj.IMAGES_BUB_N;
     obj.attackSound = SOUND_CHARACTER_BUB_N;
     obj.startAttack = 7;
@@ -74,7 +74,7 @@ function setBubbleNormalAttack(obj) {
 }
 
 function setBubblePoisondAttack(obj) {
-  if (obj.world.keyboard.KEYW) {
+  if (obj.world.keyboard.KEYJ) {
     obj.isPoisonAttack = true;
     if (obj.objectPoisons <= 0) {
       obj.attackType = obj.IMAGES_BUB_N;

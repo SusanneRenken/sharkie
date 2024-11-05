@@ -12,10 +12,10 @@ function isSleeping(obj) {
 
 function isArrowkeyPressed(obj) {
   return (
-    obj.world.keyboard.ARROWRIGHT ||
-    obj.world.keyboard.ARROWLEFT ||
-    obj.world.keyboard.ARROWUP ||
-    obj.world.keyboard.ARROWDOWN
+    obj.world.keyboard.KEYD ||
+    obj.world.keyboard.KEYA ||
+    obj.world.keyboard.KEYW ||
+    obj.world.keyboard.KEYWS
   );
 }
 
@@ -32,19 +32,19 @@ function isAliveAndAttack(obj) {
 }
 
 function isMovingRight(obj) {
-  return obj.world.keyboard.ARROWRIGHT && obj.x < obj.world.levelEndX;
+  return obj.world.keyboard.KEYD && obj.x < obj.world.levelEndX;
 }
 
 function isMovingLeft(obj) {
-  return obj.world.keyboard.ARROWLEFT && obj.x > 0;
+  return obj.world.keyboard.KEYA && obj.x > 0;
 }
 
 function isMovingUp(obj) {
-  return obj.world.keyboard.ARROWUP && obj.y > -400;
+  return obj.world.keyboard.KEYW && obj.y > -400;
 }
 
 function isMovingDown(obj) {
-  return obj.world.keyboard.ARROWDOWN && obj.y < 320;
+  return obj.world.keyboard.KEYS && obj.y < 320;
 }
 
 function isFinAttackFirstMove(obj) {
@@ -72,9 +72,9 @@ function isDeathByElectric(obj) {
 }
 
 function isInWorldUp(obj){
-    return obj.world.keyboard.ARROWUP && obj.y > -400
+    return obj.world.keyboard.KEYW && obj.y > -400
 }
 
 function isInWorldDown(obj){
-    return obj.world.keyboard.ARROWDOWN && obj.y < 370
+    return obj.world.keyboard.KEYS && obj.y < 370
 }

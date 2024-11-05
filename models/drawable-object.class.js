@@ -140,7 +140,7 @@ class DrawableObject {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
       ctx.rect(
-        this.x + 130,
+        this.x + 30,
         this.y + 650,
         this.width - 240,
         this.height - 900

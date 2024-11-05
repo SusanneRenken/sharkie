@@ -29,10 +29,20 @@ function setKey(code, isPressed) {
 
 function toggleMenu(dialog){
   let start = document.getElementById('menu');
-  let character = document.getElementById('character');
+  let character = document.getElementById('legal_notice');
+  let legalNotide = document.getElementById('character');
   let dialogContent = document.getElementById(`${dialog}`);
 
-  start.classList.toggle('d-none');
+  start.classList.toggle('d-none');  
   character.classList.toggle('d-none');
+  legalNotide.classList.toggle('d-none');
   dialogContent.classList.toggle('d-none');
+}
+
+function backToStart(dialog){
+  let start = document.getElementById('start_screen');
+  let end = document.getElementById(`${dialog}`);
+
+  start.classList.remove('d-none');  
+  end.classList.add('d-none');
 }
