@@ -137,7 +137,7 @@ class Jellyfish extends MovableObject {
       this.urY = this.y;
       this.parabolaStarted = true;
     }
-    this.x += 5 * this.direction;
+    this.x += 7 * this.direction;
     const PARABOLA_WIDTH = 0.002;
     this.y = -(PARABOLA_WIDTH * Math.pow(this.x - this.urX, 2)) + this.urY;
   }

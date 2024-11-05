@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url(../img/background/background-body.png);
+  background-size: cover;
+  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+  font-size: clamp(12px, 3vw, 24px);
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.content {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 24px 32px;
+  padding: 16px;
+  overflow-y: hidden;
+  text-align: justify;
+}

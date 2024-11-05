@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="./img/character/idle/1.png" />
 
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style/font.css" />
 
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/world.class.js"></script>
@@ -29,16 +30,133 @@
     <script src="./levels/level1.js"></script>
     <script src="./helper/sounds.js"></script>
     <script src="./helper/world-helper.js"></script>
-    <script src="./helper/world-collision.js"></script> 
+    <script src="./helper/world-collision.js"></script>
     <script src="./helper/barrier-helper.js"></script>
-    <script src="./helper/character-helper.js"></script>    
+    <script src="./helper/character-helper.js"></script>
     <script src="./helper/character-conditions.js"></script>
     <script src="./script.js"></script>
   </head>
-  <body onload="init()">
-    <div class="canvas-container" id="canvas_container">
-      <h1>Sharkie</h1>
-      <canvas id="canvas" width="1920" height="1080"></canvas>
+
+  <body>
+    <div class="game-container">
+      <div class="game-content">
+        <div id="start_screen" class="start-screen">
+          <h1>S h a r k i e</h1>
+
+          <div id="menu" class="menu">
+            <div class="menu__button" onclick="toggleMenu('controls')">
+              <img src="./img/startscreen/coin.png" alt="" />
+              <div>C o n t r o l s</div>
+            </div>
+            <div class="start__button" onclick="startGame()">S T A R T</div>
+            <div class="menu__button" onclick="toggleMenu('help')">
+              <img src="./img/startscreen/heart.png" alt="" />
+              <div>H e l p</div>
+            </div>
+          </div>
+          <img
+            id="character"
+            class="character"
+            src="./img/startscreen/character.png"
+            alt=""
+          />
+
+          <div id="help" class="dialog d-none">
+            <div
+              id="help_close"
+              class="close-button"
+              onclick="toggleMenu('help')"
+            >
+              X
+            </div>
+            <div class="help-description">
+              <div>
+                Welcome to Shark Adventure!
+                <p>
+                  Guide a small shark as it swims through the vast ocean.
+                  Collect coins to increase your score and gather poison to
+                  strengthen your special attacks. Be careful of the barriers
+                  and enemies that lurk in your path!
+                </p>
+
+                <p>
+                  You'll face dangerous jellyfish and pufferfish along the way.
+                  Jellyfish can only be defeated using the Bubble Attack, while
+                  pufferfish require the powerful Fin Attack to be overcome.
+                  Make sure to use the right strategy for each enemy!
+                </p>
+              </div>
+              <img src="./img/startscreen/pufferfish.png" alt="" />
+            </div>
+            <div class="help-description">
+              <img src="./img/startscreen/jellyfish.png" alt="" />
+              <div>
+                <p>
+                  At the end of your journey, the mighty Endboss awaits. It
+                  won't be easy to take it down - only poisoned bubbles or the
+                  Fin Attack can harm it. Be brave and use your skills wisely to
+                  emerge victorious!
+                </p>
+                Good luck, and happy swimming!
+              </div>
+            </div>
+          </div>
+
+          <div id="controls" class="dialog d-none">
+            <div
+              id="help_close"
+              class="close-button"
+              onclick="toggleMenu('controls')"
+            >
+              X
+            </div>
+            <div class="controls-description">
+              <table>
+                <tr>
+                    <td >SWIM UP</td>
+                    <td >W</td>
+                    <td >UP</td>
+                </tr>
+                <tr>
+                    <td >SWIM LEFT</td>
+                    <td >A</td>
+                    <td >LEFT</td>
+                </tr>
+                <tr>
+                    <td >SWIM DOWN</td>
+                    <td >S</td>
+                    <td >DOWN</td>
+                </tr>
+                <tr>
+                    <td >SWIM RIGHT</td>
+                    <td >D</td>
+                    <td >RIGHT</td>
+                </tr>
+                <tr>
+                    <td >BUBBLE ATTACK</td>
+                    <td >J</td>
+                    <td >IMG J</td>
+                </tr>
+                <tr>
+                    <td >FIN ATTACK</td>
+                    <td >K</td>
+                    <td >IMG K</td>
+                </tr>
+                <tr>
+                    <td >POISONED BUBBLE</td>
+                    <td >L</td>
+                    <td >IMG L</td>
+                </tr>
+            </table>
+
+
+            </div>
+          </div>
+          <a href="./legal-notice.html" target="_blank" class="legal-notice">Legal Notice</a>
+        </div>
+
+        <canvas id="canvas" width="1920" height="1080"></canvas>
+      </div>
     </div>
   </body>
 </html>

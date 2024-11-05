@@ -1,44 +1,201 @@
-@font-face {
-  font-family: 'LuckiestGuy';
-  font-style: normal;
-  src: url('./img/font/LuckiestGuy-Regular.ttf') format('truetype');
+* {
+  box-sizing: border-box;
 }
 
 body {
-  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   background-image: url(./img/background/background-body.png);
   background-size: cover;
-  margin: 0;
-  font-family: 'LuckiestGuy', Arial, Helvetica, sans-serif;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  font-family: "LuckiestGuy", Arial, Helvetica, sans-serif;
+  font-size: clamp(12px, 3vw, 24px);
+  color: rgb(53, 214, 42);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-h1 {
-  height: 40px;
-  margin: 10px 0;
-  color: rgb(47, 39, 113);
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  max-height: 540px;
 }
 
-.canvas-container {
+.game-content {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background-color: transparent;
+}
+
+canvas,
+.start-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  border-radius: 24px;
 }
 
 canvas {
-  max-width: 90vw;
-  max-height: calc(90vh - 60px);
-  box-shadow: 0px 0px 12px 3px rgb(55, 56, 125) ;
   background-color: black;
-  border-radius: 24px;
+  box-shadow: 0px 0px 12px 3px rgb(55, 56, 125);
+  display: block;
+}
+
+.start-screen {
+  background-image: url(./img/startscreen/background.png);
+  background-size: cover;
+  padding-block: clamp(8px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 2;
+}
+
+.start-screen h1 {
+  margin: 0;
+  font-size: clamp(24px, 7vw, 80px);
+}
+
+.menu {
+  margin-top: clamp(10px, 3vw, 20px);
+  display: flex;
+  gap: clamp(40px, 6vw, 120px);
+}
+
+.menu__button {
+  cursor: pointer;
+  width: clamp(100px, 21vw, 170px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__button img {
+  width: clamp(24px, 7vw, 80px);
+  height: auto;
+}
+
+.start__button {
+  cursor: pointer;
+  font-size: clamp(16px, 6vw, 56px);
+  line-height: 1;
+  color: rgb(222, 29, 168);
+  display: flex;
+  align-items: end;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), -2px 2px 2px rgba(0, 0, 0, 0.5),
+    2px -2px 2px rgba(0, 0, 0, 0.5), -2px -2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.character {
+  position: absolute;
+  bottom: clamp(34px, 6vw, 72px);
+  left: clamp(20px, 4vw, 40px);
+  width: clamp(120px, 24vw, 280px);
+  height: auto;
+}
+
+.dialog {
+  position: relative;
+  width: 95%;
+  height: 85%;
+  padding: 24px;
+  color: black;
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 18px;
+}
+
+.dialog p {
+  font-family: "Josefin Sans";
+  font-size: clamp(8px, 2vw, 16px);
+}
+
+.help-description {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.help-description img {
+  width: 15%;
+  height: auto;
+}
+
+.controls-description {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-top: 1px solid black;
+}
+
+tr:first-child{
+  border: none;
+}
+
+
+td {
+  font-size: clamp(10px, 3vw, 20px);
+  padding: 6px;
+  width: 25%;
+  text-align: center;
+}
+
+td:first-child{
+  width: 50%;  
+  font-family: "Josefin Sans";
+  font-size: clamp(8px, 2vw, 16px);
+  text-align: start;
+  font-weight: 700;
+}
+
+.legal-notice{
+  cursor: pointer;
+  font-size: clamp(8px, 2vw, 16px);
+  color: white;
+  text-decoration: none;
+  position: absolute;
+  bottom: clamp(10px, 3vw, 28px);
+  right: clamp(27px, 7vw, 80px);
+}
+
+.d-none {
+  display: none;
+}
+
+@media screen and (max-height: 540px) {
+  .game-container {
+    max-height: 100vh;
+    max-width: calc(100vh * (16 / 9));
+  }
 }

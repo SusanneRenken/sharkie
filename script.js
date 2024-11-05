@@ -2,6 +2,12 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+function startGame(){
+  let start = document.getElementById('start_screen');
+  start.classList.add('d-none');
+  init();
+}
+
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
@@ -19,4 +25,14 @@ function setKey(code, isPressed) {
   if (keyUpperCase in keyboard) {
     keyboard[keyUpperCase] = isPressed;
   }
+}
+
+function toggleMenu(dialog){
+  let start = document.getElementById('menu');
+  let character = document.getElementById('character');
+  let dialogContent = document.getElementById(`${dialog}`);
+
+  start.classList.toggle('d-none');
+  character.classList.toggle('d-none');
+  dialogContent.classList.toggle('d-none');
 }
