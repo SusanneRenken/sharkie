@@ -28,7 +28,6 @@ function getSleepingParameter(obj) {
 
 function getObjectProperties(obj) {
   obj.objectLife = 3;
-  obj.objectCoins = 0;
   obj.objectPoisons = 0;
 
   obj.speed = 10 + (obj.world.gameLevel - 1);
@@ -142,6 +141,9 @@ function animateDeathAnimation(obj) {
   obj.animateMoving(obj[obj.enemyAttackForDeath]);
   if (obj.currentImage >= obj[obj.enemyAttackForDeath].length) {
     obj.isDead = true;
+    setTimeout(() => {
+      gameOver();
+    }, 2000);
   }
 }
 

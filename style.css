@@ -127,6 +127,7 @@ canvas {
 .dialog p {
   font-family: "Josefin Sans";
   font-size: clamp(8px, 2vw, 16px);
+  margin-block: 10px;
 }
 
 .help-description {
@@ -210,9 +211,57 @@ td:first-child{
   height: auto;
 }
 
+.menu-game-over{
+  width: 80%;
+  margin-top: clamp(15px, 3vw, 30px);
+  display: flex;
+  justify-content: space-between;
+}
+
 .game-over-big-image{
-  width: 300px;
+  margin-top: 24px;
+  width: 260px;
   height: auto;
+}
+
+
+.high-score{
+  padding-inline: 40px;
+  background-color: rgba(47, 39, 113, 0.9);
+  border-radius: 8px;  
+  box-shadow: 0px 0px 12px 3px rgb(55, 56, 125);
+  font-size: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.result{ 
+  width: 100%;
+  color: rgb(53, 214, 42);
+  margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.result-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-area img {
+  width: clamp(24px, 7vw, 80px);
+  height: auto;
+}
+
+
+.high-score-number{
+  
+  font-size: 56px;
+  color: rgb(53, 214, 42);
 }
 
 .d-none {

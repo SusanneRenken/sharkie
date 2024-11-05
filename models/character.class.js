@@ -58,10 +58,6 @@ class Character extends MovableObject {
     }, 180);
   }
 
-  saveLastPosition() {
-    this.lastX = this.x;
-    this.lastY = this.y;
-  }
 
   setSecondaryIntervalId() {
     this.secondaryIntervalId = setInterval(() => {
@@ -92,6 +88,11 @@ class Character extends MovableObject {
 
       this.world.camera_x = -this.x + 62;
     }, 1000 / 60);
+  }
+  
+  saveLastPosition() {
+    this.lastX = this.x;
+    this.lastY = this.y;
   }
 
   animateAttack() {

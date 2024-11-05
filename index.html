@@ -37,24 +37,26 @@
     <script src="./script.js"></script>
   </head>
 
-  <body>
+  <body onload="init()">
     <div class="game-container">
       <div class="game-content">
-
         <!-- ACHTUNG d-none entfernen -->
-        <div id="start_screen" class="dialog-screen d-none">
+        <div id="start_screen" class="dialog-screen">
           <h1>S h a r k i e</h1>
+
           <div id="menu" class="menu">
+            <div class="menu__button" onclick="toggleMenu('help')">
+              <img src="./img/menuscreen/heart.png" alt="" />
+              <div>W e l c o m e</div>
+            </div>
+
+            <div class="start__button" onclick="startGame()">S T A R T</div>
             <div class="menu__button" onclick="toggleMenu('controls')">
               <img src="./img/menuscreen/star.png" alt="" />
               <div>C o n t r o l s</div>
             </div>
-            <div class="start__button" onclick="startGame()">S T A R T</div>
-            <div class="menu__button" onclick="toggleMenu('help')">
-              <img src="./img/menuscreen/heart.png" alt="" />
-              <div>H e l p</div>
-            </div>
           </div>
+
           <img
             id="character"
             class="character"
@@ -93,11 +95,14 @@
               <img src="./img/menuscreen/jellyfish.png" alt="" />
               <div>
                 <p>
-                  At the end of your journey, the mighty Endboss awaits. It
-                  won't be easy to take it down - only poisoned bubbles or the
-                  Fin Attack can harm it. Be brave and use your skills wisely to
-                  emerge victorious!
+                  At the end, the mighty Endboss awaits, vulnerable only to
+                  poisoned bubbles or the Fin Attack. Remember, every coin you
+                  collect will add 1 point to your score, while defeating
+                  jellyfish will earn you 2 points, and overcoming pufferfish
+                  will grant you 3 points. Use these opportunities to boost your
+                  high score as you progress through the ocean.
                 </p>
+                <p>Be brave and use your skills wisely to emerge victorious!</p>
                 Good luck, and happy swimming!
               </div>
             </div>
@@ -114,85 +119,113 @@
             <div class="controls-description">
               <table>
                 <tr>
-                    <td >SWIM UP</td>
-                    <td >W</td>
-                    <td >UP</td>
+                  <td>SWIM UP</td>
+                  <td>W</td>
+                  <td>UP</td>
                 </tr>
                 <tr>
-                    <td >SWIM LEFT</td>
-                    <td >A</td>
-                    <td >LEFT</td>
+                  <td>SWIM LEFT</td>
+                  <td>A</td>
+                  <td>LEFT</td>
                 </tr>
                 <tr>
-                    <td >SWIM DOWN</td>
-                    <td >S</td>
-                    <td >DOWN</td>
+                  <td>SWIM DOWN</td>
+                  <td>S</td>
+                  <td>DOWN</td>
                 </tr>
                 <tr>
-                    <td >SWIM RIGHT</td>
-                    <td >D</td>
-                    <td >RIGHT</td>
+                  <td>SWIM RIGHT</td>
+                  <td>D</td>
+                  <td>RIGHT</td>
                 </tr>
                 <tr>
-                    <td >BUBBLE ATTACK</td>
-                    <td >J</td>
-                    <td >IMG J</td>
+                  <td>BUBBLE ATTACK</td>
+                  <td>J</td>
+                  <td>IMG J</td>
                 </tr>
                 <tr>
-                    <td >FIN ATTACK</td>
-                    <td >K</td>
-                    <td >IMG K</td>
+                  <td>FIN ATTACK</td>
+                  <td>K</td>
+                  <td>IMG K</td>
                 </tr>
                 <tr>
-                    <td >POISONED BUBBLE</td>
-                    <td >L</td>
-                    <td >IMG L</td>
+                  <td>POISONED BUBBLE</td>
+                  <td>L</td>
+                  <td>IMG L</td>
                 </tr>
-            </table>
-
-
+              </table>
             </div>
           </div>
-          <a id="legal_notice" href="./legal-notice.html" target="_blank" class="legal-notice">Legal Notice</a>
+          <a
+            id="legal_notice"
+            href="./legal-notice.html"
+            target="_blank"
+            class="legal-notice"
+            >Legal Notice</a
+          >
         </div>
 
         <canvas id="canvas" width="1920" height="1080"></canvas>
 
         <div id="win_screen" class="dialog-screen d-none">
-          <h1>Y O U &nbsp; &nbsp;  W I N !</h1>
+          <h1>Y O U &nbsp; &nbsp; W I N !</h1>
           <div id="menu" class="menu">
-
             <div class="win-button" onclick="backToStart('win_screen')">
               <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
-              <div>S T A R T  &nbsp; &nbsp; A G A I N</div>
+              <div>back to Start</div>
             </div>
 
-            <img class="win-big-image" src="./img/menuscreen/win-character.png" alt="" />
+            <img
+              class="win-big-image"
+              src="./img/menuscreen/win-character.png"
+              alt=""
+            />
 
             <div class="win-button" onclick="startGame()">
-              <img class="win-img" src="./img/menuscreen/character.png" alt="" />
-              <div>N E X T  &nbsp; &nbsp;  L E V E L</div>
+              <img
+                class="win-img"
+                src="./img/menuscreen/character.png"
+                alt=""
+              />
+              <div>next level</div>
             </div>
           </div>
-          
         </div>
 
+        <div id="game_over_screen" class="dialog-screen red d-none">
+          <h1>G A M E &nbsp; &nbsp; O V E R !</h1>
+          <div id="menu" class="menu-game-over">
+            <div class="win-button" onclick="backToStart('game_over_screen')">
+              <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
+              <div>back to Start</div>
+              <img
+                class="game-over-big-image"
+                src="./img/menuscreen/game-over-endboss.png"
+                alt=""
+              />
+            </div>
 
+            <div class="high-score">
+              <div class="result">
+                <div class="result-area" onclick="toggleMenu('controls')">
+                  <img src="./img/menuscreen/coin.png" alt="" />
+                  <div id="collected_coins"></div>
+                </div>
+                <div class="result-area" onclick="toggleMenu('controls')">
+                  <img src="./img/menuscreen/jellyfish.png" alt="" />
+                  <div id="hit_jelly"></div>
+                </div>
+                <div class="result-area" onclick="toggleMenu('controls')">
+                  <img src="./img/menuscreen/pufferfish.png" alt="" />
+                  <div id="hit_puffer"></div>
+                </div>
+              </div>
 
-        <div id="game_over_screen" class="dialog-screen red">
-          <h1>G A M E &nbsp; &nbsp;  O V E R !</h1>
-          <div id="menu" class="menu">
-          <div class="win-button" onclick="backToStart('game_over_screen')">
-            <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
-            <div>S T A R T  &nbsp; &nbsp; A G A I N</div>
+              <div>Your High score:</div>
+              <div id="high_score" class="high-score-number"></div>
+            </div>
           </div>
-
-          <img class="game-over-big-image" src="./img/menuscreen/game-over-endboss.png" alt="" />
-
-          <div>Your High score:</div>
         </div>
-        </div>
-
       </div>
     </div>
   </body>

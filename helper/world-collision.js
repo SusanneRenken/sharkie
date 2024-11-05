@@ -82,7 +82,7 @@ function collisionWithBarrier(world) {
         SOUND_COLLECT_COIN.currentTime = 0;
         SOUND_COLLECT_COIN.play();
         world.coins.splice(i, 1);
-        world.character.objectCoins++;
+        collectedCoins++;
         coin.stopAllIntervals();
       }
     });

@@ -155,6 +155,7 @@ class Pufferfish extends MovableObject {
     if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
       this.deadSound = true;
+      hitPuffer++;      
     }
   }
 

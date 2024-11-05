@@ -1,6 +1,5 @@
 class MovableObject extends DrawableObject {
   objectLife;
-  objectCoins;
   objectPoisons;
   backgroundRepeat;
   selectedColor;

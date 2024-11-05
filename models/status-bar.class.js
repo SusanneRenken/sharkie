@@ -38,7 +38,7 @@ class StatusBar extends DrawableObject {
   drawObject(ctx) {
     const values = [
       this.world.character.objectLife,
-      this.world.character.objectCoins,
+      collectedCoins,
       this.world.character.objectPoisons,
     ];
 

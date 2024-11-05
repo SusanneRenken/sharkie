@@ -112,7 +112,8 @@ class Jellyfish extends MovableObject {
   animateDying() {
     if (!this.deadSound) {
       SOUND_JELLY_DEAD.play();
-      this.deadSound = true;
+      this.deadSound = true;      
+      hitJelly++;
     }
     this.animateMoving(this.IMAGES_DEAD);
 
