@@ -27,11 +27,7 @@ function getSleepingParameter(obj) {
 }
 
 function getObjectProperties(obj) {
-  obj.objectLife = 3;
-  obj.objectPoisons = 0;
-
   obj.speed = 9 + obj.world.currentLevel;
-
   obj.verticalSpeed = 0.5 * obj.speed;
   obj.movementSpeed = 180;
 }
@@ -75,7 +71,7 @@ function setBubbleNormalAttack(obj) {
 function setBubblePoisondAttack(obj) {
   if (obj.world.keyboard.KEYJ) {
     obj.isPoisonAttack = true;
-    if (obj.objectPoisons <= 0) {
+    if (collectedPoison <= 0) {
       obj.attackType = obj.IMAGES_BUB_N;
       obj.attackSound = SOUND_BUBBLE_BURST;
       obj.startAttack = 7;
@@ -95,7 +91,7 @@ function setBubbleAttack(obj) {
     obj.currentImage === obj.startAttack
   ) {
     if (obj.attackType === obj.IMAGES_BUB_P) {
-      obj.objectPoisons--;
+      collectedPoison--;
       obj.isPoisonAttack = false;
       obj.world.generateBubble(2);
     } else if (!obj.isPoisonAttack) {
@@ -148,8 +144,7 @@ function animateDeathAnimation(obj) {
 }
 
 function isFallAsleep(obj) {
-  if (obj.isAwake) {    SOUND_CHARACTER_SLEEP.play();
-
+  if (obj.isAwake) {
     obj.animateMoving(obj.IMAGES_TRANS);
     if (obj.currentImage >= obj.IMAGES_TRANS.length) {
       obj.isAwake = false;
@@ -163,6 +158,7 @@ function isSleepingDeeply(obj) {
     if (obj.y >= 290) {
       obj.y = 290;
     }
+    SOUND_CHARACTER_SLEEP.play();
     getSleepingParameter(obj);
     obj.animateMoving(obj.IMAGES_SLEEP);
   }

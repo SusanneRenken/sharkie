@@ -15,7 +15,8 @@ class Pufferfish extends MovableObject {
 
     this.getRandomColor();
     this.getParameter();
-    this.getObjectProperties();
+    this.getObjectProperties();    
+    this.getAttackProperties();
     this.getImages();
 
     this.animate();
@@ -42,6 +43,18 @@ class Pufferfish extends MovableObject {
 
   getObjectProperties() {
     this.objectLife = 1;
+    this.otherDirection = Math.random() < 0.5 ? false : true;
+    this.speed =
+      0.5 +
+      this.world.currentLevel / 3 +
+      Math.random() * this.world.levelFactorHigh;
+      if (this.otherDirection) {
+        this.speed = -this.speed;
+      }
+    this.movementSpeed = 100 + this.speed * 30;
+  }
+
+  getAttackProperties(){
     this.enemyAttack = "IMAGES_HIT_P";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 1;
@@ -49,8 +62,6 @@ class Pufferfish extends MovableObject {
     this.enemyAttackSound = SOUND_CHARACTER_HIT_P;
     this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
     this.animationRepeat = Math.floor(3 + Math.random() * 4);
-    this.speed = 0.5 + this.world.currentLevel / 3 + Math.random() * (this.world.levelFactorHigh);
-    this.movementSpeed = 100 + this.speed * 30;
   }
 
   getImages() {
@@ -74,7 +85,6 @@ class Pufferfish extends MovableObject {
   }
 
   setAnimationInterval() {
-
     this.animationIntervalId = setInterval(() => {
       if (this.isDying) {
         this.animateDying();
@@ -106,9 +116,25 @@ class Pufferfish extends MovableObject {
       if (this.isDying) {
         this.handleDeadMovement();
       } else {
+        this.setMovmentDirection();
         this.moveLeft(this.speed);
       }
     }, 1000 / 60);
+  }
+
+  setMovmentDirection() {
+    if (Math.random() < 1 / (60 * 10)) {
+      this.speed = -this.speed;
+      this.otherDirection = !this.otherDirection;
+    }
+    if (this.x < -100) {
+      this.speed = -this.speed;
+      this.otherDirection = true;
+    }
+    if (this.x > this.world.levelEndX + 1600) {
+      this.speed = -this.speed;
+      this.otherDirection = false;
+    }
   }
 
   getSwimParameter() {
@@ -156,7 +182,7 @@ class Pufferfish extends MovableObject {
     if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
       this.deadSound = true;
-      hitPuffer++;      
+      hitPuffer++;
     }
   }
 

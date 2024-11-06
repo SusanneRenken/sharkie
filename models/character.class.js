@@ -118,11 +118,11 @@ class Character extends MovableObject {
     this.animationRepeat = this.enemyAttackRepeat;
     if (!this.isHitStart) {
       this.isHitStart = true;
-      this.objectLife--;
+      characterLife--;
       this.currentImage = 0;
       this.wakeUp();
     }
-    if (this.objectLife > 0) {
+    if (characterLife > 0) {
       animateHitAnimation(this);
     } else {
       animateDeathAnimation(this);
@@ -168,7 +168,7 @@ class Character extends MovableObject {
   }
 
   handleHitMoving() {
-    if (this.objectLife > 0) {
+    if (characterLife > 0) {
       if (this.currentImage <= 2 && this.animationCount < 1) {
         if (this.otherDirection === false) this.moveLeft(this.enemyAttackSpeed);
         if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);

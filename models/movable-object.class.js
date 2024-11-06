@@ -1,6 +1,5 @@
 class MovableObject extends DrawableObject {
   objectLife;
-  objectPoisons;
   backgroundRepeat;
   selectedColor;
   enemyNumber;

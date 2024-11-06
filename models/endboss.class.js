@@ -48,8 +48,8 @@ class Endboss extends MovableObject {
   }
 
   getObjectProperties() {
-    this.objectLife = 3;
-    this.speed = 8 + 0.5 * this.world.currentLevel;
+    this.objectLife = Math.min(this.world.levelFactorHigh + 1, 20);
+    this.speed = 6 + 0.5 * this.world.currentLevel;
     this.enemyAttack = "IMAGES_HIT_A";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 3;
@@ -106,6 +106,9 @@ class Endboss extends MovableObject {
       if (this.isDead) {
         this.moveUp(5);
       }
+      if (this.x < -1100) {
+        gameOver();
+      }
     }, 1000 / 60);
   }
 
@@ -126,12 +129,12 @@ class Endboss extends MovableObject {
   animateSwimAndAttack() {
     if (this.animationCount < 1) {
       SOUND_ENDBOSS_ATTACK.play();
-      this.speed = 8 + 0.5 * this.world.currentLevel;
+      this.speed = 6 + 0.5 * this.world.currentLevel;
       this.animateMoving(this.IMAGES_ATT);      
       this.handleHitBox();
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
-      this.speed = 8 + 0.5 * this.world.currentLevel;
+      this.speed = 6 + 0.5 * this.world.currentLevel;
       this.animateMoving(this.IMAGES_SWIM);
       this.isAnimateAttack();
     }

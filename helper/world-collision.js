@@ -94,7 +94,7 @@ function collisionWithBarrier(world) {
         SOUND_COLLECT_POISON.currentTime = 0;
         SOUND_COLLECT_POISON.play();
         world.poisons.splice(i, 1);
-        world.character.objectPoisons++;
+        collectedPoison++;
         poison.stopAllIntervals();
       }
     });

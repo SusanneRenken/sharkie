@@ -1,6 +1,5 @@
 class World {
-  // currentLevel = level;
-  currentLevel = 10;
+  currentLevel = level;
   pathBackgroundObjeckts = [
     "./img/background/layers/water/3.png",
     "./img/background/layers/fondo-2/3.png",
@@ -96,8 +95,9 @@ class World {
   placePoison() {
     let lengthPoisonArea = 2 * 1920 * (this.backgroundRepeat - 1.2);
     let placedPoisons = 0;
+    let numberPoisons = Math.max(Math.min(this.levelFactorHigh + 1, 20), 5);
 
-    while (placedPoisons < (this.backgroundRepeat - 1) * 2) {
+    while (placedPoisons < numberPoisons) {
       const poisonX = 1920 + Math.random() * lengthPoisonArea;
 
       if (!isObjectInBarrier(poisonX, 190, this.barriers)) {
