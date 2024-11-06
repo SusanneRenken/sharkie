@@ -27,7 +27,7 @@ function getSleepingParameter(obj) {
 }
 
 function getObjectProperties(obj) {
-  obj.objectLife = 3;  // MUSS GLOBAL SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  obj.objectLife = 3;
   obj.objectPoisons = 0;
 
   obj.speed = 9 + obj.world.currentLevel;
