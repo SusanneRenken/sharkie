@@ -34,8 +34,8 @@ class Bubble extends MovableObject {
 
   animate() {
     this.movementIntervalId = setInterval(() => {
-      if (this.currentImage < 20) {
-        this.x += 15 * this.direction;
+      if (this.currentImage < 40) {
+        this.x += (9 + this.world.currentLevel) * 2 * this.direction;
         this.currentImage++;
       } else {
         if (!this.parabolaStarted) {
@@ -43,7 +43,7 @@ class Bubble extends MovableObject {
           this.urY = this.y;
           this.parabolaStarted = true;
         }
-        this.x += 15 * this.direction;
+        this.x += (9 + this.world.currentLevel) * 2 * this.direction;
         const PARABOLA_WIDTH = 0.002;
         this.y = -(PARABOLA_WIDTH * Math.pow(this.x - this.urX, 2)) + this.urY;
       }      
@@ -54,7 +54,7 @@ class Bubble extends MovableObject {
     setTimeout(() => {
         this.world.bubbles = this.world.bubbles.filter((bubble) => bubble !== this);
         this.stopAllIntervals();
-      }, 1000);
+      }, 3000);
   }
 
 }

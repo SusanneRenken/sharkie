@@ -1,9 +1,15 @@
 class World {
-  level = getLevel1();
-  gameLevel = 1;
-  gameLevelFactor = Math.floor(this.gameLevel / 2 + 0.5);
-  pathBackgroundObjeckts = this.level.backgroundObjects;
-  backgroundRepeat = this.level.backgroundRepeat;
+  // currentLevel = level;
+  currentLevel = 10;
+  pathBackgroundObjeckts = [
+    "./img/background/layers/water/3.png",
+    "./img/background/layers/fondo-2/3.png",
+    "./img/background/layers/fondo-1/3.png",
+    "./img/background/layers/floor/3.png",
+  ];
+  levelFactorLow = Math.floor(this.currentLevel / 2 + 0.5);
+  levelFactorHigh = Math.floor(Math.pow(this.currentLevel * 5, 1 / 2.2));
+  backgroundRepeat = this.levelFactorHigh;
   coinCollectionWidth = 1000;
 
   character = new Character(this);
@@ -64,8 +70,7 @@ class World {
   }
 
   initializeEnemies() {
-      let numberOfEnemies =
-      this.level.backgroundRepeat * (1 + this.gameLevelFactor);
+    let numberOfEnemies = this.backgroundRepeat * this.levelFactorHigh;
 
     for (let i = 0; i < numberOfEnemies; i++) {
       this.enemies.push(
@@ -75,7 +80,7 @@ class World {
   }
 
   createJelly() {
-    let lengthJellyArea = 2 * 1920 * (this.level.backgroundRepeat - 1.2);
+    let lengthJellyArea = 2 * 1920 * (this.backgroundRepeat - 1.2);
     let placedJelly = 0;
 
     while (placedJelly < 1) {
@@ -108,7 +113,7 @@ class World {
       collisionWithCoin(this);
       collisionWithPoison(this);
       collisionWithEnemie(this);
-      collisionWithEndboss(this);      
+      collisionWithEndboss(this);
       collisionBubbleWithBarrier(this);
       collisionBubbleWithEnemie(this);
       collisionBubbleWithEndboss(this);

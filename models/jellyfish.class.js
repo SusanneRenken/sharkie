@@ -41,7 +41,7 @@ class Jellyfish extends MovableObject {
 
   getObjectProperties() {
     this.objectLife = 1;
-    this.speed = 1 + Math.random() * 1;
+    this.speed = 0.5 + this.world.currentLevel / 2.5 + Math.random() * 1;
     this.movementSpeed = 180 + this.speed * 30;
     this.isDying = false;
   }
@@ -84,6 +84,7 @@ class Jellyfish extends MovableObject {
   }
 
   setAnimationInterval(){
+      
     this.animationIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.animateMoving(this.IMAGES_SWIM);

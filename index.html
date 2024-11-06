@@ -26,8 +26,6 @@
     <script src="./models/barrier-hitbox.class.js"></script>
     <script src="./models/poison.class.js"></script>
     <script src="./models/bubble.class.js"></script>
-    <script src="./models/level.class.js"></script>
-    <script src="./levels/level1.js"></script>
     <script src="./helper/sounds.js"></script>
     <script src="./helper/world-helper.js"></script>
     <script src="./helper/world-collision.js"></script>
@@ -40,7 +38,6 @@
   <body onload="init()">
     <div class="game-container">
       <div class="game-content">
-        <!-- ACHTUNG d-none entfernen -->
         <div id="start_screen" class="dialog-screen">
           <h1>S h a r k i e</h1>
 
@@ -181,7 +178,7 @@
               alt=""
             />
 
-            <div class="win-button" onclick="startGame()">
+            <div class="win-button" onclick="nextLevel()">
               <img
                 class="win-img"
                 src="./img/menuscreen/character.png"

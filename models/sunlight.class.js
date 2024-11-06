@@ -17,7 +17,7 @@ class Sunlight extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    this.movementIntervalId = setInterval(() => {
       this.x = -(
         this.world.character.x -
         this.world.character.x *

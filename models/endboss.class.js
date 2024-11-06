@@ -49,7 +49,7 @@ class Endboss extends MovableObject {
 
   getObjectProperties() {
     this.objectLife = 3;
-    this.speed = 1 + (this.world.gameLevel - 1) / 2;
+    this.speed = 8 + 0.5 * this.world.currentLevel;
     this.enemyAttack = "IMAGES_HIT_A";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 3;
@@ -80,6 +80,7 @@ class Endboss extends MovableObject {
   }
 
   setAnimationInterval() {
+     
     this.animationIntervalId = setInterval(() => {
       if (!this.isDead) {
         if (this.world.character.x > this.introduceStartX) {
@@ -125,12 +126,12 @@ class Endboss extends MovableObject {
   animateSwimAndAttack() {
     if (this.animationCount < 1) {
       SOUND_ENDBOSS_ATTACK.play();
-      this.speed = 3;
+      this.speed = 8 + 0.5 * this.world.currentLevel;
       this.animateMoving(this.IMAGES_ATT);      
       this.handleHitBox();
       this.isAnimateSwim(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {
-      this.speed = 2;
+      this.speed = 8 + 0.5 * this.world.currentLevel;
       this.animateMoving(this.IMAGES_SWIM);
       this.isAnimateAttack();
     }
@@ -209,6 +210,7 @@ class Endboss extends MovableObject {
       this.isDead = true;
       setTimeout(() => {
         this.stopAllIntervals();
+        winLevel();
       }, 3000);
     }
   }

@@ -45,7 +45,11 @@ class Poison extends MovableObject {
         this.animateMoving(this.IMAGES_POISON);
       } else if (this.y >= 830 && !this.isStopped) {
         this.isStopped = true;
+        this.stopAllIntervals();
         this.loadImage(`./img/collectibles/poison/${this.direction}.png`);
+        setTimeout(() => {
+          this.stopAllIntervals();
+        }, 1000);
       }
     }, 100);
   }
@@ -55,6 +59,7 @@ class Poison extends MovableObject {
       if (this.isFalling && this.y < 830) {
         this.y += 3.5;
       }
+      
     }, 1000 / 60);
   }
 }

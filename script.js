@@ -1,13 +1,14 @@
 let canvas;
 let world;
+let level;
 let startScreen;
 let winScreen;
 let gameOverScreen;
 let keyboard;
-let collectedCoins = 0;
-let hitJelly = 0;
-let hitPuffer = 0;
-let highScore = 0;
+let collectedCoins;
+let hitJelly;
+let hitPuffer;
+let highScore;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -15,12 +16,15 @@ function init() {
   winScreen = document.getElementById("win_screen");
   gameOverScreen = document.getElementById("game_over_screen");
   keyboard = new Keyboard();
+  collectedCoins = 0;
+  hitJelly = 0;
+  hitPuffer = 0;
+  highScore = 0;
 }
 
 function startGame() {
-  let start = document.getElementById("start_screen");
-  start.classList.add("d-none");
-  highScore = 0;
+  level = 1;
+  startScreen.classList.add("d-none");
   world = new World(canvas, keyboard);
 }
 
@@ -51,6 +55,7 @@ function toggleMenu(dialog) {
 }
 
 function backToStart(dialog) {
+  level = 1;
   collectedCoins = 0;
   hitJelly = 0;
   hitPuffer = 0;
@@ -63,10 +68,35 @@ function backToStart(dialog) {
   end.classList.add("d-none");
 }
 
+function winLevel() {
+  stopAllGameIntervals();
+  world = null;  
+  level++;
+  winScreen.classList.remove("d-none");
+}
+
+function nextLevel() {
+  winScreen.classList.add("d-none");
+  world = new World(canvas, keyboard);
+}
+
 function gameOver() {
+  stopAllGameIntervals();
+  world = null;
   setHighScore();
-  canvas.classList.add("d-none");
   gameOverScreen.classList.remove("d-none");
+}
+
+function stopAllGameIntervals() {
+  [
+    world.character,
+    world.sunlight,
+    world.endBoss,
+    ...world.coins,
+    ...world.poisons,
+    ...world.enemies,
+    ...world.bubbles,
+  ].forEach((obj) => obj.stopAllIntervals());
 }
 
 function setHighScore() {

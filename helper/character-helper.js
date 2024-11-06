@@ -27,10 +27,10 @@ function getSleepingParameter(obj) {
 }
 
 function getObjectProperties(obj) {
-  obj.objectLife = 3;
+  obj.objectLife = 3;  // MUSS GLOBAL SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
   obj.objectPoisons = 0;
 
-  obj.speed = 10 + (obj.world.gameLevel - 1);
+  obj.speed = 9 + obj.world.currentLevel;
 
   obj.verticalSpeed = 0.5 * obj.speed;
   obj.movementSpeed = 180;
@@ -148,8 +148,7 @@ function animateDeathAnimation(obj) {
 }
 
 function isFallAsleep(obj) {
-  if (obj.isAwake) {
-    // SOUND_CHARACTER_SLEEP.play();
+  if (obj.isAwake) {    SOUND_CHARACTER_SLEEP.play();
 
     obj.animateMoving(obj.IMAGES_TRANS);
     if (obj.currentImage >= obj.IMAGES_TRANS.length) {

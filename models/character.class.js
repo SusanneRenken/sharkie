@@ -40,7 +40,7 @@ class Character extends MovableObject {
     this.setMovmentInterval();
   }
 
-  setAnimationInterval() {
+  setAnimationInterval() {         
     this.animationIntervalId = setInterval(() => {
       if (isAliveAndNotAttack(this)) {
         if (isKeyPressed(this) && isSleeping(this)) {
@@ -178,7 +178,7 @@ class Character extends MovableObject {
         this.moveUp(5);
       }
       if (isDeathByElectric(this)) {
-        this.moveDown(30);
+        this.moveDown(60);
       }
     }
   }

@@ -65,9 +65,9 @@ function isDeathByAttack(obj) {
 
 function isDeathByElectric(obj) {
   return (
-    obj.currentImage === 8 &&
+    obj.currentImage >= 8 &&
     obj.enemyAttackForDeath === "IMAGES_DEAD_E" &&
-    obj.y < 200
+    obj.y < 180
   );
 }
 

@@ -78,7 +78,7 @@ function collisionWithBarrier(world) {
   
   function collisionWithCoin(world) {
     world.coins.forEach((coin, i) => {
-      if (world.character.isColliding(coin)) {
+      if (world.character.isColliding(coin) && !world.character.isHit) {
         SOUND_COLLECT_COIN.currentTime = 0;
         SOUND_COLLECT_COIN.play();
         world.coins.splice(i, 1);
@@ -90,7 +90,7 @@ function collisionWithBarrier(world) {
   
   function collisionWithPoison(world) {
     world.poisons.forEach((poison, i) => {
-      if (world.character.isColliding(poison)) {
+      if (world.character.isColliding(poison) && !world.character.isHit) {
         SOUND_COLLECT_POISON.currentTime = 0;
         SOUND_COLLECT_POISON.play();
         world.poisons.splice(i, 1);
