@@ -40,6 +40,16 @@ body {
   z-index: 9;
 }
 
+.fullscreen-btn{
+  cursor: pointer;
+  width: clamp(16px, 3vw, 32px);
+  height: auto;
+  position: absolute;
+  top: clamp(12px, 3vw, 24px);
+  left: clamp(12px, 3vw, 24px);
+  z-index: 3;
+}
+
 .sound-btn{
   cursor: pointer;
   width: clamp(16px, 3vw, 32px);
@@ -348,5 +358,11 @@ td:first-child{
   .game-container {
     max-height: 100vh;
     max-width: calc(100vh * (16 / 9));
+  }
+}
+
+@media (min-width: 1024px) {
+  .control-btn {
+    display: none;
   }
 }

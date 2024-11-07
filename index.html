@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Sharkie</title>
-    <link rel="icon" type="image/x-icon" href="./img/character/idle/1.png" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./img/menuscreen/win-character.png"
+    />
 
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./style/font.css" />
@@ -36,9 +41,17 @@
     <script src="./script.js"></script>
   </head>
 
-  <body onload="init()">
+  <body id="body" onload="init()">
     <div class="game-container">
       <div class="game-content">
+        <img
+          id="fullscreen_btn"
+          class="fullscreen-btn"
+          onclick="toggleFullscreen()"
+          src="./img/menuscreen/buttons/open-fullscreen.png"
+          alt=""
+        />
+
         <img
           id="sound_btn"
           class="sound-btn"
@@ -61,9 +74,24 @@
           </div>
 
           <div class="control-attack">
-            <img class="control" src="./img/menuscreen/buttons/bubble-p.png" alt="" data-key="KEYJ" />
-            <img class="control" src="./img/menuscreen/buttons/fin-slap.png" alt="" data-key="KEYL" />
-            <img class="control" src="./img/menuscreen/buttons/bubble-n.png" alt="" data-key="KEYK" />
+            <img
+              class="control"
+              src="./img/menuscreen/buttons/bubble-p.png"
+              alt=""
+              data-key="KEYJ"
+            />
+            <img
+              class="control"
+              src="./img/menuscreen/buttons/fin-slap.png"
+              alt=""
+              data-key="KEYL"
+            />
+            <img
+              class="control"
+              src="./img/menuscreen/buttons/bubble-n.png"
+              alt=""
+              data-key="KEYK"
+            />
           </div>
         </div>
 

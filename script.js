@@ -5,6 +5,8 @@ let startScreen;
 let winScreen;
 let gameOverScreen;
 let controlScreen;
+let screenImg;
+let fullScreen = false;
 let keyboard;
 let characterLife;
 let collectedPoison;
@@ -19,30 +21,42 @@ function init() {
   winScreen = document.getElementById("win_screen");
   gameOverScreen = document.getElementById("game_over_screen");
   controlScreen = document.getElementById("control_screen");
+  screenImg = document.getElementById("fullscreen_btn");
   keyboard = new Keyboard();
 }
 
-function startGame() {
-  resetPoints();
-  startScreen.classList.add("d-none");
-  SOUND_GAME.currentTime = 0;
-  SOUND_GAME.play();
-  controlScreen.classList.remove("d-none");
-  world = new World(canvas, keyboard);
+function toggleFullscreen() {
+  let gameBody = document.getElementById("body");
+
+  if (fullScreen) {
+    fullScreen = false;
+    exitFullscreen(gameBody);
+    screenImg.src = "./img/menuscreen/buttons/open-fullscreen.png";
+  } else {
+    fullScreen = true;
+    enterFullscreen(gameBody);
+    screenImg.src = "./img/menuscreen/buttons/close-fullscreen.png";
+  }
 }
 
-function resetPoints() {
-  level = 1;
-  characterLife = 3;
-  collectedPoison = 0;
-  collectedCoins = 0;
-  hitJelly = 0;
-  hitPuffer = 0;
-  highScore = 0;
+function enterFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
 }
 
-function clearAllIntervals() {
-  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
 }
 
 document.addEventListener("keydown", (event) => setKey(event.code, true));
@@ -100,6 +114,26 @@ function toggleMenu(dialog) {
   dialogContent.classList.toggle("d-none");
 }
 
+function startGame() {
+  resetPoints();
+  startScreen.classList.add("d-none");
+  SOUND_GAME.currentTime = 0;
+  SOUND_GAME.play();
+  controlScreen.classList.remove("d-none");
+  screenImg.classList.add("d-none");
+  world = new World(canvas, keyboard);
+}
+
+function resetPoints() {
+  level = 1;
+  characterLife = 3;
+  collectedPoison = 0;
+  collectedCoins = 0;
+  hitJelly = 0;
+  hitPuffer = 0;
+  highScore = 0;
+}
+
 function backToStart(dialog) {
   resetPoints();
   let start = document.getElementById("start_screen");
@@ -115,6 +149,8 @@ function winLevel() {
   world = null;
   level++;
   addCharacterLife();
+  screenImg.classList.remove("d-none");
+  controlScreen.classList.add("d-none");
   winScreen.classList.remove("d-none");
 }
 
@@ -132,6 +168,8 @@ function nextLevel() {
   winScreen.classList.add("d-none");
   SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
+  screenImg.classList.add("d-none");
+  controlScreen.classList.remove("d-none");
   world = new World(canvas, keyboard);
 }
 
@@ -140,6 +178,8 @@ function gameOver() {
   SOUND_GAME.pause();
   world = null;
   setHighScore();
+  screenImg.classList.remove("d-none");
+  controlScreen.classList.add("d-none");
   gameOverScreen.classList.remove("d-none");
 }
 
