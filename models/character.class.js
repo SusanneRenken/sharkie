@@ -60,9 +60,7 @@ class Character extends MovableObject {
 
 
   setSecondaryIntervalId() {
-    this.secondaryIntervalId = setInterval(() => {
-      console.log("Ein Intervall");
-      
+    this.secondaryIntervalId = setInterval(() => {      
       if (isAliveAndAttack(this)) {
         this.animateAttack();
       }
@@ -74,7 +72,7 @@ class Character extends MovableObject {
       this.saveLastPosition();
       if (this.isAttackStart) {
         this.handleFinAttackMoving();
-      } else if (this.isHitStart) {
+      } else if (this.isHitStart && this.animationCount < 1) {
         this.handleHitMoving();
       } else if (isMovingRight(this)) {
         this.handleRightMovement();
@@ -171,10 +169,11 @@ class Character extends MovableObject {
 
   handleHitMoving() {
     if (characterLife > 0) {
-      if (this.currentImage <= 2 && this.animationCount < 1) {
-        if (this.otherDirection === false) this.moveLeft(this.enemyAttackSpeed);
-        if (this.otherDirection === true) this.moveRight(this.enemyAttackSpeed);
-      }
+      if (this.world.endBoss.x > this.x) {
+        this.moveLeft(this.enemyAttackSpeed);
+    } else {
+        this.moveRight(this.enemyAttackSpeed);
+    }
     } else {
       if (isDeathByAttack(this)) {
         this.moveUp(5);

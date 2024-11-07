@@ -77,8 +77,18 @@ function winLevel() {
   SOUND_GAME.pause();
   world = null;
   level ++;
-  characterLife++;
+  addCharacterLife();
   winScreen.classList.remove("d-none");
+}
+
+function addCharacterLife(){
+  if (level <= 3) {
+    characterLife += 3;
+  } else if (3 < level <= 8) {
+    characterLife += 2;
+  } else {
+    characterLife++;
+  }
 }
 
 function nextLevel() {
