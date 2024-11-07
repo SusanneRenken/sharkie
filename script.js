@@ -147,7 +147,8 @@ function winLevel() {
   stopAllGameIntervals();
   SOUND_GAME.pause();
   world = null;
-  level++;
+  level++;  
+  setField(level, "next_level");
   addCharacterLife();
   screenImg.classList.remove("d-none");
   controlScreen.classList.add("d-none");
@@ -210,14 +211,14 @@ function setField(number, id) {
   field.innerHTML = number;
 }
 
-// function checkOrientation() {
-//   if (window.innerHeight > window.innerWidth) {
-//     document.getElementById("rotate-device").classList.remove("d-none");
-//   } else {
-//     document.getElementById("rotate-device").classList.add("d-none");
-//   }
-// }
+function checkOrientation() {
+  if (window.innerHeight > window.innerWidth) {
+    document.getElementById("rotate-device").classList.remove("d-none");
+  } else {
+    document.getElementById("rotate-device").classList.add("d-none");
+  }
+}
 
-// window.addEventListener("load", checkOrientation);
-// window.addEventListener("resize", checkOrientation);
-// window.addEventListener("orientationchange", checkOrientation);
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
