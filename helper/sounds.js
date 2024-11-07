@@ -106,5 +106,5 @@ function toggleSound() {
 
   // Ändere die Beschriftung des Buttons basierend auf dem Sound-Zustand
   let soundImg = document.getElementById("sound_btn");
-  soundImg.src = soundEnabled ? "./img/menuscreen/sound.png" : "./img/menuscreen/mute.png";
+  soundImg.src = soundEnabled ? "./img/menuscreen/buttons/sound.png" : "./img/menuscreen/buttons/mute.png";
 }

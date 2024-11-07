@@ -4,6 +4,7 @@ let level;
 let startScreen;
 let winScreen;
 let gameOverScreen;
+let controlScreen;
 let keyboard;
 let characterLife;
 let collectedPoison;
@@ -17,6 +18,7 @@ function init() {
   startScreen = document.getElementById("start_screen");
   winScreen = document.getElementById("win_screen");
   gameOverScreen = document.getElementById("game_over_screen");
+  controlScreen = document.getElementById("control_screen");
   keyboard = new Keyboard();
 }
 
@@ -25,6 +27,7 @@ function startGame() {
   startScreen.classList.add("d-none");
   SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
+  controlScreen.classList.remove("d-none");
   world = new World(canvas, keyboard);
 }
 
@@ -52,6 +55,39 @@ function setKey(code, isPressed) {
   }
 }
 
+function setMobileKey(key, isPressed) {
+  if (key in keyboard) {
+    keyboard[key] = isPressed;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initControls);
+
+function initControls() {
+  const handleEvent = (control, isPressed) => {
+    control.dataset.key
+      .split(" ")
+      .forEach((key) => setMobileKey(key, isPressed));
+  };
+
+  document.querySelectorAll(".control").forEach((control) => {
+    addControlListeners(control, handleEvent);
+  });
+}
+
+function addControlListeners(control, handleEvent) {
+  control.addEventListener("mousedown", () => handleEvent(control, true));
+  control.addEventListener("mouseup", () => handleEvent(control, false));
+  control.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    handleEvent(control, true);
+  });
+  control.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    handleEvent(control, false);
+  });
+}
+
 function toggleMenu(dialog) {
   let start = document.getElementById("menu");
   let character = document.getElementById("legal_notice");
@@ -77,12 +113,12 @@ function winLevel() {
   stopAllGameIntervals();
   SOUND_GAME.pause();
   world = null;
-  level ++;
+  level++;
   addCharacterLife();
   winScreen.classList.remove("d-none");
 }
 
-function addCharacterLife(){
+function addCharacterLife() {
   if (level <= 3) {
     characterLife += 3;
   } else if (3 < level <= 8) {
@@ -145,4 +181,3 @@ function checkOrientation() {
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
-

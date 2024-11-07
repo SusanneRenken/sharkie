@@ -39,15 +39,32 @@
   <body onload="init()">
     <div class="game-container">
       <div class="game-content">
-        
-        <div>
-          <img
+        <img
           id="sound_btn"
           class="sound-btn"
           onclick="toggleSound()"
-          src="./img/menuscreen/sound.png"
+          src="./img/menuscreen/buttons/sound.png"
           alt=""
         />
+
+        <div id="control_screen" class="control-btn d-none">
+          <div class="control-movement">
+            <button class="control" data-key="KEYW KEYA">↖</button>
+            <button class="control" data-key="KEYW">↑</button>
+            <button class="control" data-key="KEYW KEYD">↗</button>
+            <button class="control" data-key="KEYA">←</button>
+            <div class="control center"></div>
+            <button class="control" data-key="KEYD">→</button>
+            <button class="control" data-key="KEYS KEYA">↙</button>
+            <button class="control" data-key="KEYS">↓</button>
+            <button class="control" data-key="KEYS KEYD">↘</button>
+          </div>
+
+          <div class="control-attack">
+            <img class="control" src="./img/menuscreen/buttons/bubble-p.png" alt="" data-key="KEYJ" />
+            <img class="control" src="./img/menuscreen/buttons/fin-slap.png" alt="" data-key="KEYL" />
+            <img class="control" src="./img/menuscreen/buttons/bubble-n.png" alt="" data-key="KEYK" />
+          </div>
         </div>
 
         <div id="start_screen" class="dialog-screen">
@@ -238,9 +255,9 @@
 
         <div id="rotate-device" class="rotate-screen d-none">
           <p>
-            Uh-oh! 
+            Uh-oh!
             <br />
-            It looks like Sharkie doesn't quite fit in this view. 
+            It looks like Sharkie doesn't quite fit in this view.
             <br /><br />
             🐟 🐟 🐟 🐟 🐟 🐟 🐟
             <br /><br />
