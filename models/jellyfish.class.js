@@ -7,12 +7,13 @@ class Jellyfish extends MovableObject {
   direction;
   isMovingDown = true;
   parabolaStarted = false;
+  hasHeart;
 
   constructor(world, x) {
     super();
     this.world = world;
 
-    this.getRandomColor();
+    this.getRandomParameter();
     this.getParameter(x);
     this.getObjectProperties();
     this.getImages();
@@ -21,9 +22,10 @@ class Jellyfish extends MovableObject {
     this.animate();
   }
 
-  getRandomColor() {
+  getRandomParameter() {
     const randomIndex = Math.floor(Math.random() * this.COLOR.length);
     this.selectedColor = this.COLOR[randomIndex];
+    this.hasHeart = Math.random() < 0.1 ? true : false;
   }
 
   getParameter(x) {
@@ -115,6 +117,7 @@ class Jellyfish extends MovableObject {
       SOUND_JELLY_DEAD.play();
       this.deadSound = true;      
       hitJelly++;
+      this.placeHeart();
     }
     this.animateMoving(this.IMAGES_DEAD);
 
@@ -122,6 +125,12 @@ class Jellyfish extends MovableObject {
       this.world.enemies = this.world.enemies.filter((enemy) => enemy !== this);
       this.stopAllIntervals();
     }, 2000);
+  }
+
+  placeHeart(){
+    if(this.hasHeart){
+      this.world.hearts.push(new Heart(this.world, this.x + 60, this.y + 50))
+    }
   }
 
   handleSwimMovment() {

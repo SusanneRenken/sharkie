@@ -25,6 +25,7 @@ class World {
   poisons = [];
   enemies = [];
   bubbles = [];
+  hearts = [];
 
   isAttack = false;
   isHit = false;
@@ -112,6 +113,7 @@ class World {
       collisionWithBarrier(this);
       collisionWithCoin(this);
       collisionWithPoison(this);
+      collisionWithHearts(this);
       collisionWithEnemie(this);
       collisionWithEndboss(this);
       collisionBubbleWithBarrier(this);
@@ -148,6 +150,7 @@ class World {
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
     this.addObjectsToMap(this.bubbles);
+    this.addObjectsToMap(this.hearts);
     this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
     this.addToMap(this.endBoss);

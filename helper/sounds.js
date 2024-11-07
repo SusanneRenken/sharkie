@@ -69,6 +69,10 @@ SOUND_COLLECT_COIN.volume = 0.3;
 const SOUND_COLLECT_POISON = new Audio("./audio/collect-poison.mp3");
 SOUND_COLLECT_POISON.volume = 0.3;
 
+const SOUND_COLLECT_HEART = new Audio("./audio/collect-heart.mp3");
+SOUND_COLLECT_HEART.volume = 0.3;
+SOUND_COLLECT_HEART.playbackRate = 2;
+
 const allSounds = [
   SOUND_GAME,
   SOUND_CHARACTER_SWIM,
@@ -90,6 +94,7 @@ const allSounds = [
   SOUND_ENDBOSS_DEAD,
   SOUND_COLLECT_COIN,
   SOUND_COLLECT_POISON,
+  SOUND_COLLECT_HEART,
 ];
 
 function toggleSound() {

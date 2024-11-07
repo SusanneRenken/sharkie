@@ -99,6 +99,17 @@ function collisionWithBarrier(world) {
       }
     });
   }
+
+  function collisionWithHearts(world) {
+    world.hearts.forEach((heart, i) => {
+      if (world.character.isColliding(heart) && !world.character.isHit) {
+        SOUND_COLLECT_HEART.currentTime = 0;
+        SOUND_COLLECT_HEART.play();
+        world.hearts.splice(i, 1);
+        characterLife++;
+      }
+    });
+  }
   
   function collisionWithEnemie(world) {
     world.enemies.forEach((enemy) => {
