@@ -23,6 +23,7 @@ function init() {
 function startGame() {
   resetPoints();
   startScreen.classList.add("d-none");
+  SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
   world = new World(canvas, keyboard);
 }
@@ -93,6 +94,7 @@ function addCharacterLife(){
 
 function nextLevel() {
   winScreen.classList.add("d-none");
+  SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
   world = new World(canvas, keyboard);
 }
