@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,6 +49,10 @@ body {
   cursor: pointer;
   width: clamp(16px, 3vw, 32px);
   height: auto;
+  padding: 4px;
+  background-color: rgb(55, 56, 125);
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px 4px rgb(55, 56, 125);
   position: absolute;
   top: clamp(12px, 3vw, 24px);
   left: clamp(12px, 3vw, 24px);
@@ -58,7 +62,10 @@ body {
 .sound-btn {
   cursor: pointer;
   width: clamp(16px, 3vw, 32px);
-  height: auto;
+  height: auto; padding: 4px;
+  border-radius: 50%;
+  background-color: rgb(55, 56, 125);
+  box-shadow: 0px 0px 4px 4px rgb(55, 56, 125);
   position: absolute;
   top: clamp(12px, 3vw, 24px);
   right: clamp(12px, 3vw, 24px);
@@ -88,6 +95,9 @@ body {
   border-radius: 50%;
   font-size: 1.5em;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .control.center {
