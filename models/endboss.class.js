@@ -53,7 +53,7 @@ class Endboss extends MovableObject {
     this.enemyAttack = "IMAGES_HIT_A";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 3;
-    this.enemyAttackSpeed = 30;
+    this.enemyAttackSpeed = 40;
     this.enemyAttackSound = SOUND_CHARACTER_HIT_A;
     this.enemyAttackDeadSound = SOUND_CHARACTER_DEAD_A;
   }

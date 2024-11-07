@@ -31,6 +31,16 @@ body {
   background-color: transparent;
 }
 
+.sound-btn{
+  cursor: pointer;
+  width: clamp(16px, 3vw, 32px);
+  height: auto;
+  position: absolute;
+  top: clamp(12px, 3vw, 24px);
+  right: clamp(12px, 3vw, 24px);
+  z-index: 3;
+}
+
 canvas,
 .dialog-screen {
   position: absolute;
@@ -202,12 +212,12 @@ td:first-child{
 }
 
 .win-img{
-  height: 100px;
+  height: clamp(56px, 14vw, 100px);
   width: auto;
 }
 
 .win-big-image{
-  width: 250px;
+  width: clamp(100px, 20vw, 250px);
   height: auto;
 }
 
@@ -219,18 +229,18 @@ td:first-child{
 }
 
 .game-over-big-image{
-  margin-top: 24px;
-  width: 260px;
+  margin-top: clamp(8px, 2vw, 24px);
+  width: clamp(110px, 25vw, 260px);
   height: auto;
 }
 
 
 .high-score{
-  padding-inline: 40px;
+  padding: clamp(18px, 4vw, 36px);
   background-color: rgba(47, 39, 113, 0.9);
   border-radius: 8px;  
   box-shadow: 0px 0px 12px 3px rgb(55, 56, 125);
-  font-size: 36px;
+  font-size: clamp(18px, 4vw, 36px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,7 +250,7 @@ td:first-child{
 .result{ 
   width: 100%;
   color: rgb(53, 214, 42);
-  margin-bottom: 36px;
+  margin-bottom: clamp(18px, 4vw, 36px);
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -258,9 +268,8 @@ td:first-child{
 }
 
 
-.high-score-number{
-  
-  font-size: 56px;
+.high-score-number{  
+  font-size: clamp(16px, 6vw, 56px);
   color: rgb(53, 214, 42);
 }
 

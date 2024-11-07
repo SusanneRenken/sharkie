@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
   enemyAttackSound;
   enemyAttackDeadSound;
   animationIntervalId;
-  deadIntervalId;
+  secondaryIntervalId;
   movementIntervalId;
   isHitStart = false;
   isDying;
@@ -50,9 +50,9 @@ class MovableObject extends DrawableObject {
       clearInterval(this.animationIntervalId);
       this.animationIntervalId = null;
     }
-    if (this.deadIntervalId) {
-      clearInterval(this.deadIntervalId);
-      this.deadIntervalId = null;
+    if (this.secondaryIntervalId) {
+      clearInterval(this.secondaryIntervalId);
+      this.secondaryIntervalId = null;
     }
     if (this.movementIntervalId) {
       clearInterval(this.movementIntervalId);

@@ -61,6 +61,8 @@ class Character extends MovableObject {
 
   setSecondaryIntervalId() {
     this.secondaryIntervalId = setInterval(() => {
+      console.log("Ein Intervall");
+      
       if (isAliveAndAttack(this)) {
         this.animateAttack();
       }
@@ -86,7 +88,7 @@ class Character extends MovableObject {
         this.handleNoMovement();
       }
 
-      this.world.camera_x = -this.x + 62;
+      this.world.camera_x = -this.x + 162;
     }, 1000 / 60);
   }
   

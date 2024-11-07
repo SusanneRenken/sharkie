@@ -23,6 +23,7 @@ function init() {
 function startGame() {
   resetPoints();
   startScreen.classList.add("d-none");
+  SOUND_GAME.play();
   world = new World(canvas, keyboard);
 }
 
@@ -73,6 +74,7 @@ function backToStart(dialog) {
 
 function winLevel() {
   stopAllGameIntervals();
+  SOUND_GAME.pause();
   world = null;
   level ++;
   characterLife++;
@@ -81,11 +83,13 @@ function winLevel() {
 
 function nextLevel() {
   winScreen.classList.add("d-none");
+  SOUND_GAME.play();
   world = new World(canvas, keyboard);
 }
 
 function gameOver() {
   stopAllGameIntervals();
+  SOUND_GAME.pause();
   world = null;
   setHighScore();
   gameOverScreen.classList.remove("d-none");

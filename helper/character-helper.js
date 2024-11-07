@@ -90,7 +90,7 @@ function setBubbleAttack(obj) {
     obj.attackType != obj.IMAGES_FIN &&
     obj.currentImage === obj.startAttack
   ) {
-    if (obj.attackType === obj.IMAGES_BUB_P) {
+    if (obj.attackType === obj.IMAGES_BUB_P) {      
       collectedPoison--;
       obj.isPoisonAttack = false;
       obj.world.generateBubble(2);
