@@ -135,9 +135,7 @@ class DrawableObject {
       }
     }
 
-    if (this instanceof Endboss) {
-
-  
+    if (this instanceof Endboss) { 
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
@@ -148,9 +146,6 @@ class DrawableObject {
         this.height - 900
       );
       ctx.stroke();
-
-
-
     }
 
     if (this instanceof Coin) {
