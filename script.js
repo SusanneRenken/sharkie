@@ -133,3 +133,16 @@ function setField(number, id) {
   field.innerHTML = "";
   field.innerHTML = number;
 }
+
+function checkOrientation() {
+  if (window.innerHeight > window.innerWidth) {
+    document.getElementById("rotate-device").classList.remove("d-none");
+  } else {
+    document.getElementById("rotate-device").classList.add("d-none");
+  }
+}
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+
