@@ -123,35 +123,26 @@ function startGame() {
   world = new World(canvas, keyboard);
 }
 
-function allImagesLoaded(){
-  console.log("Start");
+function updateCharacterPosition() {
+  const percentageLoaded = (totalImagesLoaded / totalImages);
 
+  // console.log(totalImagesLoaded / totalImages);
+  
+  document.documentElement.style.setProperty('--loaded-images-percentage', percentageLoaded);
+}
+
+
+function allImagesLoaded(){
   startScreen.classList.add("d-none");
   winScreen.classList.add("d-none");
-
   SOUND_GAME.currentTime = 0;
-  SOUND_GAME.play();
-  
+  SOUND_GAME.play();  
   screenImg.classList.add("d-none");
   controlScreen.classList.remove("d-none");
   soundImg.classList.remove("option-btn");
 
   totalImages = 0;
   totalImagesLoaded = 0;  
-}
-
-function nextLevel() {
-  
-  // winScreen.classList.add("d-none");
-
-  // SOUND_GAME.currentTime = 0;
-  // SOUND_GAME.play();
-
-  // screenImg.classList.add("d-none");
-  // controlScreen.classList.remove("d-none"); 
-  // soundImg.classList.remove("option-btn");
-
-  world = new World(canvas, keyboard);
 }
 
 function resetPoints() {
@@ -196,15 +187,9 @@ function addCharacterLife() {
   }
 }
 
-// function nextLevel() {
-//   winScreen.classList.add("d-none");
-//   SOUND_GAME.currentTime = 0;
-//   SOUND_GAME.play();
-//   screenImg.classList.add("d-none");
-//   controlScreen.classList.remove("d-none"); 
-//   soundImg.classList.remove("option-btn");
-//   world = new World(canvas, keyboard);
-// }
+function nextLevel() {
+  world = new World(canvas, keyboard);
+}
 
 function gameOver() {
   stopAllGameIntervals();

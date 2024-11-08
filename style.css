@@ -8,7 +8,7 @@ body {
   width: 100vw;
 }
 
-.test{
+.test {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +69,7 @@ body {
   z-index: 9;
 }
 
-.option-btn{
+.option-btn {
   padding: 4px;
   background-color: rgb(55, 56, 125);
   border-radius: 50%;
@@ -184,11 +184,13 @@ canvas {
 }
 
 .character {
-  position: absolute;
-  bottom: clamp(62px, 10vw, 80px);
-  left: clamp(20px, 4vw, 40px);
-  width: clamp(120px, 24vw, 280px);
+  width: 25%;
   height: auto;
+  position: absolute;
+  bottom: 15%;
+  left: calc(5% + 65% * (var(--loaded-images-percentage, 0)));
+   /* Berechnung = 5 % + 65 % * (totalImagesLoaded / totalImages) */
+  /* left: 5%; */
 }
 
 .dialog {

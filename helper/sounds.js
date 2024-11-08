@@ -36,7 +36,7 @@ SOUND_CHARACTER_DEAD_E.volume = 0.6;
 SOUND_CHARACTER_DEAD_E.playbackRate = 0.8;
 
 const SOUND_CHARACTER_SLEEP = new Audio("./audio/character-sleep.mp3");
-SOUND_CHARACTER_SLEEP.volume = 0.3;
+SOUND_CHARACTER_SLEEP.volume = 0.2;
 SOUND_CHARACTER_SLEEP.loop = true;
 
 const SOUND_BUBBLE_BURST = new Audio("./audio/bubble-burst.mp3");
