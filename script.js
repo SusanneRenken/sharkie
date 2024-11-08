@@ -9,6 +9,8 @@ let screenImg;
 let soundImg;
 let fullScreen = false;
 let keyboard;
+let totalImages = 0;
+let totalImagesLoaded = 0;
 let characterLife;
 let collectedPoison;
 let collectedCoins;
@@ -118,12 +120,37 @@ function toggleMenu(dialog) {
 
 function startGame() {
   resetPoints();
+  world = new World(canvas, keyboard);
+}
+
+function allImagesLoaded(){
+  console.log("Start");
+
   startScreen.classList.add("d-none");
+  winScreen.classList.add("d-none");
+
   SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
-  controlScreen.classList.remove("d-none");
+  
   screenImg.classList.add("d-none");
+  controlScreen.classList.remove("d-none");
   soundImg.classList.remove("option-btn");
+
+  totalImages = 0;
+  totalImagesLoaded = 0;  
+}
+
+function nextLevel() {
+  
+  // winScreen.classList.add("d-none");
+
+  // SOUND_GAME.currentTime = 0;
+  // SOUND_GAME.play();
+
+  // screenImg.classList.add("d-none");
+  // controlScreen.classList.remove("d-none"); 
+  // soundImg.classList.remove("option-btn");
+
   world = new World(canvas, keyboard);
 }
 
@@ -169,15 +196,15 @@ function addCharacterLife() {
   }
 }
 
-function nextLevel() {
-  winScreen.classList.add("d-none");
-  SOUND_GAME.currentTime = 0;
-  SOUND_GAME.play();
-  screenImg.classList.add("d-none");
-  controlScreen.classList.remove("d-none"); 
-  soundImg.classList.remove("option-btn");
-  world = new World(canvas, keyboard);
-}
+// function nextLevel() {
+//   winScreen.classList.add("d-none");
+//   SOUND_GAME.currentTime = 0;
+//   SOUND_GAME.play();
+//   screenImg.classList.add("d-none");
+//   controlScreen.classList.remove("d-none"); 
+//   soundImg.classList.remove("option-btn");
+//   world = new World(canvas, keyboard);
+// }
 
 function gameOver() {
   stopAllGameIntervals();

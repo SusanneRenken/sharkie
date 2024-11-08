@@ -42,9 +42,19 @@ class DrawableObject {
 
   loadImages(arr) {
     arr.forEach((path) => {
+      totalImages++;
+      console.log('Number of Image', totalImages);
+      console.log(totalImagesLoaded / totalImages);  
       this.img = new Image();
       this.img.src = path;
       this.imageCache[path] = this.img;
+      this.img.onload = function(){
+        totalImagesLoaded++;
+        console.log('Image Loaded', totalImagesLoaded); 
+        if (totalImagesLoaded === totalImages) {
+          allImagesLoaded();
+        }       
+      }
     });
   }
 
