@@ -42,11 +42,12 @@
   </head>
 
   <body id="body" onload="init()">
-    <div class="game-container">
+    <div id="test" class="test">
+    <div id="game_container" class="game-container">
       <div class="game-content">
         <img
           id="fullscreen_btn"
-          class="fullscreen-btn"
+          class="fullscreen-btn option-btn"
           onclick="toggleFullscreen()"
           src="./img/menuscreen/buttons/open-fullscreen.png"
           alt=""
@@ -54,7 +55,7 @@
 
         <img
           id="sound_btn"
-          class="sound-btn"
+          class="sound-btn option-btn"
           onclick="toggleSound()"
           src="./img/menuscreen/buttons/sound.png"
           alt=""
@@ -256,20 +257,20 @@
               <div class="result">
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/coin.png" alt="" />
-                  <div id="collected_coins"></div>
+                  <div id="collected_coins">5555</div>
                 </div>
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/jellyfish.png" alt="" />
-                  <div id="hit_jelly"></div>
+                  <div id="hit_jelly">5555</div>
                 </div>
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/pufferfish.png" alt="" />
-                  <div id="hit_puffer"></div>
+                  <div id="hit_puffer">5555</div>
                 </div>
               </div>
 
               <div>Your High score:</div>
-              <div id="high_score" class="high-score-number"></div>
+              <div id="high_score" class="high-score-number">5555</div>
             </div>
           </div>
         </div>
@@ -288,5 +289,6 @@
         </div>
       </div>
     </div>
+  </div>
   </body>
 </html>

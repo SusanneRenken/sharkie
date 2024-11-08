@@ -6,6 +6,7 @@ let winScreen;
 let gameOverScreen;
 let controlScreen;
 let screenImg;
+let soundImg;
 let fullScreen = false;
 let keyboard;
 let characterLife;
@@ -21,12 +22,13 @@ function init() {
   winScreen = document.getElementById("win_screen");
   gameOverScreen = document.getElementById("game_over_screen");
   controlScreen = document.getElementById("control_screen");
-  screenImg = document.getElementById("fullscreen_btn");
+  screenImg = document.getElementById("fullscreen_btn");  
+  soundImg = document.getElementById("sound_btn");
   keyboard = new Keyboard();
 }
 
 function toggleFullscreen() {
-  let gameBody = document.getElementById("body");
+  let gameBody = document.getElementById("test");
 
   if (fullScreen) {
     fullScreen = false;
@@ -121,6 +123,7 @@ function startGame() {
   SOUND_GAME.play();
   controlScreen.classList.remove("d-none");
   screenImg.classList.add("d-none");
+  soundImg.classList.remove("option-btn");
   world = new World(canvas, keyboard);
 }
 
@@ -151,7 +154,8 @@ function winLevel() {
   setField(level, "next_level");
   addCharacterLife();
   screenImg.classList.remove("d-none");
-  controlScreen.classList.add("d-none");
+  controlScreen.classList.add("d-none");  
+  soundImg.classList.add("option-btn");
   winScreen.classList.remove("d-none");
 }
 
@@ -170,7 +174,8 @@ function nextLevel() {
   SOUND_GAME.currentTime = 0;
   SOUND_GAME.play();
   screenImg.classList.add("d-none");
-  controlScreen.classList.remove("d-none");
+  controlScreen.classList.remove("d-none"); 
+  soundImg.classList.remove("option-btn");
   world = new World(canvas, keyboard);
 }
 
@@ -180,7 +185,8 @@ function gameOver() {
   world = null;
   setHighScore();
   screenImg.classList.remove("d-none");
-  controlScreen.classList.add("d-none");
+  controlScreen.classList.add("d-none"); 
+  soundImg.classList.add("option-btn");
   gameOverScreen.classList.remove("d-none");
 }
 

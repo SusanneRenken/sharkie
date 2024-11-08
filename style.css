@@ -4,7 +4,20 @@
 
 body {
   margin: 0;
-  /* overflow: hidden; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100vh;
+  width: 100vw;
+  /* background-image: url(./img/background/background-body.png);
+  background-size: cover;
+  font-family: "LuckiestGuy", Arial, Helvetica, sans-serif;
+  font-size: clamp(12px, 3vw, 24px);
+  color: rgb(53, 214, 42);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
+}
+
+.test{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,10 +62,6 @@ body {
   cursor: pointer;
   width: clamp(16px, 3vw, 32px);
   height: auto;
-  padding: 4px;
-  background-color: rgb(55, 56, 125);
-  border-radius: 50%;
-  box-shadow: 0px 0px 4px 4px rgb(55, 56, 125);
   position: absolute;
   top: clamp(12px, 3vw, 24px);
   left: clamp(12px, 3vw, 24px);
@@ -62,14 +71,18 @@ body {
 .sound-btn {
   cursor: pointer;
   width: clamp(16px, 3vw, 32px);
-  height: auto; padding: 4px;
-  border-radius: 50%;
-  background-color: rgb(55, 56, 125);
-  box-shadow: 0px 0px 4px 4px rgb(55, 56, 125);
+  height: auto;
   position: absolute;
   top: clamp(12px, 3vw, 24px);
   right: clamp(12px, 3vw, 24px);
   z-index: 9;
+}
+
+.option-btn{
+  padding: 4px;
+  background-color: rgb(55, 56, 125);
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px 4px rgb(55, 56, 125);
 }
 
 .control-movement {
