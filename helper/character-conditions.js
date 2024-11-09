@@ -7,7 +7,7 @@ function isKeyPressed(obj) {
 }
 
 function isSleeping(obj) {
-  return obj.isSleeping && !obj.isAwake;
+  return obj.isSleeping || !obj.isAwake;
 }
 
 function isArrowkeyPressed(obj) {

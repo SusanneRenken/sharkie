@@ -64,7 +64,7 @@ class World {
     generateCoins(this);
   }
 
-  placeBarriers() {
+  placeBarriers() {    
     getBarrierAreas(this);
     checkBarrierAreas(this);
   }
@@ -111,6 +111,7 @@ class World {
   checkCollisions() {
     setInterval(() => {
       collisionWithBarrier(this);
+      collisionWithBarrierSleeping(this);
       collisionWithCoin(this);
       collisionWithPoison(this);
       collisionWithHearts(this);

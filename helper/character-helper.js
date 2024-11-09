@@ -90,7 +90,7 @@ function setBubbleAttack(obj) {
     obj.attackType != obj.IMAGES_FIN &&
     obj.currentImage === obj.startAttack
   ) {
-    if (obj.attackType === obj.IMAGES_BUB_P) {      
+    if (obj.attackType === obj.IMAGES_BUB_P) {
       collectedPoison--;
       obj.isPoisonAttack = false;
       obj.world.generateBubble(2);
@@ -158,6 +158,23 @@ function isSleepingDeeply(obj) {
     if (obj.y >= 290) {
       obj.y = 290;
     }
+
+    // console.log(obj.isInBarrier);
+
+    if (obj.isInBarrier && !obj.isSleepingOnBarrier) {
+      console.log("Sleeping in barrier");
+
+      console.log(obj.riseingY);
+
+      obj.isSleepingOnBarrier = true;
+
+      obj.y = obj.riseingY;
+    }
+
+    if (obj.isSleepingOnBarrier) {
+      obj.y = obj.riseingY;
+    }
+
     SOUND_CHARACTER_SLEEP.play();
     getSleepingParameter(obj);
     obj.animateMoving(obj.IMAGES_SLEEP);

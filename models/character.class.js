@@ -18,6 +18,9 @@ class Character extends MovableObject {
   attackType;
   startAttack = 1;
   lastActiveTime = Date.now();
+  isInBarrier = false;
+  isSleepingOnBarrier = false;
+  riseingY = 0;
   isSleeping = false;
   isAwake = true;
   world;
@@ -40,7 +43,7 @@ class Character extends MovableObject {
     this.setMovmentInterval();
   }
 
-  setAnimationInterval() {         
+  setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (isAliveAndNotAttack(this)) {
         if (isKeyPressed(this) && isSleeping(this)) {
@@ -58,9 +61,8 @@ class Character extends MovableObject {
     }, 180);
   }
 
-
   setSecondaryIntervalId() {
-    this.secondaryIntervalId = setInterval(() => {      
+    this.secondaryIntervalId = setInterval(() => {
       if (isAliveAndAttack(this)) {
         this.animateAttack();
       }
@@ -89,7 +91,7 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 162;
     }, 1000 / 60);
   }
-  
+
   saveLastPosition() {
     this.lastX = this.x;
     this.lastY = this.y;
@@ -143,6 +145,8 @@ class Character extends MovableObject {
     this.lastActiveTime = Date.now();
     this.isSleeping = false;
     this.isAwake = true;
+    this.isInBarrier = false;
+    this.isSleepingOnBarrier = false;
     SOUND_CHARACTER_SLEEP.pause();
     getSwimParameter(this);
   }
@@ -171,9 +175,9 @@ class Character extends MovableObject {
     if (characterLife > 0) {
       if (this.world.endBoss.x > this.x) {
         this.moveLeft(this.enemyAttackSpeed);
-    } else {
+      } else {
         this.moveRight(this.enemyAttackSpeed);
-    }
+      }
     } else {
       if (isDeathByAttack(this)) {
         this.moveUp(5);
@@ -213,7 +217,7 @@ class Character extends MovableObject {
   }
 
   handleNoMovement() {
-    if (this.y < 290) {
+    if (this.y < 290 && !this.isSleepingOnBarrier) {
       this.moveDown(this.verticalSpeed * 0.1);
     }
   }

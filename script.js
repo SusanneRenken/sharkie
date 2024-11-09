@@ -131,7 +131,6 @@ function updateCharacterPosition() {
   document.documentElement.style.setProperty('--loaded-images-percentage', percentageLoaded);
 }
 
-
 function allImagesLoaded(){
   startScreen.classList.add("d-none");
   winScreen.classList.add("d-none");
@@ -146,7 +145,7 @@ function allImagesLoaded(){
 }
 
 function resetPoints() {
-  level = 1;
+  level = 5;
   characterLife = 3;
   collectedPoison = 0;
   collectedCoins = 0;
