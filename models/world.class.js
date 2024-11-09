@@ -151,8 +151,6 @@ class World {
     this.addToMap(this.sunlight);
 
     this.ctx.translate(this.camera_x, 0);
-    // this.addToMap(this.sunlight);
-
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.poisons);
@@ -163,12 +161,14 @@ class World {
     this.addToMap(this.endBoss);
     this.addObjectsToMap(this.endBoss.lifeObjects);
     this.ctx.translate(-this.camera_x, 0);
+    
     this.addToMap(this.statusBar);
 
     let self = this;
     requestAnimationFrame(() => {
       self.draw();
     });
+
   }
 
   addObjectsToMap(objects) {

@@ -145,7 +145,7 @@ function allImagesLoaded(){
 }
 
 function resetPoints() {
-  level = 5;
+  level = 1;
   characterLife = 3;
   collectedPoison = 0;
   collectedCoins = 0;
