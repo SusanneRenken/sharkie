@@ -28,6 +28,7 @@ class World {
   hearts = [];
 
   isAttack = false;
+  isAttackKey = false;
   isHit = false;
 
   levelEndX;
@@ -125,8 +126,13 @@ class World {
 
   setAttack() {
     setInterval(() => {
-      if (isAttackKeyPressed(this.character) && !this.isAttack && !this.isHit) {
+      if (isAttackKeyPressed(this.character) && !this.isAttack && !this.isHit && !this.isAttackKey) {
         this.isAttack = true;
+        this.isAttackKey = true;
+      }
+
+      if(areNoAttackKeysPressed(this.character) && this.isAttackKey){
+        this.isAttackKey = false;
       }
     }, 0);
   }

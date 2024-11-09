@@ -158,25 +158,21 @@ function isSleepingDeeply(obj) {
     if (obj.y >= 290) {
       obj.y = 290;
     }
-
-    // console.log(obj.isInBarrier);
-
-    if (obj.isInBarrier && !obj.isSleepingOnBarrier) {
-      console.log("Sleeping in barrier");
-
-      console.log(obj.riseingY);
-
-      obj.isSleepingOnBarrier = true;
-
-      obj.y = obj.riseingY;
-    }
-
-    if (obj.isSleepingOnBarrier) {
-      obj.y = obj.riseingY;
-    }
+    handleSleepingOnBarrier(obj);
 
     SOUND_CHARACTER_SLEEP.play();
     getSleepingParameter(obj);
     obj.animateMoving(obj.IMAGES_SLEEP);
+  }
+}
+
+function handleSleepingOnBarrier(obj){
+  if (obj.isInBarrier && !obj.isSleepingOnBarrier) {
+    obj.isSleepingOnBarrier = true;
+    obj.y = obj.riseingY;
+  }
+
+  if (obj.isSleepingOnBarrier) {
+    obj.y = obj.riseingY;
   }
 }

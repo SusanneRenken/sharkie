@@ -83,22 +83,13 @@ function stopMovingUpwards(world, barrier) {
 function collisionWithBarrierSleeping(world) {
   world.barrierHitboxes.forEach((barrier) => {
     if (world.character.isColliding(barrier) && world.character.isSleeping) {
-      // console.log("Is in barrier");
       world.character.isInBarrier = true;
 
       world.character.riseingY =
         barrier.y +
         barrier.offsetY -
         world.character.offsetY -
-        world.character.offsetheight -
-        5;
-
-      console.log(
-        barrier.y,
-        barrier.offsetY,
-        world.character.height,
-        world.character.riseingY
-      );
+        world.character.offsetheight;
     }
   });
 }

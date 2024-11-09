@@ -19,6 +19,14 @@ function isArrowkeyPressed(obj) {
   );
 }
 
+function areNoAttackKeysPressed(obj) {
+  return (
+    !obj.world.keyboard.KEYJ &&
+    !obj.world.keyboard.KEYK &&
+    !obj.world.keyboard.KEYL
+  );
+}
+
 function isAttackKeyPressed(obj) {
   if (!obj.world.isAttack) {
     if (setFinAttack(obj)) return true;
