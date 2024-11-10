@@ -105,5 +105,7 @@ function toggleSound() {
   });
 
   let soundImg = document.getElementById("sound_btn");
-  soundImg.src = soundEnabled ? "./img/menuscreen/buttons/sound.png" : "./img/menuscreen/buttons/mute.png";
+  soundImg.src = soundEnabled
+    ? "./img/menuscreen/buttons/sound.png"
+    : "./img/menuscreen/buttons/mute.png";
 }

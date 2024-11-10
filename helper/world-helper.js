@@ -51,11 +51,7 @@ function placeCoinInLine(xPlace, yPlace, coinDirection, world) {
 function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
   COIN_POSITIONS.forEach((position) => {
     world.coins.push(
-      new Coin(
-        xPlace + position.x,
-        yPlace + position.y * coinDirection,
-        world
-      )
+      new Coin(xPlace + position.x, yPlace + position.y * coinDirection, world)
     );
   });
 }
@@ -75,9 +71,9 @@ function checkBarrierAreas(world) {
   let isBarrierPlaced = false;
 
   const BARRIER_DIMENSIONS = [
-    { barrierWidth: 1682, barrierHeight: 1080},
-    { barrierWidth: 1415, barrierHeight: 649},
-    { barrierWidth: 320, barrierHeight: 660},
+    { barrierWidth: 1682, barrierHeight: 1080 },
+    { barrierWidth: 1415, barrierHeight: 649 },
+    { barrierWidth: 320, barrierHeight: 660 },
   ];
 
   for (let i = 0; i < world.barrierAreas.length; i++) {

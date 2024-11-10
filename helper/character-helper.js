@@ -166,7 +166,7 @@ function isSleepingDeeply(obj) {
   }
 }
 
-function handleSleepingOnBarrier(obj){
+function handleSleepingOnBarrier(obj) {
   if (obj.isInBarrier && !obj.isSleepingOnBarrier) {
     obj.isSleepingOnBarrier = true;
     obj.y = obj.riseingY;

@@ -46,13 +46,13 @@ class DrawableObject {
       this.img = new Image();
       this.img.src = path;
       this.imageCache[path] = this.img;
-      this.img.onload = function(){
+      this.img.onload = function () {
         totalImagesLoaded++;
         updateCharacterPosition();
         if (totalImagesLoaded === totalImages) {
           allImagesLoaded();
-        }       
-      }
+        }
+      };
     });
   }
 
@@ -106,12 +106,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "yellow";
-      ctx.rect(
-        this.x + 30,
-        this.y + 50,
-        this.width - 60,
-        this.height - 100
-      );
+      ctx.rect(this.x + 30, this.y + 50, this.width - 60, this.height - 100);
       ctx.stroke();
     }
 
@@ -120,12 +115,7 @@ class DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
-        ctx.rect(
-          this.x + 20,
-          this.y + 20,
-          this.width - 60,
-          this.height - 80
-        );
+        ctx.rect(this.x + 20, this.y + 20, this.width - 60, this.height - 80);
         ctx.stroke();
       }
 
@@ -133,26 +123,16 @@ class DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
-        ctx.rect(
-          this.x + 20,
-          this.y + 20,
-          this.width - 60,
-          this.height - 40
-        );
+        ctx.rect(this.x + 20, this.y + 20, this.width - 60, this.height - 40);
         ctx.stroke();
       }
     }
 
-    if (this instanceof Endboss) { 
+    if (this instanceof Endboss) {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "orange";
-      ctx.rect(
-        this.x + 30,
-        this.y + 650,
-        this.width - 240,
-        this.height - 900
-      );
+      ctx.rect(this.x + 30, this.y + 650, this.width - 240, this.height - 900);
       ctx.stroke();
     }
 
@@ -176,12 +156,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "5";
       ctx.strokeStyle = "purple";
-      ctx.rect(
-        this.x + 30,
-        this.y + 50,
-        this.width - 60,
-        this.height - 70
-      );
+      ctx.rect(this.x + 30, this.y + 50, this.width - 60, this.height - 70);
       ctx.stroke();
     }
 
@@ -190,34 +165,19 @@ class DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "yellow";
-        ctx.rect(
-          this.x + 40,
-          this.y,
-          this.width - 600,
-          this.height - 780
-        );
+        ctx.rect(this.x + 40, this.y, this.width - 600, this.height - 780);
         ctx.stroke();
 
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "orange";
-        ctx.rect(
-          this.x + 1150,
-          this.y,
-          this.width - 1500,
-          this.height - 680
-        );
+        ctx.rect(this.x + 1150, this.y, this.width - 1500, this.height - 680);
         ctx.stroke();
 
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "red";
-        ctx.rect(
-          this.x + 1350,
-          this.y,
-          this.width - 1380,
-          this.height - 760
-        );
+        ctx.rect(this.x + 1350, this.y, this.width - 1380, this.height - 760);
         ctx.stroke();
 
         ctx.beginPath();
@@ -280,12 +240,7 @@ class DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "red";
-        ctx.rect(
-          this.x + 630,
-          this.y + 40,
-          this.width - 900,
-          this.height - 40
-        );
+        ctx.rect(this.x + 630, this.y + 40, this.width - 900, this.height - 40);
         ctx.stroke();
 
         ctx.beginPath();
@@ -304,12 +259,7 @@ class DrawableObject {
         ctx.beginPath();
         ctx.lineWidth = "5";
         ctx.strokeStyle = "green";
-        ctx.rect(
-          this.x + 50,
-          this.y,
-          this.width - 70,
-          this.height
-        );
+        ctx.rect(this.x + 50, this.y, this.width - 70, this.height);
         ctx.stroke();
       }
     }

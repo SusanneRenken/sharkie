@@ -23,7 +23,7 @@ class Bubble extends MovableObject {
     this.stopBubble();
   }
 
-  getParameter(){
+  getParameter() {
     this.direction = !this.world.character.otherDirection ? 1 : -1;
     this.startX = !this.world.character.otherDirection ? 600 : 0;
     this.x = this.world.character.x + this.startX;
@@ -46,15 +46,16 @@ class Bubble extends MovableObject {
         this.x += (9 + this.world.currentLevel) * 2 * this.direction;
         const PARABOLA_WIDTH = 0.002;
         this.y = -(PARABOLA_WIDTH * Math.pow(this.x - this.urX, 2)) + this.urY;
-      }      
+      }
     }, 1000 / 60);
   }
 
-  stopBubble(){
+  stopBubble() {
     setTimeout(() => {
-        this.world.bubbles = this.world.bubbles.filter((bubble) => bubble !== this);
-        this.stopAllIntervals();
-      }, 3000);
+      this.world.bubbles = this.world.bubbles.filter(
+        (bubble) => bubble !== this
+      );
+      this.stopAllIntervals();
+    }, 3000);
   }
-
 }

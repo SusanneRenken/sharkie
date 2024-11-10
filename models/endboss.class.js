@@ -80,7 +80,6 @@ class Endboss extends MovableObject {
   }
 
   setAnimationInterval() {
-     
     this.animationIntervalId = setInterval(() => {
       if (!this.isDead) {
         if (this.world.character.x > this.introduceStartX) {
@@ -130,7 +129,7 @@ class Endboss extends MovableObject {
     if (this.animationCount < 1) {
       SOUND_ENDBOSS_ATTACK.play();
       this.speed = 6 + 0.5 * this.world.currentLevel;
-      this.animateMoving(this.IMAGES_ATT);      
+      this.animateMoving(this.IMAGES_ATT);
       this.handleHitBox();
       this.isAnimateAttack(this.IMAGES_ATT);
     } else if (this.animationCount === 1) {

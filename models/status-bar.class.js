@@ -36,11 +36,7 @@ class StatusBar extends DrawableObject {
   }
 
   drawObject(ctx) {
-    const values = [
-      characterLife,
-      collectedCoins,
-      collectedPoison,
-    ];
+    const values = [characterLife, collectedCoins, collectedPoison];
 
     this.IMAGES_STATUSBAR.forEach((path, index) => {
       const img = this.imageCache[path];

@@ -65,7 +65,7 @@ class World {
     generateCoins(this);
   }
 
-  placeBarriers() {    
+  placeBarriers() {
     getBarrierAreas(this);
     checkBarrierAreas(this);
   }
@@ -126,12 +126,17 @@ class World {
 
   setAttack() {
     setInterval(() => {
-      if (isAttackKeyPressed(this.character) && !this.isAttack && !this.isHit && !this.isAttackKey) {
+      if (
+        isAttackKeyPressed(this.character) &&
+        !this.isAttack &&
+        !this.isHit &&
+        !this.isAttackKey
+      ) {
         this.isAttack = true;
         this.isAttackKey = true;
       }
 
-      if(areNoAttackKeysPressed(this.character) && this.isAttackKey){
+      if (areNoAttackKeysPressed(this.character) && this.isAttackKey) {
         this.isAttackKey = false;
       }
     }, 0);
@@ -144,12 +149,24 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    this.drawBackground();
+    this.addToMap(this.sunlight);
+    this.drawCollidingObjects();
+    this.addToMap(this.statusBar);
+
+    let self = this;
+    requestAnimationFrame(() => {
+      self.draw();
+    });
+  }
+
+  drawBackground() {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjeckts);
     this.ctx.translate(-this.camera_x, 0);
+  }
 
-    this.addToMap(this.sunlight);
-
+  drawCollidingObjects() {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.barriers);
     this.addObjectsToMap(this.coins);
@@ -161,14 +178,6 @@ class World {
     this.addToMap(this.endBoss);
     this.addObjectsToMap(this.endBoss.lifeObjects);
     this.ctx.translate(-this.camera_x, 0);
-    
-    this.addToMap(this.statusBar);
-
-    let self = this;
-    requestAnimationFrame(() => {
-      self.draw();
-    });
-
   }
 
   addObjectsToMap(objects) {
@@ -187,8 +196,6 @@ class World {
     }
 
     mo.drawObject(this.ctx);
-    // mo.drawFrame(this.ctx);
-
     this.ctx.restore();
   }
 

@@ -15,7 +15,7 @@ class Pufferfish extends MovableObject {
 
     this.getRandomColor();
     this.getParameter();
-    this.getObjectProperties();    
+    this.getObjectProperties();
     this.getAttackProperties();
     this.getImages();
 
@@ -48,13 +48,13 @@ class Pufferfish extends MovableObject {
       0.5 +
       this.world.currentLevel / 3 +
       Math.random() * this.world.levelFactorHigh;
-      if (this.otherDirection) {
-        this.speed = -this.speed;
-      }
+    if (this.otherDirection) {
+      this.speed = -this.speed;
+    }
     this.movementSpeed = 100 + this.speed * 30;
   }
 
-  getAttackProperties(){
+  getAttackProperties() {
     this.enemyAttack = "IMAGES_HIT_P";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
     this.enemyAttackRepeat = 1;

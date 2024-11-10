@@ -23,7 +23,6 @@ class MovableObject extends DrawableObject {
   animationRepeat;
   animationCount = 0;
 
-
   animateMoving(arr) {
     let i = this.currentImage % arr.length;
     let path = arr[i];
@@ -78,11 +77,10 @@ class MovableObject extends DrawableObject {
 
   isColliding(obj) {
     return (
-      this.x + this.offsetX + this.offsetwidth  >= obj.x + obj.offsetX &&
-      this.x + this.offsetX                     <= obj.x + obj.offsetX + obj.offsetwidth &&
+      this.x + this.offsetX + this.offsetwidth >= obj.x + obj.offsetX &&
+      this.x + this.offsetX <= obj.x + obj.offsetX + obj.offsetwidth &&
       this.y + this.offsetY + this.offsetheight >= obj.y + obj.offsetY &&
-      this.y + this.offsetY                     <= obj.y + obj.offsetY + obj.offsetheight
+      this.y + this.offsetY <= obj.y + obj.offsetY + obj.offsetheight
     );
   }
-
 }

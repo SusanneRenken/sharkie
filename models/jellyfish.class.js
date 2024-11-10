@@ -85,8 +85,7 @@ class Jellyfish extends MovableObject {
     this.setMovmentInterval();
   }
 
-  setAnimationInterval(){
-      
+  setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.animateMoving(this.IMAGES_SWIM);
@@ -94,7 +93,7 @@ class Jellyfish extends MovableObject {
     }, this.movementSpeed);
   }
 
-  setSecondaryIntervalId(){
+  setSecondaryIntervalId() {
     this.secondaryIntervalId = setInterval(() => {
       if (this.isDying) {
         this.animateDying();
@@ -102,7 +101,7 @@ class Jellyfish extends MovableObject {
     }, 60);
   }
 
-  setMovmentInterval(){
+  setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       if (!this.isDying) {
         this.handleSwimMovment();
@@ -115,7 +114,7 @@ class Jellyfish extends MovableObject {
   animateDying() {
     if (!this.deadSound) {
       SOUND_JELLY_DEAD.play();
-      this.deadSound = true;      
+      this.deadSound = true;
       hitJelly++;
       this.placeHeart();
     }
@@ -127,9 +126,9 @@ class Jellyfish extends MovableObject {
     }, 2000);
   }
 
-  placeHeart(){
-    if(this.hasHeart){
-      this.world.hearts.push(new Heart(this.world, this.x + 60, this.y + 50))
+  placeHeart() {
+    if (this.hasHeart) {
+      this.world.hearts.push(new Heart(this.world, this.x + 60, this.y + 50));
     }
   }
 

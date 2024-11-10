@@ -59,7 +59,6 @@ class Poison extends MovableObject {
       if (this.isFalling && this.y < 830) {
         this.y += 3.5;
       }
-      
     }, 1000 / 60);
   }
 }

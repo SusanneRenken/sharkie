@@ -79,10 +79,10 @@ function isDeathByElectric(obj) {
   );
 }
 
-function isInWorldUp(obj){
-    return obj.world.keyboard.KEYW && obj.y > -400
+function isInWorldUp(obj) {
+  return obj.world.keyboard.KEYW && obj.y > -400;
 }
 
-function isInWorldDown(obj){
-    return obj.world.keyboard.KEYS && obj.y < 370
+function isInWorldDown(obj) {
+  return obj.world.keyboard.KEYS && obj.y < 370;
 }

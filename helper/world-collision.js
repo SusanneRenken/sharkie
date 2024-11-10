@@ -1,8 +1,7 @@
 function collisionWithBarrier(world) {
   world.barrierHitboxes.forEach((barrier) => {
     if (world.character.isColliding(barrier)) {
-      
-      stopFinAttack(world.character, world)
+      stopFinAttack(world.character, world);
 
       if (isCollidingFromLeft(world, barrier)) {
         stopMovingRight(world, barrier);

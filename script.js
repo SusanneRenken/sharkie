@@ -24,7 +24,7 @@ function init() {
   winScreen = document.getElementById("win_screen");
   gameOverScreen = document.getElementById("game_over_screen");
   controlScreen = document.getElementById("control_screen");
-  screenImg = document.getElementById("fullscreen_btn");  
+  screenImg = document.getElementById("fullscreen_btn");
   soundImg = document.getElementById("sound_btn");
   keyboard = new Keyboard();
 }
@@ -124,21 +124,24 @@ function startGame() {
 }
 
 function updateCharacterPosition() {
-  const percentageLoaded = (totalImagesLoaded / totalImages);  
-  document.documentElement.style.setProperty('--loaded-images-percentage', percentageLoaded);
+  const percentageLoaded = totalImagesLoaded / totalImages;
+  document.documentElement.style.setProperty(
+    "--loaded-images-percentage",
+    percentageLoaded
+  );
 }
 
-function allImagesLoaded(){
+function allImagesLoaded() {
   startScreen.classList.add("d-none");
   winScreen.classList.add("d-none");
   SOUND_GAME.currentTime = 0;
-  SOUND_GAME.play();  
+  SOUND_GAME.play();
   screenImg.classList.add("d-none");
   controlScreen.classList.remove("d-none");
   soundImg.classList.remove("option-btn");
 
   totalImages = 0;
-  totalImagesLoaded = 0;  
+  totalImagesLoaded = 0;
 }
 
 function resetPoints() {
@@ -157,9 +160,9 @@ function backToStart(dialog) {
   let end = document.getElementById(`${dialog}`);
 
   let higtScore = document.getElementById("high_score");
-let leaderboard = document.getElementById("leaderboard");
-let addToBoard = document.getElementById("add_to_board");
-let rankOnLeaderboard = document.getElementById("rank_on_leaderboard");
+  let leaderboard = document.getElementById("leaderboard");
+  let addToBoard = document.getElementById("add_to_board");
+  let rankOnLeaderboard = document.getElementById("rank_on_leaderboard");
 
   start.classList.remove("d-none");
   end.classList.add("d-none");
@@ -173,11 +176,11 @@ function winLevel() {
   stopAllGameIntervals();
   SOUND_GAME.pause();
   world = null;
-  level++;  
+  level++;
   setField(level, "next_level");
   addCharacterLife();
   screenImg.classList.remove("d-none");
-  controlScreen.classList.add("d-none");  
+  controlScreen.classList.add("d-none");
   soundImg.classList.add("option-btn");
   winScreen.classList.remove("d-none");
 }
@@ -202,7 +205,7 @@ function gameOver() {
   world = null;
   setHighScore();
   screenImg.classList.remove("d-none");
-  controlScreen.classList.add("d-none"); 
+  controlScreen.classList.add("d-none");
   soundImg.classList.add("option-btn");
   gameOverScreen.classList.remove("d-none");
 }
