@@ -187,7 +187,7 @@ class World {
     }
 
     mo.drawObject(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     this.ctx.restore();
   }
