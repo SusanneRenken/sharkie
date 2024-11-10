@@ -1,15 +1,22 @@
 const BASE_URL =
   "https://sharkie-59052-default-rtdb.europe-west1.firebasedatabase.app/";
+  let gamerName;
 
-  async function addPlayer() {
-    let inputName = document.getElementById('gamer_name');
-    let name = inputName.value.trim();
-    
-    let playerData = { name, highScore };
-    await postData(playerData);
+async function addPlayer() {
+  await uploadData();
+  await getLeaderboard();
+  showLeaderboard();
+}
 
-    inputName.value = "";
-  }
+async function uploadData() {
+  let inputName = document.getElementById("gamer_name");
+  gamerName = inputName.value.trim();
+
+  let playerData = { gamerName, highScore };
+  await postData(playerData);
+
+  inputName.value = "";
+}
 
 async function postData(data = {}) {
   let response = await fetch(`${BASE_URL}/.json`, {
@@ -25,9 +32,15 @@ async function postData(data = {}) {
 
 async function getLeaderboard() {
   let leaderboard = await fetchData();
+  let leaderboardField = document.getElementById("leaderboard_table");
+  leaderboardField.innerHTML = "";
 
-  let sortedLeaderboard = Object.values(leaderboard).sort((a, b) => b.highScore - a.highScore);
-  
+  let sortedLeaderboard = Object.values(leaderboard).sort(
+    (a, b) => b.highScore - a.highScore
+  );
+
+  generatePlayerOnTable(sortedLeaderboard, leaderboardField);
+  getRank(sortedLeaderboard);
 }
 
 async function fetchData() {
@@ -37,4 +50,39 @@ async function fetchData() {
     return [];
   }
   return datas;
+}
+
+function generatePlayerOnTable(sortedLeaderboard, leaderboardField){
+  sortedLeaderboard.forEach((player, id) => {
+    leaderboardField.innerHTML += `<tr>
+        <td>${id + 1}.</td>
+        <td>${player.gamerName}</td>
+        <td>${player.highScore}</td>
+      </tr>`;
+  });
+}
+
+function getRank(sortedLeaderboard){
+  // inputName = document.getElementById("gamer_name").value.trim();
+  console.log(gamerName);
+  console.log(sortedLeaderboard);
+  
+  let playerRank = sortedLeaderboard.findIndex(player => player.gamerName === gamerName) + 1;
+  console.log(playerRank);
+
+  let rankField = document.getElementById("rank_number");
+  rankField.innerHTML = "";
+  rankField.innerHTML = playerRank;
+}
+
+function showLeaderboard() {
+  let higtScore = document.getElementById("high_score");
+  let leaderboard = document.getElementById("leaderboard");
+  let addToBoard = document.getElementById("add_to_board");
+  let rankOnLeaderboard = document.getElementById("rank_on_leaderboard");
+
+  higtScore.classList.add("d-none");
+  leaderboard.classList.remove("d-none");
+  addToBoard.classList.add("d-none");
+  rankOnLeaderboard.classList.remove("d-none");
 }

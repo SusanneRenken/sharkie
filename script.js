@@ -16,7 +16,7 @@ let collectedPoison;
 let collectedCoins;
 let hitJelly;
 let hitPuffer;
-let highScore = 0;
+let highScore = 10;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -156,8 +156,17 @@ function backToStart(dialog) {
   let start = document.getElementById("start_screen");
   let end = document.getElementById(`${dialog}`);
 
+  let higtScore = document.getElementById("high_score");
+let leaderboard = document.getElementById("leaderboard");
+let addToBoard = document.getElementById("add_to_board");
+let rankOnLeaderboard = document.getElementById("rank_on_leaderboard");
+
   start.classList.remove("d-none");
   end.classList.add("d-none");
+  higtScore.classList.remove("d-none");
+  leaderboard.classList.add("d-none");
+  addToBoard.classList.remove("d-none");
+  rankOnLeaderboard.classList.add("d-none");
 }
 
 function winLevel() {
@@ -216,7 +225,7 @@ function setHighScore() {
   setField(collectedCoins, "collected_coins");
   setField(hitJelly, "hit_jelly");
   setField(hitPuffer, "hit_puffer");
-  setField(highScore, "high_score");
+  setField(highScore, "high_score_number");
 }
 
 function setField(number, id) {

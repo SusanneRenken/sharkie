@@ -326,6 +326,7 @@ td:first-child {
 
 .high-score {
   width: 45%;
+  height: 100%;
   padding: clamp(18px, 4vw, 36px);
   font-size: clamp(18px, 3vw, 36px);
 }
@@ -353,6 +354,56 @@ td:first-child {
 .high-score-number {
   font-size: clamp(16px, 6vw, 56px);
   color: rgb(53, 214, 42);
+}
+
+.leaderboard{  
+  width: 45%;
+  height: 100%;
+  padding: clamp(12px, 2vw, 24px);
+  font-size: clamp(18px, 3vw, 36px);
+}
+
+.leaderboard-table {  
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  margin-top: 8px;
+  flex-grow: 1;
+  color: white;
+  border-collapse: collapse;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.leaderboard-table table{
+  width: 95%;  
+  font-family: "Josefin Sans";  
+  font-size: clamp(10px, 3vw, 20px);
+}
+
+.leaderboard-table tr {
+  border-top: 2px solid rgb(53, 214, 42);
+}
+
+.leaderboard-table tr:first-child {
+  border: none;
+}
+
+.leaderboard-table td {
+  font-size: clamp(8px, 2vw, 20px);
+  font-weight: 200;
+  padding: clamp(0px, 0.5vw, 8px);
+  width: 25%;
+  text-align: start;
+}
+
+.leaderboard-table td:nth-child(2) {
+  width: 50%;
+}
+
+.leaderboard-table td:nth-child(3) {
+  text-align: end;
 }
 
 .left-game-over {

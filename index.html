@@ -97,7 +97,7 @@
             </div>
           </div>
 
-          <div id="start_screen" class="dialog-screen d-none">
+          <div id="start_screen" class="dialog-screen">
             <h1>S h a r k i e</h1>
 
             <div id="menu" class="menu">
@@ -242,10 +242,10 @@
             </div>
           </div>
 
-          <div id="game_over_screen" class="dialog-screen red">
+          <div id="game_over_screen" class="dialog-screen red d-none">
             <h1>G A M E &nbsp; &nbsp; O V E R !</h1>
             <div id="menu" class="menu-game-over">
-              <div class="blue-box high-score">
+              <div id="high_score" class="blue-box high-score">
                 <div class="result">
                   <div class="result-area" onclick="toggleMenu('controls')">
                     <img src="./img/menuscreen/coin.png" alt="" />
@@ -262,11 +262,28 @@
                 </div>
 
                 <div>Your High score:</div>
-                <div id="high_score" class="high-score-number">555</div>
+                <div id="high_score_number" class="high-score-number">555</div>
+              </div>
+
+              <div id="leaderboard" class="blue-box leaderboard d-none">
+                <div>Leaderboard:</div>
+
+                <div class="leaderboard-table">
+                <table id="leaderboard_table">
+                  <tr>
+                    <td>1.</td>
+                    <td>Susanne</td>
+                    <td>8888</td>
+                  </tr>
+                  
+                </table>
+              </div>
+
               </div>
 
               <div class="left-game-over">
-                <div class="blue-box add-to-board">
+
+                <div id="add_to_board" class="blue-box add-to-board">
                   <div>Save your score !</div>
                   <div class="save-score">
                     <input
@@ -278,6 +295,11 @@
                       <img src="./img/menuscreen/buttons/send.png" alt="" />
                     </button>
                   </div>
+                </div>
+
+                <div id="rank_on_leaderboard" class="blue-box add-to-board d-none">
+                  <div>Your rank:</div>
+                  <div id="rank_number" class="high-score-number">1</div>
                 </div>
 
                 <div
