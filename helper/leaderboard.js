@@ -1,6 +1,6 @@
 const BASE_URL =
   "https://sharkie-59052-default-rtdb.europe-west1.firebasedatabase.app/";
-  let gamerName;
+let gamerName;
 
 async function addPlayer() {
   await uploadData();
@@ -52,7 +52,7 @@ async function fetchData() {
   return datas;
 }
 
-function generatePlayerOnTable(sortedLeaderboard, leaderboardField){
+function generatePlayerOnTable(sortedLeaderboard, leaderboardField) {
   sortedLeaderboard.forEach((player, id) => {
     leaderboardField.innerHTML += `<tr>
         <td>${id + 1}.</td>
@@ -62,13 +62,9 @@ function generatePlayerOnTable(sortedLeaderboard, leaderboardField){
   });
 }
 
-function getRank(sortedLeaderboard){
-  // inputName = document.getElementById("gamer_name").value.trim();
-  console.log(gamerName);
-  console.log(sortedLeaderboard);
-  
-  let playerRank = sortedLeaderboard.findIndex(player => player.gamerName === gamerName) + 1;
-  console.log(playerRank);
+function getRank(sortedLeaderboard) {
+  let playerRank =
+    sortedLeaderboard.findIndex((player) => player.gamerName === gamerName) + 1;
 
   let rankField = document.getElementById("rank_number");
   rankField.innerHTML = "";
