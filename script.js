@@ -16,7 +16,7 @@ let collectedPoison;
 let collectedCoins;
 let hitJelly;
 let hitPuffer;
-let highScore;
+let highScore = 0;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -124,10 +124,7 @@ function startGame() {
 }
 
 function updateCharacterPosition() {
-  const percentageLoaded = (totalImagesLoaded / totalImages);
-
-  // console.log(totalImagesLoaded / totalImages);
-  
+  const percentageLoaded = (totalImagesLoaded / totalImages);  
   document.documentElement.style.setProperty('--loaded-images-percentage', percentageLoaded);
 }
 

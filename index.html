@@ -38,6 +38,7 @@
     <script src="./helper/barrier-helper.js"></script>
     <script src="./helper/character-helper.js"></script>
     <script src="./helper/character-conditions.js"></script>
+    <script src="./helper/leaderboard.js"></script>
     <script src="./script.js"></script>
   </head>
 
@@ -96,7 +97,7 @@
           </div>
         </div>
 
-        <div id="start_screen" class="dialog-screen">
+        <div id="start_screen" class="dialog-screen d-none">
           <h1>S h a r k i e</h1>
 
           <div id="menu" class="menu">
@@ -220,7 +221,7 @@
           <div id="menu" class="menu">
             <div class="win-button" onclick="backToStart('win_screen')">
               <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
-              <div>back to Start</div>
+              <div>M E N U</div>
             </div>
 
             <img
@@ -240,38 +241,56 @@
           </div>
         </div>
 
-        <div id="game_over_screen" class="dialog-screen red d-none">
+        <div id="game_over_screen" class="dialog-screen red">
           <h1>G A M E &nbsp; &nbsp; O V E R !</h1>
           <div id="menu" class="menu-game-over">
-            <div class="win-button" onclick="backToStart('game_over_screen')">
-              <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
-              <div>back to Start</div>
-              <img
-                class="game-over-big-image"
-                src="./img/menuscreen/game-over-endboss.png"
-                alt=""
-              />
-            </div>
 
-            <div class="high-score">
+            <div class="blue-box high-score">
               <div class="result">
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/coin.png" alt="" />
-                  <div id="collected_coins">5555</div>
+                  <div id="collected_coins">555</div>
                 </div>
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/jellyfish.png" alt="" />
-                  <div id="hit_jelly">5555</div>
+                  <div id="hit_jelly">555</div>
                 </div>
                 <div class="result-area" onclick="toggleMenu('controls')">
                   <img src="./img/menuscreen/pufferfish.png" alt="" />
-                  <div id="hit_puffer">5555</div>
+                  <div id="hit_puffer">555</div>
                 </div>
               </div>
 
               <div>Your High score:</div>
-              <div id="high_score" class="high-score-number">5555</div>
+              <div id="high_score" class="high-score-number">555</div>
             </div>
+
+            <div class="left-game-over">
+
+              <div class="blue-box add-to-board">
+                <div>Save your score !</div>
+                <div class="save-score">
+                  <input id="gamer_name" type="text" placeholder="Enter your name">
+                  <button onclick="addPlayer()">
+                    <img src="./img/menuscreen/buttons/send.png" alt="">
+                  </button>
+                </div>
+              </div>
+
+
+
+              <div class="win-button blue-box" onclick="backToStart('game_over_screen')">
+                <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
+                <div>M E N U</div>
+              </div>
+
+            </div>
+
+
+            
+
+
+
           </div>
         </div>
 

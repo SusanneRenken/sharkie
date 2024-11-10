@@ -189,8 +189,6 @@ canvas {
   position: absolute;
   bottom: 15%;
   left: calc(5% + 65% * (var(--loaded-images-percentage, 0)));
-   /* Berechnung = 5 % + 65 % * (totalImagesLoaded / totalImages) */
-  /* left: 5%; */
 }
 
 .dialog {
@@ -290,10 +288,11 @@ td:first-child {
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
 .win-img {
-  height: clamp(56px, 14vw, 100px);
+  height: clamp(56px, 8vw, 100px);
   width: auto;
 }
 
@@ -303,7 +302,8 @@ td:first-child {
 }
 
 .menu-game-over {
-  width: 80%;
+  width: 90%;
+  height: 70%;
   margin-top: clamp(15px, 3vw, 30px);
   display: flex;
   justify-content: space-between;
@@ -315,16 +315,65 @@ td:first-child {
   height: auto;
 }
 
-.high-score {
-  padding: clamp(18px, 4vw, 36px);
+.blue-box{
   background-color: rgba(47, 39, 113, 0.9);
   border-radius: 8px;
   box-shadow: 0px 0px 12px 3px rgb(55, 56, 125);
-  font-size: clamp(18px, 4vw, 36px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.high-score {
+  width: 45%;
+  padding: clamp(18px, 4vw, 36px);  
+  font-size: clamp(18px, 3vw, 36px);
+}
+
+.left-game-over{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+
+.save-score{
+  width: 100%;
+  margin-top: clamp(8px, 2vw, 24px);
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 16px);
+}
+
+.save-score input{
+  cursor: pointer;
+  flex-grow: 1;
+  padding: 8px;
+  border: none;
+  border-radius: clamp(4px, 1vw, 8px);  
+  box-shadow: 0px 0px 4px 2px rgb(55, 56, 125) inset;
+}
+
+.save-score button{
+  cursor: pointer;
+  width: clamp(16px, 2vw, 24px);
+  padding: 0;
+  background-color: transparent;
+  border: none;  
+}
+
+.save-score img{
+  width: 100%;
+  
+}
+
+.add-to-board {
+  width: 100%;
+  padding: clamp(18px, 3vw, 36px);
+  font-size: clamp(18px, 3vw, 36px);
 }
 
 .result {
