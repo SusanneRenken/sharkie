@@ -44,270 +44,271 @@
 
   <body id="body" onload="init()">
     <div id="test" class="test">
-    <div id="game_container" class="game-container">
-      <div class="game-content">
-        <img
-          id="fullscreen_btn"
-          class="fullscreen-btn option-btn"
-          onclick="toggleFullscreen()"
-          src="./img/menuscreen/buttons/open-fullscreen.png"
-          alt=""
-        />
-
-        <img
-          id="sound_btn"
-          class="sound-btn option-btn"
-          onclick="toggleSound()"
-          src="./img/menuscreen/buttons/sound.png"
-          alt=""
-        />
-
-        <div id="control_screen" class="control-btn d-none">
-          <div class="control-movement">
-            <button class="control" data-key="KEYW KEYA">↖</button>
-            <button class="control" data-key="KEYW">↑</button>
-            <button class="control" data-key="KEYW KEYD">↗</button>
-            <button class="control" data-key="KEYA">←</button>
-            <div class="control center"></div>
-            <button class="control" data-key="KEYD">→</button>
-            <button class="control" data-key="KEYS KEYA">↙</button>
-            <button class="control" data-key="KEYS">↓</button>
-            <button class="control" data-key="KEYS KEYD">↘</button>
-          </div>
-
-          <div class="control-attack">
-            <img
-              class="control"
-              src="./img/menuscreen/buttons/bubble-p.png"
-              alt=""
-              data-key="KEYJ"
-            />
-            <img
-              class="control"
-              src="./img/menuscreen/buttons/fin-slap.png"
-              alt=""
-              data-key="KEYL"
-            />
-            <img
-              class="control"
-              src="./img/menuscreen/buttons/bubble-n.png"
-              alt=""
-              data-key="KEYK"
-            />
-          </div>
-        </div>
-
-        <div id="start_screen" class="dialog-screen d-none">
-          <h1>S h a r k i e</h1>
-
-          <div id="menu" class="menu">
-            <div class="menu__button" onclick="toggleMenu('help')">
-              <img src="./img/menuscreen/heart.png" alt="" />
-              <div>W e l c o m e</div>
-            </div>
-
-            <div class="start__button" onclick="startGame()">S T A R T</div>
-            <div class="menu__button" onclick="toggleMenu('controls')">
-              <img src="./img/menuscreen/star.png" alt="" />
-              <div>C o n t r o l s</div>
-            </div>
-          </div>
-
+      <div id="game_container" class="game-container">
+        <div class="game-content">
           <img
-            id="character"
-            class="character"
-            src="./img/menuscreen/character.png"
+            id="fullscreen_btn"
+            class="fullscreen-btn option-btn"
+            onclick="toggleFullscreen()"
+            src="./img/menuscreen/buttons/open-fullscreen.png"
             alt=""
           />
 
-          <div id="help" class="dialog d-none">
-            <div
-              id="help_close"
-              class="close-button"
-              onclick="toggleMenu('help')"
-            >
-              X
-            </div>
-            <div class="help-description">
-              <div>
-                Welcome to Shark Adventure!
-                <p>
-                  Guide a small shark as it swims through the vast ocean.
-                  Collect coins to increase your score and gather poison to
-                  upgrade your special attacks. Be careful of the barriers
-                  and enemies that lurk in your path!
-                </p>
+          <img
+            id="sound_btn"
+            class="sound-btn option-btn"
+            onclick="toggleSound()"
+            src="./img/menuscreen/buttons/sound.png"
+            alt=""
+          />
 
-                <p>
-                  You'll face dangerous jellyfish and pufferfish along the way.
-                  Jellyfish can only be defeated using the Bubble Attack, while
-                  pufferfish require the powerful Fin Attack to be overcome.
-                  Make sure to use the right strategy for each enemy!
-                </p>
-              </div>
-              <img src="./img/menuscreen/pufferfish.png" alt="" />
+          <div id="control_screen" class="control-btn d-none">
+            <div class="control-movement">
+              <button class="control" data-key="KEYW KEYA">↖</button>
+              <button class="control" data-key="KEYW">↑</button>
+              <button class="control" data-key="KEYW KEYD">↗</button>
+              <button class="control" data-key="KEYA">←</button>
+              <div class="control center"></div>
+              <button class="control" data-key="KEYD">→</button>
+              <button class="control" data-key="KEYS KEYA">↙</button>
+              <button class="control" data-key="KEYS">↓</button>
+              <button class="control" data-key="KEYS KEYD">↘</button>
             </div>
-            <div class="help-description">
-              <img src="./img/menuscreen/jellyfish.png" alt="" />
-              <div>
-                <p>
-                  At the end, the mighty Endboss awaits, vulnerable only to
-                  poisoned bubbles or the Fin Attack. Remember, every coin you
-                  collect will add 1 point to your score, while defeating
-                  jellyfish will earn you 2 points, and overcoming pufferfish
-                  will grant you 3 points. Use these opportunities to boost your
-                  high score as you swim through the ocean.
-                </p>
-                <p>Be brave and use your skills wisely!</p>
-                Good luck, and happy swimming!
-              </div>
+
+            <div class="control-attack">
+              <img
+                class="control"
+                src="./img/menuscreen/buttons/bubble-p.png"
+                alt=""
+                data-key="KEYJ"
+              />
+              <img
+                class="control"
+                src="./img/menuscreen/buttons/fin-slap.png"
+                alt=""
+                data-key="KEYL"
+              />
+              <img
+                class="control"
+                src="./img/menuscreen/buttons/bubble-n.png"
+                alt=""
+                data-key="KEYK"
+              />
             </div>
           </div>
 
-          <div id="controls" class="dialog d-none">
-            <div
-              id="help_close"
-              class="close-button"
-              onclick="toggleMenu('controls')"
-            >
-              X
-            </div>
-            <div class="controls-description">
-              <table>
-                <tr>
-                  <td>SWIM UP</td>
-                  <td>W</td>
-                </tr>
-                <tr>
-                  <td>SWIM LEFT</td>
-                  <td>A</td>
-                </tr>
-                <tr>
-                  <td>SWIM DOWN</td>
-                  <td>S</td>
-                </tr>
-                <tr>
-                  <td>SWIM RIGHT</td>
-                  <td>D</td>
-                </tr>
-                <tr>
-                  <td>BUBBLE ATTACK</td>
-                  <td>J</td>
-                </tr>
-                <tr>
-                  <td>FIN ATTACK</td>
-                  <td>K</td>
-                </tr>
-                <tr>
-                  <td>POISON BUBBLE</td>
-                  <td>L</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <a
-            id="legal_notice"
-            href="./legal-notice.html"
-            target="_blank"
-            class="legal-notice"
-            >Legal Notice</a
-          >
-        </div>
+          <div id="start_screen" class="dialog-screen d-none">
+            <h1>S h a r k i e</h1>
 
-        <canvas id="canvas" width="1920" height="1080"></canvas>
+            <div id="menu" class="menu">
+              <div class="menu__button" onclick="toggleMenu('help')">
+                <img src="./img/menuscreen/heart.png" alt="" />
+                <div>W e l c o m e</div>
+              </div>
 
-        <div id="win_screen" class="dialog-screen d-none">
-          <h1>Y O U &nbsp; &nbsp; W I N !</h1>
-          <div id="menu" class="menu">
-            <div class="win-button" onclick="backToStart('win_screen')">
-              <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
-              <div>M E N U</div>
+              <div class="start__button" onclick="startGame()">S T A R T</div>
+              <div class="menu__button" onclick="toggleMenu('controls')">
+                <img src="./img/menuscreen/star.png" alt="" />
+                <div>C o n t r o l s</div>
+              </div>
             </div>
 
             <img
-              class="win-big-image"
-              src="./img/menuscreen/win-character.png"
+              id="character"
+              class="character"
+              src="./img/menuscreen/character.png"
               alt=""
             />
 
-            <div class="win-button" onclick="nextLevel()">
-              <img
-                class="win-img"
-                src="./img/menuscreen/character.png"
-                alt=""
-              />
-              <div>level &nbsp; &nbsp;<b id="next_level"></b></div>
-            </div> 
-          </div>
-        </div>
+            <div id="help" class="dialog d-none">
+              <div
+                id="help_close"
+                class="close-button"
+                onclick="toggleMenu('help')"
+              >
+                X
+              </div>
+              <div class="help-description">
+                <div>
+                  Welcome to Shark Adventure!
+                  <p>
+                    Guide a small shark as it swims through the vast ocean.
+                    Collect coins to increase your score and gather poison to
+                    upgrade your special attacks. Be careful of the barriers and
+                    enemies that lurk in your path!
+                  </p>
 
-        <div id="game_over_screen" class="dialog-screen red">
-          <h1>G A M E &nbsp; &nbsp; O V E R !</h1>
-          <div id="menu" class="menu-game-over">
-
-            <div class="blue-box high-score">
-              <div class="result">
-                <div class="result-area" onclick="toggleMenu('controls')">
-                  <img src="./img/menuscreen/coin.png" alt="" />
-                  <div id="collected_coins">555</div>
+                  <p>
+                    You'll face dangerous jellyfish and pufferfish along the
+                    way. Jellyfish can only be defeated using the Bubble Attack,
+                    while pufferfish require the powerful Fin Attack to be
+                    overcome. Make sure to use the right strategy for each
+                    enemy!
+                  </p>
                 </div>
-                <div class="result-area" onclick="toggleMenu('controls')">
-                  <img src="./img/menuscreen/jellyfish.png" alt="" />
-                  <div id="hit_jelly">555</div>
-                </div>
-                <div class="result-area" onclick="toggleMenu('controls')">
-                  <img src="./img/menuscreen/pufferfish.png" alt="" />
-                  <div id="hit_puffer">555</div>
+                <img src="./img/menuscreen/pufferfish.png" alt="" />
+              </div>
+              <div class="help-description">
+                <img src="./img/menuscreen/jellyfish.png" alt="" />
+                <div>
+                  <p>
+                    At the end, the mighty Endboss awaits, vulnerable only to
+                    poisoned bubbles or the Fin Attack. Remember, every coin you
+                    collect will add 1 point to your score, while defeating
+                    jellyfish will earn you 2 points, and overcoming pufferfish
+                    will grant you 3 points. Use these opportunities to boost
+                    your high score as you swim through the ocean.
+                  </p>
+                  <p>Be brave and use your skills wisely!</p>
+                  Good luck, and happy swimming!
                 </div>
               </div>
-
-              <div>Your High score:</div>
-              <div id="high_score" class="high-score-number">555</div>
             </div>
 
-            <div class="left-game-over">
-
-              <div class="blue-box add-to-board">
-                <div>Save your score !</div>
-                <div class="save-score">
-                  <input id="gamer_name" type="text" placeholder="Enter your name">
-                  <button onclick="addPlayer()">
-                    <img src="./img/menuscreen/buttons/send.png" alt="">
-                  </button>
-                </div>
+            <div id="controls" class="dialog d-none">
+              <div
+                id="help_close"
+                class="close-button"
+                onclick="toggleMenu('controls')"
+              >
+                X
               </div>
+              <div class="controls-description">
+                <table>
+                  <tr>
+                    <td>SWIM UP</td>
+                    <td>W</td>
+                  </tr>
+                  <tr>
+                    <td>SWIM LEFT</td>
+                    <td>A</td>
+                  </tr>
+                  <tr>
+                    <td>SWIM DOWN</td>
+                    <td>S</td>
+                  </tr>
+                  <tr>
+                    <td>SWIM RIGHT</td>
+                    <td>D</td>
+                  </tr>
+                  <tr>
+                    <td>BUBBLE ATTACK</td>
+                    <td>J</td>
+                  </tr>
+                  <tr>
+                    <td>FIN ATTACK</td>
+                    <td>K</td>
+                  </tr>
+                  <tr>
+                    <td>POISON BUBBLE</td>
+                    <td>L</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <a
+              id="legal_notice"
+              href="./legal-notice.html"
+              target="_blank"
+              class="legal-notice"
+              >Legal Notice</a
+            >
+          </div>
 
+          <canvas id="canvas" width="1920" height="1080"></canvas>
 
-
-              <div class="win-button blue-box" onclick="backToStart('game_over_screen')">
+          <div id="win_screen" class="dialog-screen d-none">
+            <h1>Y O U &nbsp; &nbsp; W I N !</h1>
+            <div id="menu" class="menu">
+              <div class="win-button" onclick="backToStart('win_screen')">
                 <img class="win-img" src="./img/menuscreen/shell.png" alt="" />
                 <div>M E N U</div>
               </div>
 
+              <img
+                class="win-big-image"
+                src="./img/menuscreen/win-character.png"
+                alt=""
+              />
+
+              <div class="win-button" onclick="nextLevel()">
+                <img
+                  class="win-img"
+                  src="./img/menuscreen/character.png"
+                  alt=""
+                />
+                <div>level &nbsp; &nbsp;<b id="next_level"></b></div>
+              </div>
             </div>
-
-
-            
-
-
-
           </div>
-        </div>
 
-        <div id="rotate-device" class="rotate-screen d-none">
-          <p>
-            Uh-oh!
-            <br />
-            It looks like Sharkie doesn't quite fit in this view.
-            <br /><br />
-            🐟 🐟 🐟 🐟 🐟 🐟 🐟
-            <br /><br />
-            Turn your device sideways, so Sharkie can swim freely and dodge the
-            Endboss's attacks without getting squished! 🦈
-          </p>
+          <div id="game_over_screen" class="dialog-screen red">
+            <h1>G A M E &nbsp; &nbsp; O V E R !</h1>
+            <div id="menu" class="menu-game-over">
+              <div class="blue-box high-score">
+                <div class="result">
+                  <div class="result-area" onclick="toggleMenu('controls')">
+                    <img src="./img/menuscreen/coin.png" alt="" />
+                    <div id="collected_coins">555</div>
+                  </div>
+                  <div class="result-area" onclick="toggleMenu('controls')">
+                    <img src="./img/menuscreen/jellyfish.png" alt="" />
+                    <div id="hit_jelly">555</div>
+                  </div>
+                  <div class="result-area" onclick="toggleMenu('controls')">
+                    <img src="./img/menuscreen/pufferfish.png" alt="" />
+                    <div id="hit_puffer">555</div>
+                  </div>
+                </div>
+
+                <div>Your High score:</div>
+                <div id="high_score" class="high-score-number">555</div>
+              </div>
+
+              <div class="left-game-over">
+                <div class="blue-box add-to-board">
+                  <div>Save your score !</div>
+                  <div class="save-score">
+                    <input
+                      id="gamer_name"
+                      type="text"
+                      placeholder="Enter your name"
+                    />
+                    <button onclick="addPlayer()">
+                      <img src="./img/menuscreen/buttons/send.png" alt="" />
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="gameover-btn blue-box"
+                  onclick="backToStart('game_over_screen')"
+                >
+                  <img
+                    class="win-img"
+                    src="./img/menuscreen/shell.png"
+                    alt=""
+                  />
+                  <div>M E N U</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="rotate-device" class="rotate-screen d-none">
+            <p>
+              Uh-oh!
+              <br />
+              It looks like Sharkie doesn't quite fit in this view.
+              <br /><br />
+              🐟 🐟 🐟 🐟 🐟 🐟 🐟
+              <br /><br />
+              Turn your device sideways, so Sharkie can swim freely and dodge
+              the Endboss's attacks without getting squished! 🦈
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </body>
 </html>

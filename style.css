@@ -288,7 +288,6 @@ td:first-child {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .win-img {
@@ -315,10 +314,10 @@ td:first-child {
   height: auto;
 }
 
-.blue-box{
+.blue-box {
   background-color: rgba(47, 39, 113, 0.9);
   border-radius: 8px;
-  box-shadow: 0px 0px 12px 3px rgb(55, 56, 125);
+  box-shadow: 0px 0px 12px 3px rgb(47, 39, 113);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -327,52 +326,7 @@ td:first-child {
 
 .high-score {
   width: 45%;
-  padding: clamp(18px, 4vw, 36px);  
-  font-size: clamp(18px, 3vw, 36px);
-}
-
-.left-game-over{
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-}
-
-.save-score{
-  width: 100%;
-  margin-top: clamp(8px, 2vw, 24px);
-  display: flex;
-  align-items: center;
-  gap: clamp(8px, 1vw, 16px);
-}
-
-.save-score input{
-  cursor: pointer;
-  flex-grow: 1;
-  padding: 8px;
-  border: none;
-  border-radius: clamp(4px, 1vw, 8px);  
-  box-shadow: 0px 0px 4px 2px rgb(55, 56, 125) inset;
-}
-
-.save-score button{
-  cursor: pointer;
-  width: clamp(16px, 2vw, 24px);
-  padding: 0;
-  background-color: transparent;
-  border: none;  
-}
-
-.save-score img{
-  width: 100%;
-  
-}
-
-.add-to-board {
-  width: 100%;
-  padding: clamp(18px, 3vw, 36px);
+  padding: clamp(18px, 4vw, 36px);
   font-size: clamp(18px, 3vw, 36px);
 }
 
@@ -399,6 +353,69 @@ td:first-child {
 .high-score-number {
   font-size: clamp(16px, 6vw, 56px);
   color: rgb(53, 214, 42);
+}
+
+.left-game-over {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.save-score {
+  width: 100%;
+  margin-top: clamp(8px, 2vw, 24px);
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 16px);
+}
+
+.save-score input {
+  cursor: pointer;
+  flex-grow: 1;
+  margin: 1px;
+  padding: 8px;
+  color: white;
+  background-color: rgb(47, 39, 113);
+  border: 1px solid rgb(53, 214, 42);
+  border-radius: clamp(4px, 1vw, 8px);
+  box-shadow: 0px 0px 4px 2px rgb(47, 39, 113) inset;
+}
+
+.save-score input:focus {
+  outline: none;
+  margin: 0px;
+  background-color: rgb(47, 39, 113);
+  border: 2px solid rgb(53, 214, 42);
+}
+
+.save-score button {
+  cursor: pointer;
+  width: clamp(16px, 2vw, 24px);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.save-score img {
+  width: 100%;
+}
+
+.add-to-board {
+  width: 100%;
+  padding: clamp(18px, 3vw, 36px);
+  font-size: clamp(18px, 3vw, 36px);
+}
+
+.gameover-btn {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
 }
 
 .rotate-screen {
