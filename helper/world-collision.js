@@ -1,3 +1,7 @@
+/**
+ * Handles collisions between the character and barriers in the world.
+ * @param {Object} world - The game world containing barriers and the character.
+ */
 function collisionWithBarrier(world) {
   world.barrierHitboxes.forEach((barrier) => {
     if (world.character.isColliding(barrier)) {
@@ -18,6 +22,12 @@ function collisionWithBarrier(world) {
   });
 }
 
+/**
+ * Checks if the character is colliding with a barrier from the left.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier to check collision with.
+ * @returns {boolean} - True if the character is colliding from the left.
+ */
 function isCollidingFromLeft(world, barrier) {
   return (
     world.character.lastX +
@@ -27,6 +37,11 @@ function isCollidingFromLeft(world, barrier) {
   );
 }
 
+/**
+ * Stops the character from moving right when colliding with a barrier from the left.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier that the character is colliding with.
+ */
 function stopMovingRight(world, barrier) {
   world.character.x =
     barrier.x +
@@ -35,6 +50,12 @@ function stopMovingRight(world, barrier) {
     world.character.offsetX;
 }
 
+/**
+ * Checks if the character is colliding with a barrier from the right.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier to check collision with.
+ * @returns {boolean} - True if the character is colliding from the right.
+ */
 function isCollidingFromRight(world, barrier) {
   return (
     world.character.lastX + world.character.offsetX >=
@@ -42,11 +63,22 @@ function isCollidingFromRight(world, barrier) {
   );
 }
 
+/**
+ * Stops the character from moving left when colliding with a barrier from the right.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier that the character is colliding with.
+ */
 function stopMovingLeft(world, barrier) {
   world.character.x =
     barrier.x + barrier.offsetX + barrier.offsetwidth - world.character.offsetX;
 }
 
+/**
+ * Checks if the character is colliding with a barrier from above.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier to check collision with.
+ * @returns {boolean} - True if the character is colliding from above.
+ */
 function isCollidingFromAbove(world, barrier) {
   return (
     world.character.lastY +
@@ -56,6 +88,11 @@ function isCollidingFromAbove(world, barrier) {
   );
 }
 
+/**
+ * Stops the character from moving downwards when colliding with a barrier from above.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier that the character is colliding with.
+ */
 function stopMovingDownwards(world, barrier) {
   world.character.y =
     barrier.y +
@@ -64,6 +101,12 @@ function stopMovingDownwards(world, barrier) {
     world.character.offsetY;
 }
 
+/**
+ * Checks if the character is colliding with a barrier from below.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier to check collision with.
+ * @returns {boolean} - True if the character is colliding from below.
+ */
 function isCollidingFromBelow(world, barrier) {
   return (
     world.character.lastY + world.character.offsetY >=
@@ -71,6 +114,11 @@ function isCollidingFromBelow(world, barrier) {
   );
 }
 
+/**
+ * Stops the character from moving upwards when colliding with a barrier from below.
+ * @param {Object} world - The game world containing the character.
+ * @param {Object} barrier - The barrier that the character is colliding with.
+ */
 function stopMovingUpwards(world, barrier) {
   world.character.y =
     barrier.y +
@@ -79,6 +127,10 @@ function stopMovingUpwards(world, barrier) {
     world.character.offsetY;
 }
 
+/**
+ * Handles collisions between the character and barriers when the character is sleeping.
+ * @param {Object} world - The game world containing barriers and the character.
+ */
 function collisionWithBarrierSleeping(world) {
   world.barrierHitboxes.forEach((barrier) => {
     if (world.character.isColliding(barrier) && world.character.isSleeping) {
@@ -93,6 +145,10 @@ function collisionWithBarrierSleeping(world) {
   });
 }
 
+/**
+ * Handles collisions between the character and coins in the world.
+ * @param {Object} world - The game world containing coins and the character.
+ */
 function collisionWithCoin(world) {
   world.coins.forEach((coin, i) => {
     if (world.character.isColliding(coin) && !world.character.isHit) {
@@ -105,6 +161,10 @@ function collisionWithCoin(world) {
   });
 }
 
+/**
+ * Handles collisions between the character and poisons in the world.
+ * @param {Object} world - The game world containing poisons and the character.
+ */
 function collisionWithPoison(world) {
   world.poisons.forEach((poison, i) => {
     if (world.character.isColliding(poison) && !world.character.isHit) {
@@ -117,6 +177,10 @@ function collisionWithPoison(world) {
   });
 }
 
+/**
+ * Handles collisions between the character and hearts in the world.
+ * @param {Object} world - The game world containing hearts and the character.
+ */
 function collisionWithHearts(world) {
   world.hearts.forEach((heart, i) => {
     if (world.character.isColliding(heart) && !world.character.isHit) {
@@ -128,6 +192,10 @@ function collisionWithHearts(world) {
   });
 }
 
+/**
+ * Handles collisions between the character and enemies in the world.
+ * @param {Object} world - The game world containing enemies and the character.
+ */
 function collisionWithEnemie(world) {
   world.enemies.forEach((enemy) => {
     if (world.character.isColliding(enemy)) {
@@ -141,10 +209,22 @@ function collisionWithEnemie(world) {
   });
 }
 
+/**
+ * Checks if the character is performing a fin attack.
+ * @param {Object} character - The character in the world.
+ * @param {boolean} isAttack - Whether the character is currently attacking.
+ * @returns {boolean} - True if the character is performing a fin attack.
+ */
 function isFinAttack(character, isAttack) {
   return character.attackType === character.IMAGES_FIN && isAttack;
 }
 
+/**
+ * Handles the character's fin attack when colliding with an enemy.
+ * @param {Object} character - The character in the world.
+ * @param {Object} enemy - The enemy that the character is colliding with.
+ * @param {Object} world - The game world containing the enemy and the character.
+ */
 function handleFinAttack(character, enemy, world) {
   if (enemy instanceof Jellyfish && !enemy.isDying) {
     stopFinAttack(character, enemy, world);
@@ -155,12 +235,23 @@ function handleFinAttack(character, enemy, world) {
   }
 }
 
+/**
+ * Stops the character's fin attack.
+ * @param {Object} character - The character in the world.
+ * @param {Object} world - The game world containing the character.
+ */
 function stopFinAttack(character, world) {
   world.isAttack = false;
   character.isAttackStart = false;
   getSwimParameter(character);
 }
 
+/**
+ * Checks if the enemy is a pufferfish.
+ * @param {Object} character - The character in the world.
+ * @param {Object} enemy - The enemy that the character is colliding with.
+ * @returns {boolean} - True if the enemy is a pufferfish and the character is attacking.
+ */
 function isPufferfish(character, enemy) {
   return (
     enemy instanceof Pufferfish &&
@@ -169,6 +260,10 @@ function isPufferfish(character, enemy) {
   );
 }
 
+/**
+ * Handles collisions between the character and the end boss in the world.
+ * @param {Object} world - The game world containing the end boss and the character.
+ */
 function collisionWithEndboss(world) {
   if (
     world.character.isColliding(world.endBoss) &&
@@ -186,12 +281,20 @@ function collisionWithEndboss(world) {
   }
 }
 
+/**
+ * Checks if the character is attacking the end boss.
+ * @returns {boolean} - True if the character is attacking the end boss.
+ */
 function isAttackEndboss() {
   return (
     world.character.attackType === world.character.IMAGES_FIN && world.isAttack
   );
 }
 
+/**
+ * Handles collisions between bubbles and enemies in the world.
+ * @param {Object} world - The game world containing bubbles and enemies.
+ */
 function collisionBubbleWithEnemie(world) {
   world.bubbles.forEach((bubble, bubbleIndex) => {
     world.enemies.forEach((enemy) => {
@@ -207,6 +310,10 @@ function collisionBubbleWithEnemie(world) {
   });
 }
 
+/**
+ * Handles collisions between bubbles and barriers in the world.
+ * @param {Object} world - The game world containing bubbles and barriers.
+ */
 function collisionBubbleWithBarrier(world) {
   world.bubbles.forEach((bubble, bubbleIndex) => {
     world.barrierHitboxes.forEach((barrier) => {
@@ -218,6 +325,10 @@ function collisionBubbleWithBarrier(world) {
   });
 }
 
+/**
+ * Handles collisions between bubbles and the end boss in the world.
+ * @param {Object} world - The game world containing bubbles and the end boss.
+ */
 function collisionBubbleWithEndboss(world) {
   world.bubbles.forEach((bubble, bubbleIndex) => {
     if (world.endBoss.isColliding(bubble)) {
@@ -231,6 +342,11 @@ function collisionBubbleWithEndboss(world) {
   });
 }
 
+/**
+ * Handles the character being hit by an enemy.
+ * @param {Object} character - The character in the world.
+ * @param {Object} enemy - The enemy that hits the character.
+ */
 function handleCharacterBeingHit(character, enemy) {
   character.enemyAttack = enemy.enemyAttack;
   character.enemyAttackForDeath = enemy.enemyAttackForDeath;

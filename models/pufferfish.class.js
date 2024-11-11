@@ -22,11 +22,17 @@ class Pufferfish extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Selects a random color for the pufferfish.
+   */
   getRandomColor() {
     const randomIndex = Math.floor(Math.random() * this.COLOR.length);
     this.selectedColor = this.COLOR[randomIndex];
   }
 
+  /**
+   * Sets the initial position and size of the pufferfish.
+   */
   getParameter() {
     this.width = 241;
     this.height = 198;
@@ -41,6 +47,9 @@ class Pufferfish extends MovableObject {
     this.offsetheight = this.height - 80;
   }
 
+  /**
+   * Sets various properties of the pufferfish, including speed and direction.
+   */
   getObjectProperties() {
     this.objectLife = 1;
     this.otherDirection = Math.random() < 0.5 ? false : true;
@@ -54,6 +63,9 @@ class Pufferfish extends MovableObject {
     this.movementSpeed = 100 + this.speed * 30;
   }
 
+  /**
+   * Sets the attack properties of the pufferfish.
+   */
   getAttackProperties() {
     this.enemyAttack = "IMAGES_HIT_P";
     this.enemyAttackForDeath = "IMAGES_DEAD_A";
@@ -64,6 +76,9 @@ class Pufferfish extends MovableObject {
     this.animationRepeat = Math.floor(3 + Math.random() * 4);
   }
 
+  /**
+   * Loads all necessary images for the pufferfish animations.
+   */
   getImages() {
     this.IMAGES_SWIM = this.loadAllImages("./img/enemy/pufferfish", "swim", 5);
     this.IMAGES_TRANSITION = this.loadAllImages(
@@ -79,11 +94,17 @@ class Pufferfish extends MovableObject {
     this.IMAGES_DEAD = this.loadAllImages("./img/enemy/pufferfish", "dead", 3);
   }
 
+  /**
+   * Starts the animation and movement of the pufferfish.
+   */
   animate() {
     this.setAnimationInterval();
     this.setMovmentInterval();
   }
 
+  /**
+   * Sets the interval for animating the pufferfish's actions.
+   */
   setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (this.isDying) {
@@ -111,6 +132,9 @@ class Pufferfish extends MovableObject {
     }, this.movementSpeed);
   }
 
+  /**
+   * Sets the interval for controlling the pufferfish's movement.
+   */
   setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       if (this.isDying) {
@@ -122,6 +146,9 @@ class Pufferfish extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Adjusts the movement direction of the pufferfish at random intervals.
+   */
   setMovmentDirection() {
     if (Math.random() < 1 / (60 * 10)) {
       this.speed = -this.speed;
@@ -137,14 +164,24 @@ class Pufferfish extends MovableObject {
     }
   }
 
+  /**
+   * Adjusts the hitbox offset when the pufferfish is swimming.
+   */
   getSwimParameter() {
     this.offsetheight = this.height - 80;
   }
 
+  /**
+   * Adjusts the hitbox offset when the pufferfish is in bubble swim mode.
+   */
   getBubbleswimParameter() {
     this.offsetheight = this.height - 40;
   }
 
+  /**
+   * Handles the transition animation state.
+   * @param {boolean} countUp - Whether to count up or reset the animation.
+   */
   isAnimateTransition(countUp) {
     if (this.currentImage >= this.IMAGES_TRANSITION.length) {
       if (countUp) {
@@ -156,6 +193,9 @@ class Pufferfish extends MovableObject {
     }
   }
 
+  /**
+   * Animates the pufferfish dying sequence and removes it after completion.
+   */
   animateDying() {
     let imgIndex = this.getDyingImage();
     this.startDyingSound();
@@ -168,6 +208,10 @@ class Pufferfish extends MovableObject {
     }, 3000);
   }
 
+  /**
+   * Determines which image to use for the pufferfish dying sequence.
+   * @returns {number} The index of the image to use.
+   */
   getDyingImage() {
     let imgIndex = 1;
     if (this.bubble) {
@@ -178,6 +222,9 @@ class Pufferfish extends MovableObject {
     return imgIndex;
   }
 
+  /**
+   * Starts playing the dying sound for the pufferfish.
+   */
   startDyingSound() {
     if (!this.deadSound) {
       SOUND_PUFFER_DEAD.play();
@@ -186,6 +233,9 @@ class Pufferfish extends MovableObject {
     }
   }
 
+  /**
+   * Handles the movement of the pufferfish when it is dying.
+   */
   handleDeadMovement() {
     if (this.y < 900) {
       if (this.bubble) {

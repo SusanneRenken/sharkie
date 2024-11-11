@@ -18,6 +18,9 @@ class Barrier extends MovableObject {
     this.getBarrierHitboxen();
   }
 
+  /**
+   * Generates hitboxes for the barrier based on its size and adds them to the world.
+   */
   getBarrierHitboxen() {
     const barrierHitboxSizes = getBarrierHitboxSizes(this.width, this.height);
     const hitboxes = barrierHitboxSizes[this.barrierNumber - 1];

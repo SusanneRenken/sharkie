@@ -1,3 +1,7 @@
+/**
+ * Sets the basic parameters for the object, including width, height, and position.
+ * @param {Object} obj - The object to set parameters for.
+ */
 function getParameter(obj) {
   obj.width = 815 * 0.9;
   obj.height = 1000 * 0.9;
@@ -5,6 +9,10 @@ function getParameter(obj) {
   obj.y = -100;
 }
 
+/**
+ * Sets the swimming parameters for the object, including offsets for collision detection.
+ * @param {Object} obj - The object to set parameters for.
+ */
 function getSwimParameter(obj) {
   obj.offsetX = 160;
   obj.offsetY = 460;
@@ -12,6 +20,10 @@ function getSwimParameter(obj) {
   obj.offsetheight = obj.height - 680;
 }
 
+/**
+ * Sets the parameters for the fin attack, including offsets for collision detection.
+ * @param {Object} obj - The object to set parameters for.
+ */
 function getFinAttackParameter(obj) {
   obj.offsetX = 250;
   obj.offsetY = 460;
@@ -19,6 +31,10 @@ function getFinAttackParameter(obj) {
   obj.offsetheight = obj.height - 680;
 }
 
+/**
+ * Sets the parameters for when the object is sleeping, including offsets for collision detection.
+ * @param {Object} obj - The object to set parameters for.
+ */
 function getSleepingParameter(obj) {
   obj.offsetX = 160;
   obj.offsetY = 560;
@@ -26,12 +42,20 @@ function getSleepingParameter(obj) {
   obj.offsetheight = obj.height - 700;
 }
 
+/**
+ * Sets the movement properties for the object, including speed and vertical speed.
+ * @param {Object} obj - The object to set properties for.
+ */
 function getObjectProperties(obj) {
   obj.speed = 9 + obj.world.currentLevel;
   obj.verticalSpeed = 0.5 * obj.speed;
   obj.movementSpeed = 180;
 }
 
+/**
+ * Loads images for different animations of the character.
+ * @param {Object} obj - The object to set image properties for.
+ */
 function getImages(obj) {
   obj.IMAGES_SWIM = obj.loadAllImages("./img/character", "swim", 6);
   obj.IMAGES_TRANS = obj.loadAllImages("./img/character", "transition", 10);
@@ -47,6 +71,11 @@ function getImages(obj) {
   obj.IMAGES_IDLE = obj.loadAllImages("./img/character", "idle", 18);
 }
 
+/**
+ * Sets the parameters for a fin attack and checks if the corresponding key is pressed.
+ * @param {Object} obj - The object to set attack parameters for.
+ * @returns {boolean} - True if the fin attack key is pressed, false otherwise.
+ */
 function setFinAttack(obj) {
   if (obj.world.keyboard.KEYL) {
     obj.attackType = obj.IMAGES_FIN;
@@ -58,6 +87,11 @@ function setFinAttack(obj) {
   return false;
 }
 
+/**
+ * Sets the parameters for a normal bubble attack and checks if the corresponding key is pressed.
+ * @param {Object} obj - The object to set attack parameters for.
+ * @returns {boolean} - True if the normal bubble attack key is pressed, false otherwise.
+ */
 function setBubbleNormalAttack(obj) {
   if (obj.world.keyboard.KEYK) {
     obj.attackType = obj.IMAGES_BUB_N;
@@ -68,6 +102,11 @@ function setBubbleNormalAttack(obj) {
   return false;
 }
 
+/**
+ * Sets the parameters for a poisoned bubble attack and checks if the corresponding key is pressed.
+ * @param {Object} obj - The object to set attack parameters for.
+ * @returns {boolean} - True if the poisoned bubble attack key is pressed, false otherwise.
+ */
 function setBubblePoisondAttack(obj) {
   if (obj.world.keyboard.KEYJ) {
     obj.isPoisonAttack = true;
@@ -85,6 +124,10 @@ function setBubblePoisondAttack(obj) {
   return false;
 }
 
+/**
+ * Handles the execution of the bubble attack and checks if the attack type is not a fin attack.
+ * @param {Object} obj - The object to execute the bubble attack for.
+ */
 function setBubbleAttack(obj) {
   if (
     obj.attackType != obj.IMAGES_FIN &&
@@ -102,6 +145,10 @@ function setBubbleAttack(obj) {
   }
 }
 
+/**
+ * Plays the attack sound when the character reaches the start of the attack.
+ * @param {Object} obj - The object to play the attack sound for.
+ */
 function playAttackSound(obj) {
   if (obj.currentImage === obj.startAttack) {
     obj.attackSound.currentTime = 0;
@@ -109,6 +156,10 @@ function playAttackSound(obj) {
   }
 }
 
+/**
+ * Stops the current attack and resets parameters.
+ * @param {Object} obj - The object to stop the attack for.
+ */
 function stopAttack(obj) {
   if (obj.currentImage >= obj.attackType.length) {
     obj.world.isAttack = false;
@@ -118,6 +169,10 @@ function stopAttack(obj) {
   }
 }
 
+/**
+ * Animates the hit animation for the character.
+ * @param {Object} obj - The object to animate the hit animation for.
+ */
 function animateHitAnimation(obj) {
   if (obj.animationCount < obj.animationRepeat) {
     obj.enemyAttackSound.play();
@@ -130,6 +185,10 @@ function animateHitAnimation(obj) {
   }
 }
 
+/**
+ * Animates the death animation for the character.
+ * @param {Object} obj - The object to animate the death animation for.
+ */
 function animateDeathAnimation(obj) {
   if (obj.currentImage === 0) {
     obj.enemyAttackDeadSound.play();
@@ -143,6 +202,10 @@ function animateDeathAnimation(obj) {
   }
 }
 
+/**
+ * Animates the transition to falling asleep.
+ * @param {Object} obj - The object to animate the transition for.
+ */
 function isFallAsleep(obj) {
   if (obj.isAwake) {
     obj.animateMoving(obj.IMAGES_TRANS);
@@ -153,6 +216,10 @@ function isFallAsleep(obj) {
   }
 }
 
+/**
+ * Animates the character sleeping deeply.
+ * @param {Object} obj - The object to animate sleeping for.
+ */
 function isSleepingDeeply(obj) {
   if (!obj.isAwake) {
     if (obj.y >= 290) {
@@ -166,6 +233,10 @@ function isSleepingDeeply(obj) {
   }
 }
 
+/**
+ * Handles the character sleeping on a barrier.
+ * @param {Object} obj - The object to handle sleeping on a barrier for.
+ */
 function handleSleepingOnBarrier(obj) {
   if (obj.isInBarrier && !obj.isSleepingOnBarrier) {
     obj.isSleepingOnBarrier = true;

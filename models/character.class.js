@@ -37,12 +37,18 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Starts the animation for the character, managing different states.
+   */
   animate() {
     this.setAnimationInterval();
     this.setSecondaryIntervalId();
     this.setMovmentInterval();
   }
 
+  /**
+   * Sets the interval for the character's main animation.
+   */
   setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       if (isAliveAndNotAttack(this)) {
@@ -61,6 +67,9 @@ class Character extends MovableObject {
     }, 180);
   }
 
+  /**
+   * Sets the interval for the character's attack animations.
+   */
   setSecondaryIntervalId() {
     this.secondaryIntervalId = setInterval(() => {
       if (isAliveAndAttack(this)) {
@@ -69,6 +78,9 @@ class Character extends MovableObject {
     }, 80);
   }
 
+  /**
+   * Sets the interval for managing the character's movement.
+   */
   setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       this.saveLastPosition();
@@ -92,11 +104,17 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Saves the character's last position for future reference.
+   */
   saveLastPosition() {
     this.lastX = this.x;
     this.lastY = this.y;
   }
 
+  /**
+   * Animates the character's attack actions.
+   */
   animateAttack() {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
@@ -114,6 +132,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Animates the character being hit.
+   */
   animateHit() {
     this.lastActiveTime = Date.now();
     SOUND_CHARACTER_SWIM.pause();
@@ -131,6 +152,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Animates the character when there is no action.
+   */
   animateNoAction() {
     SOUND_CHARACTER_SWIM.pause();
     const currentTime = Date.now();
@@ -141,6 +165,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Wakes up the character if it was sleeping.
+   */
   wakeUp() {
     this.lastActiveTime = Date.now();
     this.isSleeping = false;
@@ -151,6 +178,9 @@ class Character extends MovableObject {
     getSwimParameter(this);
   }
 
+  /**
+   * Animates the character going to sleep.
+   */
   animateSleeping() {
     if (!this.isSleeping) {
       this.isSleeping = true;
@@ -160,6 +190,9 @@ class Character extends MovableObject {
     isSleepingDeeply(this);
   }
 
+  /**
+   * Handles the movement during a fin attack.
+   */
   handleFinAttackMoving() {
     if (isFinAttackFirstMove(this)) {
       if (this.otherDirection === false) this.moveRight(18);
@@ -171,6 +204,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Handles the character's movement when hit.
+   */
   handleHitMoving() {
     if (characterLife > 0) {
       if (this.world.endBoss.x > this.x) {
@@ -188,6 +224,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Handles rightward movement for the character.
+   */
   handleRightMovement() {
     this.moveRight(this.speed);
     if (isInWorldUp(this)) {
@@ -198,6 +237,9 @@ class Character extends MovableObject {
     this.otherDirection = false;
   }
 
+  /**
+   * Handles leftward movement for the character.
+   */
   handleLeftMovement() {
     this.moveLeft(this.speed);
     if (isInWorldUp(this)) {
@@ -208,14 +250,23 @@ class Character extends MovableObject {
     this.otherDirection = true;
   }
 
+  /**
+   * Handles upward movement for the character.
+   */
   handleUpMovement() {
     this.moveUp(this.verticalSpeed * 1.2);
   }
 
+  /**
+   * Handles downward movement for the character.
+   */
   handleDownMovement() {
     this.moveDown(this.verticalSpeed * 1.2);
   }
 
+  /**
+   * Handles the character's behavior when there is no movement.
+   */
   handleNoMovement() {
     if (this.y < 290 && !this.isSleepingOnBarrier) {
       this.moveDown(this.verticalSpeed * 0.1);

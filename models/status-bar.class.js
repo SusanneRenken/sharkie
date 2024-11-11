@@ -35,6 +35,10 @@ class StatusBar extends DrawableObject {
     ];
   }
 
+  /**
+   * Draws the status bar on the canvas.
+   * @param {CanvasRenderingContext2D} ctx - The rendering context of the canvas.
+   */
   drawObject(ctx) {
     const values = [characterLife, collectedCoins, collectedPoison];
 

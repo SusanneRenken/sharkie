@@ -28,32 +28,46 @@ class Poison extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Starts the animation and movement of the poison object.
+   */
   animate() {
     this.setAnimationInterval();
     this.setMovmentInterval();
   }
 
+  /**
+   * Sets the interval for animating the poison's fall.
+   */
   setAnimationInterval() {
     this.animationIntervalId = setInterval(() => {
       this.distanceToPoison = this.x - this.world.character.x;
-
       if (this.distanceToPoison < 1920) {
         this.isFalling = true;
       }
-
       if (this.isFalling && this.y < 830) {
         this.animateMoving(this.IMAGES_POISON);
       } else if (this.y >= 830 && !this.isStopped) {
-        this.isStopped = true;
-        this.stopAllIntervals();
-        this.loadImage(`./img/collectibles/poison/${this.direction}.png`);
-        setTimeout(() => {
-          this.stopAllIntervals();
-        }, 1000);
+        this.poisonOnGround();
       }
     }, 100);
   }
 
+  /**
+   * Handles the state when the poison reaches the ground.
+   */
+  poisonOnGround() {
+    this.isStopped = true;
+    this.stopAllIntervals();
+    this.loadImage(`./img/collectibles/poison/${this.direction}.png`);
+    setTimeout(() => {
+      this.stopAllIntervals();
+    }, 1000);
+  }
+
+  /**
+   * Sets the interval for controlling the poison's falling movement.
+   */
   setMovmentInterval() {
     this.movementIntervalId = setInterval(() => {
       if (this.isFalling && this.y < 830) {

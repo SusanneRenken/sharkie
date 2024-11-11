@@ -52,6 +52,9 @@ class World {
     this.setAttack();
   }
 
+  /**
+   * Loads background objects based on the current level.
+   */
   loadBackgroundObjects() {
     this.pathBackgroundObjeckts.forEach((path) => {
       for (let index = -1; index < this.backgroundRepeat + 1; index++) {
@@ -60,16 +63,25 @@ class World {
     });
   }
 
+  /**
+   * Places coins in the world based on predefined locations.
+   */
   placeCoins() {
     getStartPlacesCoins(this);
     generateCoins(this);
   }
 
+  /**
+   * Places barriers in the world at specific areas.
+   */
   placeBarriers() {
     getBarrierAreas(this);
     checkBarrierAreas(this);
   }
 
+  /**
+   * Initializes enemies in the game world based on the level.
+   */
   initializeEnemies() {
     let numberOfEnemies = this.backgroundRepeat * this.levelFactorHigh;
 
@@ -80,6 +92,10 @@ class World {
     }
   }
 
+  /**
+   * Creates a jellyfish enemy and places it in the world.
+   * @returns {Jellyfish} A new jellyfish enemy.
+   */
   createJelly() {
     let lengthJellyArea = 2 * 1920 * (this.backgroundRepeat - 1.2);
     let placedJelly = 0;
@@ -94,6 +110,9 @@ class World {
     }
   }
 
+  /**
+   * Places poison items in the game world.
+   */
   placePoison() {
     let lengthPoisonArea = 2 * 1920 * (this.backgroundRepeat - 1.2);
     let placedPoisons = 0;
@@ -109,6 +128,9 @@ class World {
     }
   }
 
+  /**
+   * Sets up collision detection for various game elements.
+   */
   checkCollisions() {
     setInterval(() => {
       collisionWithBarrier(this);
@@ -124,6 +146,9 @@ class World {
     }, 0);
   }
 
+  /**
+   * Sets up attack detection for the character.
+   */
   setAttack() {
     setInterval(() => {
       if (
@@ -142,10 +167,17 @@ class World {
     }, 0);
   }
 
+  /**
+   * Generates a bubble for attacking.
+   * @param {string} attackType - The type of attack to execute.
+   */
   generateBubble(attackType) {
     this.bubbles.push(new Bubble(this, attackType));
   }
 
+  /**
+   * Draws all elements of the game world on the canvas.
+   */
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -160,12 +192,18 @@ class World {
     });
   }
 
+  /**
+   * Draws the background layers of the game world.
+   */
   drawBackground() {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjeckts);
     this.ctx.translate(-this.camera_x, 0);
   }
 
+  /**
+   * Draws all objects in the world that can interact with the character.
+   */
   drawCollidingObjects() {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.barriers);
@@ -180,12 +218,20 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
   }
 
+  /**
+   * Adds multiple objects to the canvas.
+   * @param {Array} objects - The objects to add to the map.
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * Adds a movable object to the canvas.
+   * @param {Object} mo - The movable object to add to the map.
+   */
   addToMap(mo) {
     this.ctx.save();
     const centerX = mo.x + mo.width / 2;
@@ -199,6 +245,11 @@ class World {
     this.ctx.restore();
   }
 
+  /**
+   * Reflects an object horizontally on the canvas.
+   * @param {number} centerX - The x-coordinate of the object's center.
+   * @param {number} centerY - The y-coordinate of the object's center.
+   */
   reflectObject(centerX, centerY) {
     this.ctx.translate(centerX, centerY);
     this.ctx.scale(-1, 1);

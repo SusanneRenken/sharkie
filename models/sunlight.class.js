@@ -16,6 +16,9 @@ class Sunlight extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Animates the sunlight object by updating its position.
+   */
   animate() {
     this.movementIntervalId = setInterval(() => {
       this.x = -(

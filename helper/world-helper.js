@@ -7,6 +7,10 @@ const COIN_POSITIONS = [
   { x: 775, y: 0 },
 ];
 
+/**
+ * Determines the starting positions for coin collections in the game world.
+ * @param {Object} world - The game world object.
+ */
 function getStartPlacesCoins(world) {
   let numberOfCoinCollection = (world.backgroundRepeat - 1) * 2;
   let lengthCoinArea =
@@ -23,6 +27,10 @@ function getStartPlacesCoins(world) {
   }
 }
 
+/**
+ * Generates coins in the game world at predetermined positions.
+ * @param {Object} world - The game world object.
+ */
 function generateCoins(world) {
   world.xCoinPlaces.forEach((place) => {
     let xPlace = place;
@@ -38,6 +46,13 @@ function generateCoins(world) {
   });
 }
 
+/**
+ * Places coins in a straight line in the game world.
+ * @param {number} xPlace - The starting x-coordinate.
+ * @param {number} yPlace - The starting y-coordinate.
+ * @param {number} coinDirection - The direction in which the coins are placed.
+ * @param {Object} world - The game world object.
+ */
 function placeCoinInLine(xPlace, yPlace, coinDirection, world) {
   let numberOfCoins = 2 + Math.floor(Math.random() * 4);
 
@@ -48,6 +63,13 @@ function placeCoinInLine(xPlace, yPlace, coinDirection, world) {
   }
 }
 
+/**
+ * Places coins in a parabolic formation in the game world.
+ * @param {number} xPlace - The starting x-coordinate.
+ * @param {number} yPlace - The starting y-coordinate.
+ * @param {number} coinDirection - The direction in which the coins are placed.
+ * @param {Object} world - The game world object.
+ */
 function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
   COIN_POSITIONS.forEach((position) => {
     world.coins.push(
@@ -56,6 +78,10 @@ function placeCoinOnParabola(xPlace, yPlace, coinDirection, world) {
   });
 }
 
+/**
+ * Determines the areas between coin collections where barriers can be placed.
+ * @param {Object} world - The game world object.
+ */
 function getBarrierAreas(world) {
   for (let i = 0; i < world.xCoinPlaces.length - 1; i++) {
     let areaWidth = Math.floor(
@@ -67,6 +93,10 @@ function getBarrierAreas(world) {
   }
 }
 
+/**
+ * Checks available areas for placing barriers and generates them if possible.
+ * @param {Object} world - The game world object.
+ */
 function checkBarrierAreas(world) {
   let isBarrierPlaced = false;
 
@@ -90,6 +120,14 @@ function checkBarrierAreas(world) {
   }
 }
 
+/**
+ * Generates barriers in the game world based on available space and dimensions.
+ * @param {Object} world - The game world object.
+ * @param {number} barrierNumber - The number representing the type of barrier.
+ * @param {number} i - The index of the area to place the barrier.
+ * @param {number} area - The width of the area where the barrier is to be placed.
+ * @param {Array} BARRIER_DIMENSIONS - Array containing the dimensions of barriers.
+ */
 function generateBarriers(world, barrierNumber, i, area, BARRIER_DIMENSIONS) {
   let width = BARRIER_DIMENSIONS[barrierNumber - 1].barrierWidth;
   let height = BARRIER_DIMENSIONS[barrierNumber - 1].barrierHeight;
@@ -102,6 +140,13 @@ function generateBarriers(world, barrierNumber, i, area, BARRIER_DIMENSIONS) {
   );
 }
 
+/**
+ * Checks if an object is within a barrier.
+ * @param {number} objectX - The x-coordinate of the object.
+ * @param {number} objectWidth - The width of the object.
+ * @param {Array} barriers - Array containing all barriers in the world.
+ * @returns {boolean} True if the object is within a barrier, false otherwise.
+ */
 function isObjectInBarrier(objectX, objectWidth, barriers) {
   return barriers.some(
     (barrier) =>

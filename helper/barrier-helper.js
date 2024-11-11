@@ -1,3 +1,9 @@
+/**
+ * Returns an array of hitbox sizes for barriers based on given width and height.
+ * @param {number} width - The width of the barrier.
+ * @param {number} height - The height of the barrier.
+ * @returns {Array<Array<Object>>} - An array of hitbox configurations for different barriers.
+ */
 function getBarrierHitboxSizes(width, height) {
   return [
     [

@@ -97,6 +97,10 @@ const allSounds = [
   SOUND_COLLECT_HEART,
 ];
 
+/**
+ * Toggles the sound on or off in the game.
+ * Changes the sound state and updates all sound elements accordingly.
+ */
 function toggleSound() {
   soundEnabled = !soundEnabled;
 
@@ -109,3 +113,4 @@ function toggleSound() {
     ? "./img/menuscreen/buttons/sound.png"
     : "./img/menuscreen/buttons/mute.png";
 }
+

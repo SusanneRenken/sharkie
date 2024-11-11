@@ -13,6 +13,9 @@ class EndBossLife extends DrawableObject {
     this.loadImage(imagePath);
   }
 
+  /**
+   * Updates the position of the life indicator relative to the endboss.
+   */
   updatePosition() {
     this.x = this.endBoss.x + 180 + (this.lifeNumber % 5) * 110;
     this.y = this.endBoss.y + 450 - Math.floor(this.lifeNumber / 5) * 90;
