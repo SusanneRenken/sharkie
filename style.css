@@ -113,8 +113,8 @@ body {
   position: absolute;
   bottom: clamp(16px, 3vw, 36px);
   right: clamp(16px, 5vw, 36px);
-  width: 10%;
-  height: 60%;
+  width: 50px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
