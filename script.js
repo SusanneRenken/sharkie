@@ -145,8 +145,8 @@ function addControlListeners(control, handleEvent) {
  */
 function toggleMenu(dialog) {
   let start = document.getElementById("menu");
-  let character = document.getElementById("legal_notice");
-  let legalNotice = document.getElementById("character");
+  let character = document.getElementById("character");
+  let legalNotice = document.getElementById("legal_notice");
   let dialogContent = document.getElementById(`${dialog}`);
 
   start.classList.toggle("d-none");

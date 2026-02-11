@@ -269,6 +269,16 @@ td:first-child {
   font-weight: 700;
 }
 
+.privacy-policy {
+  cursor: pointer;
+  font-size: clamp(8px, 2vw, 16px);
+  color: white;
+  text-decoration: none;
+  position: absolute;
+  bottom: clamp(10px, 3vw, 28px);
+  left: clamp(27px, 7vw, 80px);
+}
+
 .legal-notice {
   cursor: pointer;
   font-size: clamp(8px, 2vw, 16px);
